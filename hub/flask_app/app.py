@@ -39,7 +39,3 @@ def home():
     # Order by increasing card nr
     cards = OrderedDict(sorted(cards.items(), key=lambda x: x[0]))
     return render_template('home.html', cards=cards)
-
-@app.route("/clientsandbox")
-def httpsandbox():
-    return current_app.send_static_file('clientsandbox/index.html')
