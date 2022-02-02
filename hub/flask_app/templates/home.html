@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoSandbox</title>
+    <link rel="stylesheet" href="/bootstrap-5.0.2/css/bootstrap.min.css" />
+    <style>
+      .bg-card {
+        background-color: #3949ab; /* #546e7a; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="display-3">Welcome to GeoSandbox</h1>
+        </div>
+      </div>
+      <div class="row" data-masonry='{"percentPosition": true }'>
+
+        <!-- TODO: Introcution Carousel
+
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card my-2 shadow bg-card text-light">
+              <div class="card-body">
+                <h5 class="card-title display-6">What is GeoSandbox?</h5>
+                <div class="card-text">
+                  <div id="introCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active" data-bs-interval="5000">
+                        <p class="px-5">Installing geospatial tools can be painful. </p>
+                      </div>
+                      <div class="carousel-item" data-bs-interval="5000">
+                        <p class="px-5">Slide2</p>
+                      </div>
+                      <div class="carousel-item" data-bs-interval="5000">
+                        <p class="px-5">Slide3</p>
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#introCarousel" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#introCarousel" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        -->
+
+        {% for card_nr, card_parts in cards.items() %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card my-2 shadow bg-card text-light">
+            <div class="card-body">
+              <h5 class="card-title display-6">{{ card_parts['TITLE'] }}</h5>
+              <p class="card-text">
+              {{ card_parts['DESCRIPTION'] }}
+              {% if card_parts['KEYVALUE'] %}
+              <hr>
+                {% for kv_pair in card_parts['KEYVALUE'] %}
+                <div>{{ kv_pair[0] }}: {{ kv_pair[1] }}</div>
+                {% endfor %}
+              {% endif %}
+              </p>
+              {% if card_parts['HREF'] %}
+              <a class="btn btn-outline-warning" href="{{ card_parts['HREF'] }}" target="_blank">Open</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script src="/masonry-4.2.2/js/masonry.pkgd.min.js"></script>
+    <script src="/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

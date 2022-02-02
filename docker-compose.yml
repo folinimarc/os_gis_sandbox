@@ -1,0 +1,113 @@
+version: '3.9'
+
+volumes:
+   geoserver-data:
+   postgis-data:
+   pgadmin-data:
+   geoscriptingsandbox-data:
+
+services:
+    postgis:
+      container_name: postgis_container
+      image: postgis/postgis:${POSTGIS_VERSION_TAG}
+      volumes:
+         - postgis-data:/var/lib/postgresql/data
+      environment:
+        - "POSTGRES_DB=${POSTGRES_DB}"
+        - "POSTGRES_USER=${POSTGRES_USER}"
+        - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+      restart: on-failure
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready"]
+        interval: 10s
+        timeout: 5s
+        retries: 3
+
+    geoserver:
+      container_name: geoserver_container
+      image: kartoza/geoserver:${GS_VERSION}
+      volumes:
+        - geoserver-data:/opt/geoserver/data_dir
+      ports:
+        - 127.0.0.1:${GEOSERVER_PORT}:8080
+      restart: on-failure
+      environment:
+        - "GEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR}"
+        - "GEOWEBCACHE_CACHE_DIR=${GEOWEBCACHE_CACHE_DIR}"
+        - "GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}"
+        - "GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER}"
+        - "INITIAL_MEMORY=${INITIAL_MEMORY}"
+        - "MAXIMUM_MEMORY=${MAXIMUM_MEMORY}"
+        - "SAMPLE_DATA=${SAMPLE_DATA}"
+        - "COMMUNITY_EXTENSIONS=${COMMUNITY_EXTENSIONS}"
+        - "TOMCAT_EXTRAS=${TOMCAT_EXTRAS}"
+        - "ROOT_WEBAPP_REDIRECT=${ROOT_WEBAPP_REDIRECT}"
+      healthcheck:
+        test: "curl --fail -s http://localhost:8080/geoserver/web || exit 1"
+        interval: 10s
+        timeout: 10s
+        retries: 3
+
+    pgadmin:
+      container_name: pgadmin_container
+      image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG}"
+      volumes:
+        - pgadmin-data:/var/lib/pgadmin
+      ports:
+        - 127.0.0.1:${PGADMIN_PORT}:80
+      restart: on-failure
+      environment:
+        - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
+        - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}"
+      healthcheck:
+        test: "wget --spider -q http://localhost:80/ || exit 1"
+        interval: 10s
+        timeout: 10s
+        retries: 3
+
+    geoscriptingsandbox:
+      container_name: geoscriptingsandbox_container
+      image: ghcr.io/laiskasiili/python_geoprocessing_playground_jupyter:${JUPYTERLAB_VERSION}
+      volumes:
+        - ${JUPYTERLAB_HOST_MOUNT_PATH}:/geo/host_mount_dir
+        - geoscriptingsandbox-data:/geo
+      ports:
+        - 127.0.0.1:${JUPYTERLAB_PORT}:8888
+      restart: on-failure
+      command: "jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --no-browser --autoreload --LabApp.token=''"
+
+    webclientsandbox:
+      container_name: webclientsandbox_container
+      image: nginx:${NGINX_VERSION}
+      volumes:
+        - ${NGINX_HOST_STATIC_DIR}:/usr/share/nginx/html:ro
+      ports:
+        - 127.0.0.1:${NGINX_PORT}:80
+      restart: on-failure
+
+    hub:
+      container_name: hub_container
+      build: ./hub
+      ports:
+        - 127.0.0.1:${FLASK_PORT}:5000
+      restart: on-failure
+      environment:
+        - "CARD_0_TITLE=Scripting sandbox"
+        - "CARD_0_DESCRIPTION=Jupyterlab provides an interactive shell and python environment with opensource geoprocessing tools pre-installed."
+        - "CARD_0_HREF=http://localhost:${JUPYTERLAB_PORT}"
+        - "CARD_0_KEYVALUE=Host directory,${JUPYTERLAB_HOST_MOUNT_PATH}"
+        - "CARD_1_TITLE=Database client"
+        - "CARD_1_DESCRIPTION=PGadmin provides a nice UI to interact with databases."
+        - "CARD_1_HREF=http://localhost:${PGADMIN_PORT}"
+        - "CARD_1_KEYVALUE=Email,${PGADMIN_DEFAULT_EMAIL};Password,${PGADMIN_DEFAULT_PASSWORD}"
+        - "CARD_2_TITLE=Spatial database"
+        - "CARD_2_DESCRIPTION=Postgis is a postgres extension for storing and processing of spatial data. Use pgadmin to connect and interact."
+        - "CARD_2_KEYVALUE=Host,postgis_container;Port,5432;Username,${POSTGRES_USER};Password,${POSTGRES_PASSWORD};DB name,${POSTGRES_DB}"
+        - "CARD_3_TITLE=OGC-Server"
+        - "CARD_3_DESCRIPTION=Geoserver is an OGC compliant server to provide services like WMS and WFS. Because of the OGC standards, these services can be consumed by any other OGC compliant software."
+        - "CARD_3_HREF=http://localhost:${GEOSERVER_PORT}/geoserver/web"
+        - "CARD_3_KEYVALUE=Username,${GEOSERVER_ADMIN_USER};Password,${GEOSERVER_ADMIN_PASSWORD}"
+        - "CARD_4_TITLE=Webclient sandbox"
+        - "CARD_4_DESCRIPTION=Will display the content of an index.html if placed in the static host directory. Can be used to build an interactive map client in javascript that talks to the geoserver."
+        - "CARD_4_HREF=http://localhost:${NGINX_PORT}/"
+        - "CARD_4_KEYVALUE=Host directory to look for index.html,${NGINX_HOST_STATIC_DIR}"
