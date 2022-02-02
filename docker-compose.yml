@@ -67,7 +67,7 @@ services:
 
     geoscriptingsandbox:
       container_name: geoscriptingsandbox_container
-      image: ghcr.io/laiskasiili/python_geoprocessing_playground_jupyter:${JUPYTERLAB_VERSION}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION}
       volumes:
         - ${JUPYTERLAB_HOST_MOUNT_PATH}:/geo/host_mount_dir
         - geoscriptingsandbox-data:/geo
@@ -87,12 +87,13 @@ services:
 
     hub:
       container_name: hub_container
-      build: ./hub
+      build: ./hub/
+      #image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION}
       ports:
         - 127.0.0.1:${FLASK_PORT}:5000
       restart: on-failure
       environment:
-        - "CARD_0_TITLE=Scripting sandbox"
+        - "CARD_0_TITLE=Geoscripting sandbox"
         - "CARD_0_DESCRIPTION=Jupyterlab provides an interactive shell and python environment with opensource geoprocessing tools pre-installed."
         - "CARD_0_HREF=http://localhost:${JUPYTERLAB_PORT}"
         - "CARD_0_KEYVALUE=Host directory,${JUPYTERLAB_HOST_MOUNT_PATH}"
