@@ -28,13 +28,15 @@ docker --version
 ## Start the OS geostack sandbox...
 Download this repository, navigate into the main folder where docker-compose.yml resides in. Open a terminal in that folder and run:
 ```console
-docker-compose up -d
+docker compose up
 ```
 The first time it will take some minutes because a lot of data is being downloaded. This is a one-time thing and subsequent startups will only take seconds.
 
+> Running the command above will display the logs of all containers in the terminal. You can also run all this in the background by adding the -d flag.
+
 To stop all containers run:
 ```console
-docker-compose down
+docker compose down
 ```
 
 That's it - if you want to start again, run the up command above again and you are good to go.
