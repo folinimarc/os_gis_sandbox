@@ -18,7 +18,7 @@ The top level docker-compose.yml will start up multiple containers:
 
 # How to run?
 
-## 1) You need Docker
+## 1) You need Docker (Desktop)
 Make sure you have docker engine installed. This might be a little fiddly, just stick to the [documentation](https://docs.docker.com/engine/install/). Make sure that after installation docker engine is actually up and running. You are good when the following terminal command returns some kind of version instead of an error :pray:
 ```console
 docker --version
