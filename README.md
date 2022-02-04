@@ -29,12 +29,18 @@ docker --version
 ## 2) Start the OS geostack sandbox
 Download this repository, navigate into the main folder where docker-compose.yml resides in. Open a terminal in that folder and run:
 ```console
-docker compose up
+docker compose up -d
 ```
-The first time it will take some minutes because a lot of data is being downloaded, make sure you are connected to a fast and reliable internet connection.
-This is a one-time thing and subsequent startups will only take seconds.
 
-> Running the command above will display the logs of all containers in the terminal. You can also run all this in the background by adding the -d flag.
+Eventually the terminal will display the blinking cursor again and let you type. This means all is ready.
+
+__You can now access the hub by typing localhost in your browser window.__
+
+> Note: The first time it will take some minutes because a lot of data is being downloaded, make sure you are connected to a fast and reliable internet connection. This is a one-time thing and subsequent startups will only take seconds.
+
+> Note: You can also avoid the -d flag, which will then display the logs of all containers in the terminal.
+
+## 3) Stop the OS geostack sandbox
 
 To stop all containers run:
 ```console
