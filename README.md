@@ -13,24 +13,24 @@ The top level docker-compose.yml will start up multiple containers:
 - A postgis database.
 - A pgadmin instance to interact with the database.
 - A geoserver instance.
-- A NGINX webserver that will serve static files from the top level directory that allows to experiment with client side javascript mapping libraries like openlayers.
 - The geoscripting sandbox mentioned above.
 - A simple central hub as stepping stone (simple flask application listening on localhost:80) that provides an overview and links to all above services.
 
 # How to run?
 
-## You need Docker (but that is all)
+## 1) You need Docker
 Make sure you have docker engine installed. This might be a little fiddly, just stick to the [documentation](https://docs.docker.com/engine/install/). Make sure that after installation docker engine is actually up and running. You are good when the following terminal command returns some kind of version instead of an error :pray:
 ```console
 docker --version
 ```
 
-## Start the OS geostack sandbox...
+## 2) Start the OS geostack sandbox
 Download this repository, navigate into the main folder where docker-compose.yml resides in. Open a terminal in that folder and run:
 ```console
 docker compose up
 ```
-The first time it will take some minutes because a lot of data is being downloaded. This is a one-time thing and subsequent startups will only take seconds.
+The first time it will take some minutes because a lot of data is being downloaded, make sure you are connected to a fast and reliable internet connection.
+This is a one-time thing and subsequent startups will only take seconds.
 
 > Running the command above will display the logs of all containers in the terminal. You can also run all this in the background by adding the -d flag.
 
@@ -45,7 +45,7 @@ That's it - if you want to start again, run the up command above again and you a
 
 > _Good to know:_ If you want to reset the data for ALL containers, add -v to the docker-compose down command. If you want to selectively reset the data, open Docker Desktop and delete the respective volume in the volumes tab. Upon running the next docker-compose up command you have a nice clean reset.
 
-## How to run Geoscripting Sandbox alone without cloning the repository?
+# How to run Geoscripting Sandbox alone without cloning the repository?
 The jupyterlab setup of the geoscripting sandbox is very useful beyond the scope of just being a sandbox. It might be interesting to use it as general environment to perform python geoprocessing. Because of this we provide the image on github registry for download so you can download and run it with a single command without cloning the repository or worrying about building the image yourself.
 
 Select a path on your system you want to be accessible through jupyterlab and replace $MOUNT_PATH in the command below with this path.
@@ -58,5 +58,5 @@ The first run will take some time because a lot of data is being downloaded, sub
 
 When you are done, just hit Ctrl + C in the terminal to shut down the container and jupyterlab. Run the command above to start a new jupterlab session.
 
-## How to clean up all of this stuff I did above?
+# How to clean up all of this stuff I did above?
 To completely clean up all traces from the steps above, open Docker Desktop and remove the images you see in the images tab as well as volumes you see in the volume tab. Then uninstall Docker Desktop.
