@@ -27,7 +27,11 @@ docker --version
 > _Good to know:_ When you restart the computer, docker desktop might not be started automatically. If you try to run a docker command and get an error message mentioning a daemon there is a good chance you first might need to start the docker desktop application (e.g. via search menu).
 
 ## 2) Start the OS geostack sandbox
-Download the two files docker-compose.yml and .env (you can download them directly or clone the whole repository). Then navigate into the folder where docker-compose.yml and .env reside in. Open a terminal in that folder and run:
+Download the two files docker-compose.yml and .env (you can download them directly or clone the whole repository).
+
+> Note: Many file systems hide dot prefixed files (like .env), so you might not be able to see it, even though it is there. You might want to google how to make them visible on your system.
+
+Then navigate into the folder where docker-compose.yml and .env reside in. Open a terminal in that folder and run:
 ```console
 docker compose up -d
 ```
