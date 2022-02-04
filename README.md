@@ -31,7 +31,7 @@ Download the two files docker-compose.yml and .env (you can download them direct
 
 > Note: Many file systems hide dot prefixed files (like .env), so you might not be able to see it, even though it is there. You might want to google how to make them visible on your system.
 
-Then navigate into the folder where docker-compose.yml and .env reside in. Open a terminal in that folder and run:
+Open a terminal and navigate into the __same folder__ where docker-compose.yml and .env reside in. In the terminal run:
 ```console
 docker compose up -d
 ```
