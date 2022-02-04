@@ -53,7 +53,7 @@ That's it - if you want to start again, run the up command above again and you a
 
 > _Good to know:_ If you want to reset the data for ALL containers, add -v to the docker-compose down command. If you want to selectively reset the data, open Docker Desktop and delete the respective volume in the volumes tab. Upon running the next docker-compose up command you have a nice clean reset.
 
-# How to run Geoscripting Sandbox alone without cloning the repository?
+## (optional) How to run Geoscripting Sandbox alone without cloning the repository?
 The jupyterlab setup of the geoscripting sandbox is very useful beyond the scope of just being a sandbox. It might be interesting to use it as general environment to perform python geoprocessing. Because of this we provide the image on github registry for download so you can download and run it with a single command without cloning the repository or worrying about building the image yourself.
 
 Select a path on your system you want to be accessible through jupyterlab and replace $MOUNT_PATH in the command below with this path.
