@@ -24,6 +24,8 @@ Make sure you have docker engine installed. This might be a little fiddly, just 
 docker --version
 ```
 
+> _Good to know:_ When you restart the computer, docker desktop might not be started automatically. If you try to run a docker command and get an error message mentioning a daemon there is a good chance you first might need to start the docker desktop application (e.g. via search menu).
+
 ## 2) Start the OS geostack sandbox
 Download this repository, navigate into the main folder where docker-compose.yml resides in. Open a terminal in that folder and run:
 ```console
