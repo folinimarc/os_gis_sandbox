@@ -34,7 +34,7 @@ docker compose up -d
 
 Eventually the terminal will display the blinking cursor again and let you type. This means all is ready.
 
-__You can now access the hub by typing localhost in your browser window.__
+__You can now access the sandbox hub by typing _localhost_ in your browser window.__
 
 > Note: The first time it will take some minutes because a lot of data is being downloaded, make sure you are connected to a fast and reliable internet connection. This is a one-time thing and subsequent startups will only take seconds.
 
