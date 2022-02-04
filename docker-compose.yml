@@ -86,8 +86,7 @@ services:
 
     hub:
       container_name: hub-container
-      build: ./hub
-      #image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION}
       ports:
         - 127.0.0.1:${FLASK_PORT}:5000
       restart: on-failure
