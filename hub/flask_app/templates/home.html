@@ -8,53 +8,179 @@
     <link rel="stylesheet" href="/bootstrap-5.0.2/css/bootstrap.min.css" />
     <style>
       .bg-card {
-        background-color: #3949ab; /* #546e7a; */
+        background-color: #3949ab;
+      }
+      .color-fill {
+        fill: #3949ab;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h1 class="display-3">Welcome to OS Geostack Sandbox</h1>
-        </div>
-      </div>
-      <div class="row" data-masonry='{"percentPosition": true }'>
 
-        <!-- TODO: Introcution Carousel
-
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="card my-2 shadow bg-card text-light">
-              <div class="card-body">
-                <h5 class="card-title display-6">What is GeoSandbox?</h5>
-                <div class="card-text">
-                  <div id="introCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active" data-bs-interval="5000">
-                        <p class="px-5">Installing geospatial tools can be painful. </p>
-                      </div>
-                      <div class="carousel-item" data-bs-interval="5000">
-                        <p class="px-5">Slide2</p>
-                      </div>
-                      <div class="carousel-item" data-bs-interval="5000">
-                        <p class="px-5">Slide3</p>
-                      </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#introCarousel" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#introCarousel" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
+    <!-- Start Modal Data Journey -->
+    <div class="modal fade" id="modal-1" tabindex="-1" aria-labelledby="modal-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <h5 class="modal-title mx-3">Welcome to the data journey!</h5>
+              <p class="mx-3 mb-0"><small>From raw data to interactive webmaps!</small></p>
+            </div>
+            <button type="button" class="btn-close me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Start Accordion -->
+            <div class="accordion accordion-flush" id="accordion-1">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Introduction
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne">
+                  <div class="accordion-body">
+                    TBD
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Explore python's geo-ecosystem to process data
+                  </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo">
+                  <div class="accordion-body">
+                    TBD
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    Explore GDAL and use ogr2ogr to load vector data into postgis
+                  </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree">
+                  <div class="accordion-body">
+                    TBD
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFour">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Explore postgis and prepare data for geoserver
+                  </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour">
+                  <div class="accordion-body">
+                    TBD
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFive">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    Explore geoserver and serve data via WMS as styled map
+                  </button>
+                </h2>
+                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive">
+                  <div class="accordion-body">
+                    TBD
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingSix">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                    Explore openlayers and create an interactive map to display the WMS data
+                  </button>
+                </h2>
+                <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix">
+                  <div class="accordion-body">
+                    TBD
                   </div>
                 </div>
               </div>
             </div>
+            <!-- End Accordion -->
           </div>
-        -->
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Data Journey -->
 
+    <!-- Start Modal Info -->
+    <div class="modal fade" id="modal-2" tabindex="-1" aria-labelledby="modal-2" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title mx-3">Info</h5>
+            <button type="button" class="btn-close me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Start Accordion -->
+            <div class="accordion accordion-flush" id="accordion-2">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Contact
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne">
+                  <div class="accordion-body">
+                    TBD
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Technology
+                  </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo">
+                  <div class="accordion-body">
+                    TBD
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Accordion -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Info -->
+
+    <!-- Actual content -->
+    <div class="container">
+      <div class="row pt-3">
+        <div class="col-12">
+          <h1 class="display-3 mb-0">Welcome to OS Geostack Sandbox</h1>
+        </div>
+      </div>
+      <div class="row pt-1">
+        <div class="col-12">
+          <!-- Button trigger modal Data journey -->
+          <a class="btn btn-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modal-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16" class="bi bi-lightbulb" viewBox="0 0 16 16">
+              <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            <span class="align-middle">Data journey</span>
+          </a>
+          <!-- Button trigger modal Info -->
+          <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modal-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16" class="bi bi-lightbulb" viewBox="0 0 16 16">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </svg>
+            <span class="align-middle">Info</span>
+          </a>
+        </div>
+      </div>
+      <div class="row pt-3" data-masonry='{"percentPosition": true }'>
+        <!-- Sandbox cards -->
         {% for card_nr, card_parts in cards.items() %}
         <div class="col-12 col-md-6 col-lg-4">
           <div class="card my-2 shadow bg-card text-light">
