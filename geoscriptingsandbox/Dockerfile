@@ -10,6 +10,8 @@ RUN apt-get update && \
     build-essential=12.9 \
     libgdal-dev=3.2.2+dfsg-2+deb11u1 \
     gdal-bin=3.2.2+dfsg-2+deb11u1 \
+    # Install postgres 13 client
+    postgresql-client=13+225 \
     # Clean up
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
