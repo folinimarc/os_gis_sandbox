@@ -80,6 +80,8 @@ services:
         - geoscriptingsandbox-data:/geo
       ports:
         - 127.0.0.1:${JUPYTERLAB_PORT}:8888
+      environment:
+       - SHELL=/bin/bash
       restart: on-failure
       mem_limit: ${JUPYTERLAB_CONTAINER_MEMLIMIT}
       command: "jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --no-browser --autoreload --LabApp.token=''"
