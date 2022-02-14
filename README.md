@@ -63,7 +63,7 @@ The jupyterlab setup of the geoscripting sandbox is very useful beyond the scope
 Select a path on your system you want to be accessible through jupyterlab and replace $MOUNT_PATH in the command below with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/geo/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:v0.0.1
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/geo/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:geoscriptingsandbox-v0.0.2
 ```
 
 The first run will take some time because a lot of data is being downloaded, subsequent runs of this command will take merely a second. After some time you should see a link in the terminal containing 127.0.0.1... - open it in your browser to open jupyterlab. Opening the data folder in the left pane will show you the content of <MOUNT_PATH>. Make sure to save everything you want to be persisted over time in this folder.

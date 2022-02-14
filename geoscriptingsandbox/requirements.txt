@@ -7,6 +7,7 @@ jupyterlab==3.2.8
 mapclassify==2.4.3
 matplotlib==3.5.1
 openpyxl==3.0.9
+OWSLib==0.25.0
 pygeos==0.12.0
 pyproj==3.3.0
 pysal==2.6.0

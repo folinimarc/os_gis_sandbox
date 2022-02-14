@@ -36,6 +36,7 @@ RUN apt-get update && \
 # Rioxarray: Extension of xarray to seamlessly interface with rasterio for 2D raster data.
 # Jupyterlab: Allows to write rich scripts (notebooks) and run code interactively in the browser.
 # Pysal: A collection of packages for advanced geospatial statistical modelling and visualization.
+# OWSlib: A python client library to work with OGC OWS services like WMS, WFS, WCS, ...
 # ------------------------------------------------------
 RUN mkdir /setup
 COPY ./requirements.txt /setup/requirements.txt
