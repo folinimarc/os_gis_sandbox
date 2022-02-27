@@ -1,14 +1,13 @@
-\documentclass[12pt, letterpaper, twoside]{article}
+\documentclass[12pt, a4paper, oneside, parskip=full*]{scrartcl}
 
 % -- PREABLE
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage[parfill]{parskip}
 
 \graphicspath{ {img/} } % path where grahics are stored
 
 % title page parameters
-\title{Sandbox \& Data Story - Toolage to support GIS workshops}
+\title{Increase engagement in educational GIS workshops by using Sandboxes \& Data Stories}
 \author{Marc Folini}
 \date{May 2022}
 
@@ -24,9 +23,14 @@
   % create title page
   \clearpage\maketitle
   \thispagestyle{empty}
-  \vspace{2.5cm}
+  \vspace{5.5cm}
   % abstract
   \begin{abstract}
+    It is generally desirable in educational GIS workshops to supplement the theoretical concepts with hands-on
+    exercises in order for participants to become an active part in the learning experience. This requires that
+    participants have access to an environment that provides the necessary software and data - ideally with minimal
+    setup effort, independent of the system they use and easy to uninstall without leaving traces after the workshop.
+    This thesis uses container technology to provide such a \textbf{sandbox environment}.
   \end{abstract}
 \end{titlepage}
 
@@ -43,23 +47,22 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \section{Introduction}
-Introductionary educational GIS\footnote{Geographic Information System} workshops face a few particular challenges, two
-of which will be central to this thesis. Firstly, it is generally desirable that participants can immediately experience
-theoretical concepts hands-on for themselves. The challenge here lies in providing all participants with access to the
-respective software and data with minimal setup efforts. Secondly, the GIS landscape today consists of many different
-components covering the whole data lifecycle from initial data exploration to visualization and distribution. Together
-with the myriad of commercial and open source tools for each component, this might be overwhelming to unfamiliar
-participants.
+Educational GIS\footnote{Geographic Information System} workshops face a few particular challenges, two of which will be
+central to this thesis. Firstly, it is generally desirable that participants can immediately experience theoretical
+concepts hands-on for themselves. The challenge here lies in providing all participants with access to the respective
+software and data with minimal setup efforts. Secondly, the GIS landscape today consists of many components covering the
+whole data lifecycle from initial data exploration to visualization and distribution. Together with the myriad of
+commercial and open source tools for each component, this might be overwhelming to unfamiliar participants.
 
-This thesis is written as part of the CAS RIS 2021/22\footnote{Certificate of advanced studies (CAS) in GIS (german RIS)
-offered by ETH Zurich.}. It explores the two above mentioned challenges in the context of the CAS and aims to address
-them on two different levels:
+This thesis is written as part of the CAS RIS 2021/22\footnote{Certificate of advanced studies (CAS) in GIS (in german
+RIS) offered by ETH Zurich.}. It explores the two above-mentioned challenges in the context of the CAS and aims to
+address them on two different levels:
 \begin{enumerate}
   \item \textbf{Infrastructure} In order to provide participants access to a variety of software with minimal setup
   effort the concept of a \emph{sandbox environment} is adopted. The requirements and components to be implemented in a
   first version will be chosen to support the content of this thesis' further education curriculum.
   \item \textbf{Content} In order to help participants to make sense of the sandbox components and their interactions,
-  we introduce the concept of a \emph{data journey}. Each data journey has a tangible data usecase goal statement that
+  we introduce the concept of a \emph{data journey}. Each data journey has a tangible data use case goal statement that
   participants can identify with, for example: Let's visualize risk of wildfire and serve it as interactive map on a
   website. Starting from given raw data, participants follow the processing of this dataset through the different
   components and experience how they work together to achieve the goal.
@@ -70,10 +73,15 @@ them on two different levels:
 % REQUIREMENTS
 %-------------
 \section{Requirements}
+In this section we first analyze the content of the first four weeks of the CAS RIS and assess potential for hands-on
+exercises. From these findings we then derive functional requirements\footnote{Functional requirements specify the tasks
+an application must be able to perform.}.
+
+
+\subsection{Content analysis}
+
 
 \subsection{Functional requirements}
-Functional requirments specify the tasks the application must be able to perform. In this section we first analyze the
-content of the first four weeks of the CAS RIS and try to
 
 \subsection{Non-Functional requirements}
 
