@@ -1,0 +1,88 @@
+\documentclass[12pt, letterpaper, twoside]{article}
+
+% -- PREABLE
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[parfill]{parskip}
+
+\graphicspath{ {img/} } % path where grahics are stored
+
+% title page parameters
+\title{Sandbox \& Data Story - Toolage to support GIS workshops}
+\author{Marc Folini}
+\date{May 2022}
+
+% -- BODY
+\begin{document}
+
+%-------------
+% TITLE, ABSTRACT
+%-------------
+\begin{titlepage}
+  \pagenumbering{Roman}
+  \setcounter{page}{1}
+  % create title page
+  \clearpage\maketitle
+  \thispagestyle{empty}
+  \vspace{2.5cm}
+  % abstract
+  \begin{abstract}
+  \end{abstract}
+\end{titlepage}
+
+%-------------
+% TABLE OF CONTENT
+%-------------
+\newpage
+\tableofcontents
+
+%-------------
+% INTRODUCTION
+%-------------
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\section{Introduction}
+Introductionary educational GIS workshops face a few particular challenges, of which this thesis will focus on two.
+Firstly, it is generally desirable that participants can immediately experience theoretical concepts hands-on for
+themselves. The challenge here lies in providing all participants with access to the respective software and data with
+minimal setup efforts. Secondly, the GIS landscape today consists of many different components covering the whole data
+lifecycle from initial data exploration to visualization and distribution. Together with the myriad of commercial and
+open source tools for each component, this might be overwhelming to unfamiliar participants.
+
+This thesis tackles these challenges at two levels:
+\begin{enumerate}
+  \item \textbf{Infrastructure} In order to provide participants access to a variety of software with minimal setup
+  effort the concept of a \emph{sandbox environment} is adopted. The requirements and components to be implemented in a
+  first version will be chosen to support the content of this thesis' further education curriculum.
+  \item \textbf{Content} In order to help participants to make sense of the sandbox components and their interactions,
+  we introduce the concept of a \emph{data journey}. Each data journey has a tangible data usecase goal statement that
+  participants can identify with, for example: Let's visualize risk of wildfire and serve it as interactive map on a
+  website. Starting from given raw data, participants follow the processing of this dataset through the different
+  components and experience how they work together to achieve the goal.
+\end{enumerate}
+
+
+%-------------
+% REQUIREMENTS
+%-------------
+\section{Requirements}
+
+
+%-------------
+% SANDBOX
+%-------------
+\section{Sandbox}
+
+%-------------
+% DATA STORY
+%-------------
+\section{Data Story}
+
+%-------------
+% CONCLUSION
+%-------------
+\section{Conclusion}
+
+
+\end{document}

@@ -1,3 +1,6 @@
 gitignored/
 **/*-checkpoint.ipynb
 **/python_geoprocessing/
+thesis/*
+!thesis/*.tex
+!thesis/img/
