@@ -1,4 +1,4 @@
-\documentclass[12pt, a4paper, oneside, parskip=full*]{scrartcl}
+\documentclass[11pt, a4paper, oneside, parskip=full-]{scrartcl}
 
 % -- PREABLE
 \usepackage[utf8]{inputenc}
@@ -7,7 +7,7 @@
 \graphicspath{ {img/} } % path where grahics are stored
 
 % title page parameters
-\title{Increase engagement in educational GIS workshops by using Sandboxes \& Data Stories}
+\title{Facilitate experimentation in educational GIS workshops by using Sandboxes \& Data Stories}
 \author{Marc Folini}
 \date{May 2022}
 
@@ -23,14 +23,20 @@
   % create title page
   \clearpage\maketitle
   \thispagestyle{empty}
-  \vspace{5.5cm}
   % abstract
   \begin{abstract}
     It is generally desirable in educational GIS workshops to supplement the theoretical concepts with hands-on
     exercises in order for participants to become an active part in the learning experience. This requires that
     participants have access to an environment that provides the necessary software and data - ideally with minimal
-    setup effort, independent of the system they use and easy to uninstall without leaving traces after the workshop.
-    This thesis uses container technology to provide such a \textbf{sandbox environment}.
+    setup effort, independent of the system they use and easy to uninstall without leaving traces after the workshop. We
+    evaluated different approaches and found container technology to be a good fit to abstract away the hassle of
+    setting up the tools and infrastructure. We provide an implementation of what we call a \emph{sandbox environment}
+    and publish it as an open source project.
+
+    Furthermore, this thesis explores the concept of \emph{data stories}. A data story provides selected raw data, a
+    motivating tangible goal and instructions that connect the raw data to the goal. This allows participants to fully
+    focus on how the available tools interact with data and other tools to achieve something useful. We implement an
+    example data that covers aggregating data in PostGIS and serving it as web service using Geoserver.
   \end{abstract}
 \end{titlepage}
 
