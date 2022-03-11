@@ -17,7 +17,7 @@
 \graphicspath{ {img/} } % path where grahics are stored
 
 % title page parameters
-\title{Make experimentation fun in educational GIS workshops with Sandboxes \& Data Stories}
+\title{Make experimentation fun in educational GIS workshops with Sandboxes \& Data journeys}
 \author{Marc Folini}
 \date{May 2022}
 
@@ -41,17 +41,19 @@
     participants have access to an environment that provides the necessary
     software and data - ideally with minimal setup effort, independent of the
     system they use and easy to uninstall without leaving traces after the
-    workshop. We evaluated different approaches and found container technology
-    to be a good fit to abstract away the hassle of setting up the tools and
-    infrastructure. We provide an implementation of what we call a \emph{sandbox
-    environment} and publish it as an open source project.
+    workshop. Different approaches were evaluated, and container technology was
+    found to be a good fit to abstract away the hassle of setting up the tools
+    and infrastructure. A proof of concept of what will be referred to as
+    \emph{sandbox environment} was implemented and published as open source
+    project.
 
-    Furthermore, this thesis explores the concept of \emph{data stories}. A data
-    story provides selected raw data, a motivating tangible goal and
+    Furthermore, this thesis explored the concept of \emph{data journeys}. A
+    data story provides selected raw data, a motivating tangible goal and
     instructions that connect the raw data to the goal. This allows participants
     to fully focus on how the available tools interact with data and other tools
-    to achieve something useful. We implement an example data that covers
-    aggregating data in PostGIS and serving it as web service using Geoserver.
+    to achieve something useful. An example data journey was implemented that
+    covers aggregating data in PostGIS and serving it as web service using
+    Geoserver.
   \end{abstract}
 \end{titlepage}
 
@@ -69,8 +71,8 @@
 \setcounter{page}{1}
 \section{Introduction}
 Educational GIS\footnote{Geographic Information System} workshops face a few
-particular challenges, two of which will be central to this thesis. Firstly, it
-is generally desirable that participants can immediately experience theoretical
+particular challenges, two of which are central to this thesis. Firstly, it is
+generally desirable that participants can immediately experience theoretical
 concepts hands-on for themselves. The challenge here lies in providing all
 participants with access to the respective software and data with minimal setup
 efforts. Secondly, the GIS landscape today consists of many components covering
@@ -78,7 +80,7 @@ the whole data lifecycle from initial data exploration to visualization and
 distribution. Together with the myriad of commercial and open source tools for
 each component, this might be overwhelming to unfamiliar participants.
 
-This thesis is written as part of the CAS RIS 2021/22\footnote{Certificate of
+This thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
 advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. It
 explores the two above-mentioned challenges in the context of the CAS and aims
 to address them on two different levels:
@@ -86,11 +88,11 @@ to address them on two different levels:
   \item \textbf{Infrastructure} In order to provide participants access to a
   variety of software with minimal setup effort the concept of a \emph{sandbox
   environment} is adopted. The requirements and components to be implemented in
-  a first version will be chosen to support the content of this thesis' further
+  a first version were chosen to support the content of this thesis' further
   education curriculum.
   \item \textbf{Content} In order to help participants to make sense of the
-  sandbox components and their interactions, we introduce the concept of a
-  \emph{data journey}. Each data journey has a tangible data use case goal
+  sandbox components and their interactions, the concept of a \emph{data
+  journey} was explored. Each data journey has a tangible data use case goal
   statement that participants can identify with, for example: Let's visualize
   risk of wildfire and serve it as interactive map on a website. Starting from
   given raw data, participants follow the processing of this dataset through the
@@ -103,16 +105,23 @@ to address them on two different levels:
 % REQUIREMENTS
 %-------------
 \section{Requirements}
-In this section we first analyze the content of the first four weeks of the CAS
-RIS and assess potential for hands-on exercises. From these findings we then
-derive functional and non-functional requirements\footnote{Functional
-requirements specify the tasks an application must be able to perform.
-Non-functional requirements specify additional aspects about the application
-performing the task, for example usability, look and feel or performance. }.
+The content of the CAS RIS was analyzed and assessed for potential hands-on
+exercises. From these findings functional and non-functional
+requirements\footnote{Functional requirements specify the tasks an application
+must be able to perform. Non-functional requirements specify additional aspects
+about the application performing the task, for example usability, look and feel
+or performance. } were then derived.
 
 % Content analyis
 %-------------
 \subsection{Content analysis}
+At the time of writing the course consisted of four weeks of content modules on
+a wide variety of topics. Each module was screened with a focus on where
+hands-on exercises could be added or expanded without substantially altering the
+module structure or material. Modules which already have a strong hands-on
+component and/or which focus primarily on usage of proprietary software like
+ArcGIS were ignored. Table \ref{tab:t_content_analysis} shows the modules where
+hands-on potential was identified.
 
 \begin{table}[!htbp]
   \centering
@@ -146,8 +155,7 @@ performing the task, for example usability, look and feel or performance. }.
     % multirow(4) start
     Geometrische Methoden & \multirow[t]{4}{*}{Run simple examples on sample
     data.} \\
-    \cmidrule(r){1-1}
-    Topologische Methoden &  \\
+    \cmidrule(r){1-1} Topologische Methoden &  \\
     \cmidrule(r){1-1} Mengenmethoden &  \\
     \cmidrule(r){1-1} Statistische Methoden &  \\
     \midrule
@@ -220,9 +228,9 @@ performing the task, for example usability, look and feel or performance. }.
 \end{figure}
 
 %-------------
-% DATA STORY
+% DATA JOURNEY
 %-------------
-\section{Data Story}
+\section{Data journey}
 
 %-------------
 % CONCLUSION
