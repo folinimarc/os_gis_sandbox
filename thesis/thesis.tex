@@ -3,11 +3,12 @@
 % -- PREABLE
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{amsmath}
 
 \graphicspath{ {img/} } % path where grahics are stored
 
 % title page parameters
-\title{Make experimentation fun in educational GIS workshops by using Sandboxes \& Data Stories}
+\title{Make experimentation fun in educational GIS workshops with Sandboxes \& Data Stories}
 \author{Marc Folini}
 \date{May 2022}
 
@@ -25,18 +26,23 @@
   \thispagestyle{empty}
   % abstract
   \begin{abstract}
-    It is generally desirable in educational GIS workshops to supplement the theoretical concepts with hands-on
-    exercises in order for participants to become an active part in the learning experience. This requires that
-    participants have access to an environment that provides the necessary software and data - ideally with minimal
-    setup effort, independent of the system they use and easy to uninstall without leaving traces after the workshop. We
-    evaluated different approaches and found container technology to be a good fit to abstract away the hassle of
-    setting up the tools and infrastructure. We provide an implementation of what we call a \emph{sandbox environment}
-    and publish it as an open source project.
+    It is generally desirable in educational GIS workshops to supplement the
+    theoretical concepts with hands-on exercises in order for participants to
+    become an active part in the learning experience. This requires that
+    participants have access to an environment that provides the necessary
+    software and data - ideally with minimal setup effort, independent of the
+    system they use and easy to uninstall without leaving traces after the
+    workshop. We evaluated different approaches and found container technology
+    to be a good fit to abstract away the hassle of setting up the tools and
+    infrastructure. We provide an implementation of what we call a \emph{sandbox
+    environment} and publish it as an open source project.
 
-    Furthermore, this thesis explores the concept of \emph{data stories}. A data story provides selected raw data, a
-    motivating tangible goal and instructions that connect the raw data to the goal. This allows participants to fully
-    focus on how the available tools interact with data and other tools to achieve something useful. We implement an
-    example data that covers aggregating data in PostGIS and serving it as web service using Geoserver.
+    Furthermore, this thesis explores the concept of \emph{data stories}. A data
+    story provides selected raw data, a motivating tangible goal and
+    instructions that connect the raw data to the goal. This allows participants
+    to fully focus on how the available tools interact with data and other tools
+    to achieve something useful. We implement an example data that covers
+    aggregating data in PostGIS and serving it as web service using Geoserver.
   \end{abstract}
 \end{titlepage}
 
@@ -53,25 +59,34 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \section{Introduction}
-Educational GIS\footnote{Geographic Information System} workshops face a few particular challenges, two of which will be
-central to this thesis. Firstly, it is generally desirable that participants can immediately experience theoretical
-concepts hands-on for themselves. The challenge here lies in providing all participants with access to the respective
-software and data with minimal setup efforts. Secondly, the GIS landscape today consists of many components covering the
-whole data lifecycle from initial data exploration to visualization and distribution. Together with the myriad of
-commercial and open source tools for each component, this might be overwhelming to unfamiliar participants.
+Educational GIS\footnote{Geographic Information System} workshops face a few
+particular challenges, two of which will be central to this thesis. Firstly, it
+is generally desirable that participants can immediately experience theoretical
+concepts hands-on for themselves. The challenge here lies in providing all
+participants with access to the respective software and data with minimal setup
+efforts. Secondly, the GIS landscape today consists of many components covering
+the whole data lifecycle from initial data exploration to visualization and
+distribution. Together with the myriad of commercial and open source tools for
+each component, this might be overwhelming to unfamiliar participants.
 
-This thesis is written as part of the CAS RIS 2021/22\footnote{Certificate of advanced studies (CAS) in GIS (in german
-RIS) offered by ETH Zurich.}. It explores the two above-mentioned challenges in the context of the CAS and aims to
-address them on two different levels:
+This thesis is written as part of the CAS RIS 2021/22\footnote{Certificate of
+advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. It
+explores the two above-mentioned challenges in the context of the CAS and aims
+to address them on two different levels:
 \begin{enumerate}
-  \item \textbf{Infrastructure} In order to provide participants access to a variety of software with minimal setup
-  effort the concept of a \emph{sandbox environment} is adopted. The requirements and components to be implemented in a
-  first version will be chosen to support the content of this thesis' further education curriculum.
-  \item \textbf{Content} In order to help participants to make sense of the sandbox components and their interactions,
-  we introduce the concept of a \emph{data journey}. Each data journey has a tangible data use case goal statement that
-  participants can identify with, for example: Let's visualize risk of wildfire and serve it as interactive map on a
-  website. Starting from given raw data, participants follow the processing of this dataset through the different
-  components and experience how they work together to achieve the goal.
+  \item \textbf{Infrastructure} In order to provide participants access to a
+  variety of software with minimal setup effort the concept of a \emph{sandbox
+  environment} is adopted. The requirements and components to be implemented in
+  a first version will be chosen to support the content of this thesis' further
+  education curriculum.
+  \item \textbf{Content} In order to help participants to make sense of the
+  sandbox components and their interactions, we introduce the concept of a
+  \emph{data journey}. Each data journey has a tangible data use case goal
+  statement that participants can identify with, for example: Let's visualize
+  risk of wildfire and serve it as interactive map on a website. Starting from
+  given raw data, participants follow the processing of this dataset through the
+  different components and experience how they work together to achieve the
+  goal.
 \end{enumerate}
 
 
@@ -79,39 +94,58 @@ address them on two different levels:
 % REQUIREMENTS
 %-------------
 \section{Requirements}
-In this section we first analyze the content of the first four weeks of the CAS RIS and assess potential for hands-on
-exercises. From these findings we then derive functional and non-functional requirements\footnote{Functional
-requirements specify the tasks an application must be able to perform. Non-functional requirements specify additional
-aspects about the application performing the task, for example usability, look and feel or performance. }.
+In this section we first analyze the content of the first four weeks of the CAS
+RIS and assess potential for hands-on exercises. From these findings we then
+derive functional and non-functional requirements\footnote{Functional
+requirements specify the tasks an application must be able to perform.
+Non-functional requirements specify additional aspects about the application
+performing the task, for example usability, look and feel or performance. }.
 
 \subsection{Content analysis}
 
 
 \subsection{Functional requirements}
 \begin{itemize}
-  \item A spatial database is available together with utilities to import and query data.
-  \item The GDAL command line utilities, particularly gdalinfo and ogr2ogr, are available. There is a way to read either
-  predefined example data or read data from the host system.
-  \item An OGC server implementation is available. There is a way to read predefined example data, read data from the
-  host system or connect to the sandbox spatial database.
-  \item An OGC client implementation is available, which can interact with the sandbox OGC server or any other OGC
-  service publicly available on the internet.
+  \item A spatial database is available together with utilities to import and
+  query data.
+  \item The GDAL command line utilities, particularly gdalinfo and ogr2ogr, are
+  available. There is a way to read either predefined example data or read data
+  from the host system.
+  \item An OGC server implementation is available. There is a way to read
+  predefined example data, read data from the host system or connect to the
+  sandbox spatial database.
+  \item An OGC client implementation is available, which can interact with the
+  sandbox OGC server or any other OGC service publicly available on the
+  internet.
 \end{itemize}
 
 \subsection{Non-Functional requirements}
 \begin{itemize}
-  \item Users can create content which is persisted between usages of the sandbox.
-  \item There is a possibility to ship example scripts and data as part of the sandbox.
+  \item Users can create content which is persisted between usages of the
+  sandbox.
+  \item There is a possibility to ship example scripts and data as part of the
+  sandbox.
   \item The sandbox can be installed with minimal changes to the host system.
-  \item The sandbox can be uninstalled with minimal effort and leaves behind no traces on the host system.
-  \item A partial or total reset of applications and data is possible in case something got messed up.
-  \item Usage is not coupled to the duration of the CAS course or otherwise restricted (e.g. via externally controlled credentials).
+  \item The sandbox can be uninstalled with minimal effort and leaves behind no
+  traces on the host system.
+  \item A partial or total reset of applications and data is possible in case
+  something got messed up.
+  \item Usage is not coupled to the duration of the CAS course or otherwise
+  restricted (e.g. via externally controlled credentials).
 \end{itemize}
 
 %-------------
 % SANDBOX
 %-------------
 \section{Sandbox}
+\subsection{Technology screening}
+\subsection{Docker compose setup}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{compose_setup}
+  \caption{Sandbox setup using docker compose}
+  \label{fig:sandboxsetup}
+\end{figure}
 
 %-------------
 % DATA STORY
