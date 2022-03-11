@@ -1,9 +1,18 @@
 \documentclass[11pt, a4paper, oneside, parskip=full-]{scrartcl}
 
 % -- PREABLE
+
+% global settings
+\renewcommand\labelitemi{-}
+
+% packages
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}
-\usepackage{amsmath}
+\usepackage{graphicx} % to embed figures
+\usepackage{float} % use [H] to place fig exactly where specified in code
+\usepackage{tabularx} % table with columns that fill width of page using X
+\usepackage{booktabs} % table utilities like \midrule
+\usepackage{multirow} % span multiple rows in table
+\usepackage{enumitem} % pass key-value config to itemize and enumberable
 
 \graphicspath{ {img/} } % path where grahics are stored
 
@@ -103,6 +112,55 @@ performing the task, for example usability, look and feel or performance. }.
 
 \subsection{Content analysis}
 
+\begin{table}[!htbp]
+  \centering
+  \caption{Content analysis of existing lectures for hands-on potential.}
+  \label{tab:t_content_analysis}
+  \begin{tabularx}{\textwidth}{lX}
+    \toprule
+    \textbf{Module} & \textbf{Hands-on potential} \\
+    \midrule
+    Interoperabilität &
+      \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
+      ={\end{minipage}}]
+      \item Download data from WFS and save as Shapefile.
+      \item Inspection and conversion of formats using gdalinfo and ogr2ogr.
+      \item Read Shapefile into PostGIS. \end{itemize}\nointerlineskip\\
+    \midrule
+    SQL & Write and run basic SQL queries on sample data. \\
+    \midrule
+    Geodatenbanken &
+    \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
+    ={\end{minipage}}]
+      \item Run basic spatial queries on sample data.
+      \item Perform spatial aggregation on sample data.
+      \item Optional: Connect spatial database to QGIS.
+    \end{itemize}\nointerlineskip\\
+    \midrule
+    Geometrische Methoden & \multirow[t]{4}{*}{Run simple examples on sample
+    data.} \\
+    \cmidrule(r){1-1} Topologische Methoden &  \\
+    \cmidrule(r){1-1} Mengenmethoden &  \\
+    \cmidrule(r){1-1} Statistische Methoden &  \\
+    \midrule
+    Einführung in Python & Self-study introduction via Jupyter Notebook. \\
+    \midrule
+    Internet und GIS I \& II &
+      \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
+      ={\end{minipage}}]
+      \item Load data from WMS/WFS/WCS.
+      \item Optional: Consume WMS in QGIS. \end{itemize}\nointerlineskip \\
+    \midrule
+    Projekt Internet \& GIS &
+      \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
+      ={\end{minipage}}]
+      \item Use geodatabase as data source for OGC server.
+      \item Create style and serve data as WMS.
+      \item Consume WMS with OGC client. \end{itemize}\nointerlineskip \\
+    \bottomrule
+  \end{tabularx}%
+\end{table}%
+
 
 \subsection{Functional requirements}
 \begin{itemize}
@@ -140,7 +198,7 @@ performing the task, for example usability, look and feel or performance. }.
 \section{Sandbox}
 \subsection{Technology screening}
 \subsection{Docker compose setup}
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{compose_setup}
   \caption{Sandbox setup using docker compose}
