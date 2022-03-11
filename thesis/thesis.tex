@@ -110,6 +110,8 @@ requirements specify the tasks an application must be able to perform.
 Non-functional requirements specify additional aspects about the application
 performing the task, for example usability, look and feel or performance. }.
 
+% Content analyis
+%-------------
 \subsection{Content analysis}
 
 \begin{table}[!htbp]
@@ -118,8 +120,10 @@ performing the task, for example usability, look and feel or performance. }.
   \label{tab:t_content_analysis}
   \begin{tabularx}{\textwidth}{lX}
     \toprule
+    % header row start
     \textbf{Module} & \textbf{Hands-on potential} \\
     \midrule
+    % row start
     Interoperabilität &
       \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
       ={\end{minipage}}]
@@ -127,8 +131,10 @@ performing the task, for example usability, look and feel or performance. }.
       \item Inspection and conversion of formats using gdalinfo and ogr2ogr.
       \item Read Shapefile into PostGIS. \end{itemize}\nointerlineskip\\
     \midrule
+    % row start
     SQL & Write and run basic SQL queries on sample data. \\
     \midrule
+    % row start
     Geodatenbanken &
     \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
     ={\end{minipage}}]
@@ -137,20 +143,25 @@ performing the task, for example usability, look and feel or performance. }.
       \item Optional: Connect spatial database to QGIS.
     \end{itemize}\nointerlineskip\\
     \midrule
+    % multirow(4) start
     Geometrische Methoden & \multirow[t]{4}{*}{Run simple examples on sample
     data.} \\
-    \cmidrule(r){1-1} Topologische Methoden &  \\
+    \cmidrule(r){1-1}
+    Topologische Methoden &  \\
     \cmidrule(r){1-1} Mengenmethoden &  \\
     \cmidrule(r){1-1} Statistische Methoden &  \\
     \midrule
+    % row start
     Einführung in Python & Self-study introduction via Jupyter Notebook. \\
     \midrule
+    % row start
     Internet und GIS I \& II &
       \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
       ={\end{minipage}}]
       \item Load data from WMS/WFS/WCS.
       \item Optional: Consume WMS in QGIS. \end{itemize}\nointerlineskip \\
     \midrule
+    % row start
     Projekt Internet \& GIS &
       \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
       ={\end{minipage}}]
@@ -161,7 +172,8 @@ performing the task, for example usability, look and feel or performance. }.
   \end{tabularx}%
 \end{table}%
 
-
+% Functional requirements
+%-------------
 \subsection{Functional requirements}
 \begin{itemize}
   \item A spatial database is available together with utilities to import and
@@ -177,6 +189,8 @@ performing the task, for example usability, look and feel or performance. }.
   internet.
 \end{itemize}
 
+% Non-Functional requirements
+%-------------
 \subsection{Non-Functional requirements}
 \begin{itemize}
   \item Users can create content which is persisted between usages of the
