@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data stories</title>
+    <link rel="stylesheet" href="/static/bootstrap-5.0.2/css/bootstrap.min.css" />
+    <style>
+      .bg-card {
+        background-color: #388e3c;
+      }
+    </style>
+    <script src="/static/masonry-4.2.2/js/masonry.pkgd.min.js" defer></script>
+    <script src="/static/bootstrap-5.0.2/js/bootstrap.bundle.min.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row pt-3">
+          <div class="col-12">
+            <h1 class="display-3 mb-0">Data stories</h1>
+          </div>
+        </div>
+        <div class="row pt-3" data-masonry='{"percentPosition": true }'>
+          <!-- Start story -->
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card my-2 shadow bg-card text-light">
+              <div class="card-body">
+                <h5 class="card-title display-6">Airports per country</h5>
+                <p class="card-text">
+                    Starting from a bunch of shapefiles about airports and
+                    country boundaries we will use PostGIS to create a new
+                    dataset which combines and aggregates this data. Once the
+                    data is ready in PostGIS, we will show how to consume it via
+                    a python script, via a Geoserver and via QGIS.
+                </p>
+                <a class="btn btn-outline-light" href="story_airports_per_country.html">Go to story</a>
+              </div>
+            </div>
+          </div>
+          <!-- End story -->
+
+          <!-- Start story
+
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card my-2 shadow bg-card text-light">
+              <div class="card-body">
+                <h5 class="card-title display-6">STORY TITLE HERE</h5>
+                <p class="card-text">
+                    STORY DESCRIPTION HERE
+                </p>
+                <a class="btn btn-outline-warning" href="YOUR-STORY-HTML-FILE.html" target="_blank">Open</a>
+              </div>
+            </div>
+          </div>
+
+          end story -->
+
+        </div>
+      </div>
+</body>
+</html>
