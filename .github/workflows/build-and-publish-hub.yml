@@ -2,6 +2,7 @@
 name: Build image and publish to GHCR
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'hub-v*.*.*'
