@@ -18,3 +18,4 @@ Shapely==1.8.0
 xarray==0.20.2
 xarray-spatial==0.3.1
 xarray[io]
+xlsxwriter==3.0.3
