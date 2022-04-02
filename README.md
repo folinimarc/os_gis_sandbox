@@ -32,10 +32,14 @@ docker --version
 You need the two files docker-compose.yml and .env (you can download them
 directly or clone the whole repository).
 
+> Note: Many file systems hide dot prefixed files (like .env), so you might not
+> be able to see it, even though it is there. You might want to google how to
+> make them visible on your system.
+
 Open a terminal and navigate into the __same folder__ where docker-compose.yml
 and .env reside in. In the terminal run:
 ```console
-docker compose --env-file config.env up -d
+docker compose up -d
 ```
 
 Eventually the terminal will display the blinking cursor again and let you type.

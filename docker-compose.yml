@@ -14,6 +14,8 @@ services:
       image: postgis/postgis:${POSTGIS_VERSION_TAG}
       volumes:
          - postgis-data:/var/lib/postgresql/data
+      ports:
+        - 127.0.0.1:${POSTGIS_PORT_EXTERNAL}:5432
       environment:
         - "PGUSER=${POSTGRES_USER}"
         - "POSTGRES_USER=${POSTGRES_USER}"
@@ -82,7 +84,7 @@ services:
         - datastories-data:/geo/_datastories_data
         - ${GEOSCRIPTINGSANDBOX_HOST_MOUNT_PATH}:/geo/_host_mount_dir
       ports:
-        - 127.0.0.1:${GEOSCRIPTINGSANDBOX}:8888
+        - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT}:8888
       environment:
        - SHELL=/bin/bash
       restart: on-failure
@@ -113,18 +115,18 @@ services:
         - "CARD_0_HREF=http://localhost:${DATASTORIES_PORT}"
         - "CARD_1_TITLE=Geoscripting sandbox"
         - "CARD_1_DESCRIPTION=Jupyterlab provides an environment with opensource geoprocessing tools pre-installed. Run GDAL terminal commands, use ogr2ogr to load data into postgis and explore the python geo-ecosystem. Provides also a directory _host_mount_dir that is mounted to the host file system for easy data access."
-        - "CARD_1_HREF=http://localhost:${GEOSCRIPTINGSANDBOX}"
+        - "CARD_1_HREF=http://localhost:${GEOSCRIPTINGSANDBOX_PORT}"
         - "CARD_2_TITLE=Database client"
         - "CARD_2_DESCRIPTION=pgAdmin provides a nice user interface to interact with databases."
         - "CARD_2_HREF=http://localhost:${PGADMIN_PORT}"
         - "CARD_2_KEYVALUE=Email,${PGADMIN_DEFAULT_EMAIL};Password,${PGADMIN_DEFAULT_PASSWORD}"
         - "CARD_3_TITLE=Spatial database"
-        - "CARD_3_DESCRIPTION=Postgis is an extension for storing and processing of spatial data in postgreSQL. Use pgAdmin to connect and interact or use psql command from the terminal in the geoscripting sandbox."
-        - "CARD_3_KEYVALUE=Host,postgis-container;Port,5432;Username,${POSTGRES_USER};Password,${POSTGRES_PASSWORD};DB name,${POSTGRES_DB}"
+        - "CARD_3_DESCRIPTION=Postgis is an extension for storing and processing of spatial data in postgreSQL. To interact use pgAdmin or the psql command from the terminal in the geoscripting sandbox. To connect from outside the sandbox like from QGIS use Host(ext) and Port(ext)."
+        - "CARD_3_KEYVALUE=Username,${POSTGRES_USER};Password,${POSTGRES_PASSWORD};DB name,${POSTGRES_DB};Host,postgis-container;Port,5432;Host(ext), localhost;Port(ext),${POSTGIS_PORT_EXTERNAL}"
         - "CARD_4_TITLE=OGC-Server"
-        - "CARD_4_DESCRIPTION=Geoserver is an OGC compliant server to provide services like WMS and WFS. Because of the OGC standards, these services can be consumed by any other OGC compliant software. In Geoserver's data directory there is a _host_mount_dir directory that is mounted to the host file system for easy data access."
+        - "CARD_4_DESCRIPTION=Geoserver is an OGC compliant server to provide services like WMS and WFS. In Geoserver's data directory there is a _host_mount_dir directory that is mounted to the host file system for easy data access. To connect from outside the sandbox use Host(ext) and Port(ext)."
         - "CARD_4_HREF=http://localhost:${GEOSERVER_PORT}/geoserver/web"
-        - "CARD_4_KEYVALUE=Username,${GEOSERVER_ADMIN_USER};Password,${GEOSERVER_ADMIN_PASSWORD}"
+        - "CARD_4_KEYVALUE=Username,${GEOSERVER_ADMIN_USER};Password,${GEOSERVER_ADMIN_PASSWORD};Host,geoserver-container;Port,8080;Host(ext), localhost;Port(ext),${GEOSERVER_PORT}"
         - "CARD_5_TITLE=Webclient sandbox"
         - "CARD_5_DESCRIPTION=Openlayers is a javascript library for interactive maps in the browser. As it speaks OGC standards it can talk to a geoserver. Let's use codesandbox.io, an awesome online code editor that takes care of the nitty gritty details of modern web development."
         - "CARD_5_HREF=https://codesandbox.io/s/sharp-thunder-1xbl0"
