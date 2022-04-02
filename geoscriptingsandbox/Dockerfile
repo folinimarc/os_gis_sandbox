@@ -50,14 +50,10 @@ RUN echo "--no-binary=shapely,pygeos" >> /setup/requirements.txt && \
 # Install QGIS and make PyQGIS available in notebooks as kernel.
 # Judging from first research this is going to be non-trivial.
 
-# Setup to run jupyterlab when starting container.
-COPY ./start_jupyter.sh /setup/start_jupyter.sh
-RUN ["chmod", "+x", "/setup/start_jupyter.sh"]
-
 RUN mkdir /geo
 WORKDIR /geo
 
 # Copy examples into container
-COPY ./examples ./examples
+COPY ./example_notebooks ./example_notebooks
 
-CMD ["/setup/start_jupyter.sh"]
+CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]
