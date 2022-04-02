@@ -80,18 +80,19 @@ services:
       volumes:
         - geoscriptingsandbox-data:/geo
         - datastories-data:/geo/_datastories_data
-        - ${JUPYTERLAB_HOST_MOUNT_PATH}:/geo/_host_mount_dir
+        - ${GEOSCRIPTINGSANDBOX_HOST_MOUNT_PATH}:/geo/_host_mount_dir
       ports:
-        - 127.0.0.1:${JUPYTERLAB_PORT}:8888
+        - 127.0.0.1:${GEOSCRIPTINGSANDBOX}:8888
       environment:
        - SHELL=/bin/bash
       restart: on-failure
-      mem_limit: ${JUPYTERLAB_CONTAINER_MEMLIMIT}
+      mem_limit: ${GEOSCRIPTINGSANDBOX_CONTAINER_MEMLIMIT}
       command: "jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --no-browser --autoreload --LabApp.token=''"
 
     datastories:
       container_name: datastories-container
-      build: ./datastories/
+      # build: ./datastories/
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/datastories:${DATASTORIES_VERSION_TAG}
       volumes:
         - datastories-data:/datastories_data
       ports:
@@ -100,11 +101,11 @@ services:
 
     hub:
       container_name: hub-container
-      build: ./hub/
-      #image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION}
+      # build: ./hub/
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION}
       ports:
         - 127.0.0.1:${FLASK_PORT}:5000
-      #restart: on-failure
+      restart: on-failure
       mem_limit: ${FLASK_CONTAINER_MEMLIMIT}
       environment:
         - "CARD_0_TITLE=Data stories"
@@ -112,7 +113,7 @@ services:
         - "CARD_0_HREF=http://localhost:${DATASTORIES_PORT}"
         - "CARD_1_TITLE=Geoscripting sandbox"
         - "CARD_1_DESCRIPTION=Jupyterlab provides an environment with opensource geoprocessing tools pre-installed. Run GDAL terminal commands, use ogr2ogr to load data into postgis and explore the python geo-ecosystem. Provides also a directory _host_mount_dir that is mounted to the host file system for easy data access."
-        - "CARD_1_HREF=http://localhost:${JUPYTERLAB_PORT}"
+        - "CARD_1_HREF=http://localhost:${GEOSCRIPTINGSANDBOX}"
         - "CARD_2_TITLE=Database client"
         - "CARD_2_DESCRIPTION=pgAdmin provides a nice user interface to interact with databases."
         - "CARD_2_HREF=http://localhost:${PGADMIN_PORT}"
