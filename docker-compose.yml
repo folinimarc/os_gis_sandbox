@@ -6,6 +6,7 @@ volumes:
    postgis-data:
    pgadmin-data:
    geoscriptingsandbox-data:
+   datastories-data:
 
 services:
     postgis:
@@ -32,6 +33,7 @@ services:
       image: kartoza/geoserver:${GS_VERSION}
       volumes:
         - geoserver-data:${GEOSERVER_DATA_DIR}
+        - datastories-data:${GEOSERVER_DATA_DIR}/datastories_data
         - ${GEOSERVER_HOST_MOUNT_PATH}:${GEOSERVER_DATA_DIR}/host_mount_dir
       ports:
         - 127.0.0.1:${GEOSERVER_PORT}:8080
@@ -76,8 +78,9 @@ services:
       container_name: geoscriptingsandbox-container
       image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION}
       volumes:
-        - ${JUPYTERLAB_HOST_MOUNT_PATH}:/geo/host_mount_dir
         - geoscriptingsandbox-data:/geo
+        - datastories-data:/geo/datastories_data
+        - ${JUPYTERLAB_HOST_MOUNT_PATH}:/geo/host_mount_dir
       ports:
         - 127.0.0.1:${JUPYTERLAB_PORT}:8888
       environment:
