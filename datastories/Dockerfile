@@ -1,4 +1,3 @@
-FROM nginx:1.21-alpine
+FROM alpine:3.15.3
 
-COPY ui /usr/share/nginx/html
-COPY data /datastories_data
+COPY . /datastories

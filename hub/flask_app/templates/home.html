@@ -10,17 +10,82 @@
       .bg-card {
         background-color: #3949ab;
       }
+
+      .btn:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      .btn-outline-light:focus {
+        color: #000;
+        background-color: #f8f9fa;
+        border-color: #f8f9fa;
+      }
+
     </style>
     <script src="/masonry-4.2.2/js/masonry.pkgd.min.js" defer></script>
-    <script src="/bootstrap-5.0.2/js/bootstrap.bundle.min.js" defer></script>
   </head>
   <body>
 
+    <!-- Start Modal Data Journey -->
+    <div class="modal fade" id="modal-1" tabindex="-1" aria-labelledby="modal-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <h5 class="modal-title mx-3">Welcome to the data journey!</h5>
+            </div>
+            <button type="button" class="btn-close me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           Datastory text
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Data Journey -->
+
+    <!-- Start Modal Info -->
+    <div class="modal fade" id="modal-2" tabindex="-1" aria-labelledby="modal-2" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title mx-3">Info</h5>
+            <button type="button" class="btn-close me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           Info text
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Info -->
+
     <!-- Actual content -->
     <div class="container">
+      <!-- Title -->
       <div class="row pt-3">
         <div class="col-12">
           <h1 class="display-3 mb-0">Welcome to OS Geostack Sandbox</h1>
+        </div>
+      </div>
+      <!--Modal buttons -->
+      <div class="row pt-1">
+        <div class="col-12">
+          <!-- Button trigger modal Data journey -->
+          <a class="btn btn-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modal-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16" class="bi bi-lightbulb" viewBox="0 0 16 16">
+              <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            <span class="align-middle">Data journey</span>
+          </a>
+          <!-- Button trigger modal Info -->
+          <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modal-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16" class="bi bi-lightbulb" viewBox="0 0 16 16">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </svg>
+            <span class="align-middle">Info</span>
+          </a>
         </div>
       </div>
       <!-- Sandbox cards -->
@@ -31,16 +96,20 @@
             <div class="card-body">
               <h5 class="card-title display-6">{{ card_parts['TITLE'] }}</h5>
               <p class="card-text">
-              {{ card_parts['DESCRIPTION'] }}
-              {% if card_parts['KEYVALUE'] %}
-              <hr>
-                {% for kv_pair in card_parts['KEYVALUE'] %}
-                <div><small>{{ kv_pair[0] }}: {{ kv_pair[1] }}</small></div>
-                {% endfor %}
-              {% endif %}
+                {{ card_parts['DESCRIPTION'] }}
               </p>
               {% if card_parts['HREF'] %}
-              <a class="btn btn-outline-warning" href="{{ card_parts['HREF'] }}" target="_blank">Open</a>
+              <a class="btn btn-sm btn-warning" href="{{ card_parts['HREF'] }}" target="_blank">Open</a>
+              {% endif %}
+              {% if card_parts['KEYVALUE'] %}
+              <a tabindex="0" class="btn btn-sm btn-outline-light" role="button"
+                  data-bs-toggle="popover"
+                  data-bs-trigger="hover focus"
+                  data-bs-content="<span>{% for kv_pair in card_parts['KEYVALUE'] %}
+                    <div><small>{{ kv_pair[0] }}: {{ kv_pair[1] }}</small></div>
+                    {% endfor %}</span>">
+                    Connection info
+                </a>
               {% endif %}
             </div>
           </div>
@@ -48,5 +117,14 @@
         {% endfor %}
       </div>
     </div>
+
+    <script src="/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Enable bootstrap popovers
+      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl, {"html": true})
+      })
+    </script>
   </body>
 </html>

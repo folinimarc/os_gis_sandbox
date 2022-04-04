@@ -2,12 +2,15 @@ ecmwflibs==0.4.6
 Fiona==1.8.20
 folium==0.12.1.post1
 GDAL==3.2.2
+geoalchemy2==0.10.2
 geopandas==0.10.2
+ipyleaflet==0.15.0
 jupyterlab==3.2.8
 mapclassify==2.4.3
 matplotlib==3.5.1
 openpyxl==3.0.9
 OWSLib==0.25.0
+psycopg2==2.9.3
 pygeos==0.12.0
 pyproj==3.3.0
 pysal==2.6.0

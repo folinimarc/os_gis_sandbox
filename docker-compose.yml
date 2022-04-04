@@ -35,7 +35,7 @@ services:
       image: kartoza/geoserver:${GS_VERSION}
       volumes:
         - geoserver-data:${GEOSERVER_DATA_DIR}
-        - datastories-data:${GEOSERVER_DATA_DIR}/_datastories_data
+        - datastories-data:${GEOSERVER_DATA_DIR}/_datastories
         - ${GEOSERVER_HOST_MOUNT_PATH}:${GEOSERVER_DATA_DIR}/_host_mount_dir
       ports:
         - 127.0.0.1:${GEOSERVER_PORT}:8080
@@ -81,7 +81,7 @@ services:
       image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION}
       volumes:
         - geoscriptingsandbox-data:/geo
-        - datastories-data:/geo/_datastories_data
+        - datastories-data:/geo/_datastories
         - ${GEOSCRIPTINGSANDBOX_HOST_MOUNT_PATH}:/geo/_host_mount_dir
       ports:
         - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT}:8888
@@ -92,36 +92,33 @@ services:
       command: "jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --no-browser --autoreload --LabApp.token=''"
 
     datastories:
-      container_name: datastories-container
-      # build: ./datastories/
+      #container_name: datastories-container
+      build: ./datastories/
       image: ghcr.io/laiskasiili/os_geostack_sandbox/datastories:${DATASTORIES_VERSION_TAG}
       volumes:
-        - datastories-data:/datastories_data
+        - datastories-data:/datastories
       ports:
         - 127.0.0.1:${DATASTORIES_PORT}:80
       restart: on-failure
 
     hub:
-      container_name: hub-container
-      # build: ./hub/
+      #container_name: hub-container
+      build: ./hub/
       image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION}
       ports:
         - 127.0.0.1:${FLASK_PORT}:5000
       restart: on-failure
       mem_limit: ${FLASK_CONTAINER_MEMLIMIT}
       environment:
-        - "CARD_0_TITLE=Data stories"
-        - "CARD_0_DESCRIPTION=A data story will show you how the various tools of the sandbox can work together in real world usecases."
-        - "CARD_0_HREF=http://localhost:${DATASTORIES_PORT}"
         - "CARD_1_TITLE=Geoscripting sandbox"
-        - "CARD_1_DESCRIPTION=Jupyterlab provides an environment with opensource geoprocessing tools pre-installed. Run GDAL terminal commands, use ogr2ogr to load data into postgis and explore the python geo-ecosystem. Provides also a directory _host_mount_dir that is mounted to the host file system for easy data access."
+        - "CARD_1_DESCRIPTION=This is a pre-configured local JupyterLab environment to explore the python geo-ecosystem and use GDAL commands like ogr2ogr. Provides a directory _host_mount_dir that is mounted to the host file system for easy data access."
         - "CARD_1_HREF=http://localhost:${GEOSCRIPTINGSANDBOX_PORT}"
         - "CARD_2_TITLE=Database client"
         - "CARD_2_DESCRIPTION=pgAdmin provides a nice user interface to interact with databases."
         - "CARD_2_HREF=http://localhost:${PGADMIN_PORT}"
         - "CARD_2_KEYVALUE=Email,${PGADMIN_DEFAULT_EMAIL};Password,${PGADMIN_DEFAULT_PASSWORD}"
         - "CARD_3_TITLE=Spatial database"
-        - "CARD_3_DESCRIPTION=Postgis is an extension for storing and processing of spatial data in postgreSQL. To interact use pgAdmin or the psql command from the terminal in the geoscripting sandbox. To connect from outside the sandbox like from QGIS use Host(ext) and Port(ext)."
+        - "CARD_3_DESCRIPTION=Postgis is an extension for storing and processing of spatial data in postgreSQL. To interact use pgAdmin or the psql command from the terminal in the geoscripting sandbox. To connect from outside the sandbox use Host(ext) and Port(ext)."
         - "CARD_3_KEYVALUE=Username,${POSTGRES_USER};Password,${POSTGRES_PASSWORD};DB name,${POSTGRES_DB};Host,postgis-container;Port,5432;Host(ext), localhost;Port(ext),${POSTGIS_PORT_EXTERNAL}"
         - "CARD_4_TITLE=OGC-Server"
         - "CARD_4_DESCRIPTION=Geoserver is an OGC compliant server to provide services like WMS and WFS. In Geoserver's data directory there is a _host_mount_dir directory that is mounted to the host file system for easy data access. To connect from outside the sandbox use Host(ext) and Port(ext)."

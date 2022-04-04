@@ -36,7 +36,11 @@ RUN apt-get update && \
 # Rioxarray: Extension of xarray to seamlessly interface with rasterio for 2D raster data.
 # Jupyterlab: Allows to write rich scripts (notebooks) and run code interactively in the browser.
 # Pysal: A collection of packages for advanced geospatial statistical modelling and visualization.
-# OWSlib: A python client library to work with OGC OWS services like WMS, WFS, WCS, ...
+# OWSlib: A python client library to work with OGC OWS services (WMS, WFS, ...).
+# Psycopg2: Database adapter to connect to postgresql from python.
+# Geoalchemy2: Spatial extension to Sqlalchemy, a commonly used SQL toolkit and
+# object mapper.
+# Ipyleaflet: Leaflet integration for jupyter notebooks to display interactive maps.
 # ------------------------------------------------------
 RUN mkdir /setup
 COPY ./requirements.txt /setup/requirements.txt
