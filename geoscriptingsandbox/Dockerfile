@@ -1,59 +1,70 @@
-FROM python:3.9-slim@sha256:f4efbe5d1eb52c221fded79ddf18e4baa0606e7766afe2f07b0b330a9e79564a
+FROM ubuntu:focal-20220404
 
-LABEL description="Various python geoprocessing components \
-(geopandas, gdal bindings, rasterio, ...) with dependencies neatly working together."
+LABEL description="Python/JupyterLab instance with various python geoprocessing components \
+(geopandas, gdal bindings, rasterio, ...) neatly working together."
 
-# Install GDAL, GEOS, PROJ (libgdal-dev will install libgeos-dev & libproj-dev)
-RUN apt-get update && \
+ARG GDAL_VERSION=3.4.0
+ARG POSTGRESQL_CLIENT_VERSION=14
+
+# Preparation: Add ubuntugis ppa (for gdal, geos, proj)
+RUN DEBIAN_FRONTEND=noninteractive && \
+    apt update && \
     apt-get install -y --no-install-recommends \
-    binutils=2.35.2-2 \
-    build-essential=12.9 \
-    libgdal-dev=3.2.2+dfsg-2+deb11u1 \
-    gdal-bin=3.2.2+dfsg-2+deb11u1 \
-    # Install postgres 13 client
-    postgresql-client=13+225 \
-    # Clean up
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+        tzdata software-properties-common && \
+    add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 
-# Install python packages for geoprocessing and workflow
-# ------------------------------------------------------
-# Shapely: Does planar geometric processing (uses GEOS).
-# Pygeos: Newer sibling to shapely with focus on performance. Will be integrated in shapely 2.0.
-# Fiona: Reads and writes everything (uses OGR).
-# Pyproj: Handles projections (uses PROJ).
-# Rtree: Spatial indexing (plays well with geopandas).
-# Openpyxl: Is required by geopandas to write excel files.
-# Matplotlib: Is required by geopandas to visualize geometries.
-# Mapclassify: Utility package for classification schemes for Choropleth Maps. Used by geopandas for GeoDataFrame.explore().
-# Folium: Provides interactive plotting capbilities. Used by geopandas for GeoDataFrame.explore().
-# Geopandas: Extends pandas with geospatial capabilities (uses shapely, pygeos, fiona, pyproj, Rtree, ...)
-# Gdal: Low level gdal python bindings. More a nice-to-have as there are higher level packages like rasterio for interacting with gdal.
-# Rasterio Makes working with rasters fun (uses GDAL).
-# Xarray: Deals with multidimensional data. Ideal to read/writes netCDF files.
-# Xarray-spatial: Extends xarray with powerful spatial processing capabilities without depending on GDAL.
-# Xarray[io]: Various io plugins to read/write data in xarray, e.g. netCDF, GRIB,...
-# Ecmwflibs: Install because of bug in xarray[io] as of 20210104, but in future xarray[io] should suffice.
-# Rioxarray: Extension of xarray to seamlessly interface with rasterio for 2D raster data.
-# Jupyterlab: Allows to write rich scripts (notebooks) and run code interactively in the browser.
-# Pysal: A collection of packages for advanced geospatial statistical modelling and visualization.
-# OWSlib: A python client library to work with OGC OWS services like WMS, WFS, WCS, ...
-# ------------------------------------------------------
+# Preparation: Add repo for postgres 14 client
+# Kudos to https://techviewleo.com/how-to-install-postgresql-database-on-ubuntu/
+RUN DEBIAN_FRONTEND=noninteractive && \
+    apt update && \
+    apt-get install -y --no-install-recommends \
+        gnupg2 wget lsb-release && \
+    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
+# Preparation: Ability to compile python packages (e.g. pygeos against existing geos)
+RUN DEBIAN_FRONTEND=noninteractive && \
+    apt update && \
+    apt-get install -y --no-install-recommends \
+    build-essential python3-dev
+
+# Main install:
+# - gdal, geos, proj
+# - postgresql 14 client
+# - python3-dev (e.g. for compiling pygeos against existing geos)
+# - pip
+RUN DEBIAN_FRONTEND=noninteractive && \
+    apt update && \
+    # Note: geos, proj installed by libgdal-dev.
+    apt-get install -y --no-install-recommends \
+        gdal-bin=${GDAL_VERSION}* \
+        libgdal-dev=${GDAL_VERSION}* \
+        postgresql-client=${POSTGRESQL_CLIENT_VERSION}* \
+        python3-pip && \
+    pip install --upgrade pip
+# Clean up
+RUN DEBIAN_FRONTEND=noninteractive && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# According to "install GDAL for python section"
+# https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
+# Install python packages
+# - Copy requirements
+# - Add GDAL with correct version
+# - Add directive for shapely and pygeos to use existing library
+# - Install from requirements.txt
 RUN mkdir /setup
 COPY ./requirements.txt /setup/requirements.txt
-# Shapely and pygeos should use the existing GEOS library.
-# Append this line to requirements.txt as pip freeze does not account for it.
-RUN echo "--no-binary=shapely,pygeos" >> /setup/requirements.txt && \
-    pip install --upgrade pip && \
+RUN echo "GDAL==${GDAL_VERSION}" >> /setup/requirements.txt && \
+    echo "--no-binary=shapely,pygeos" >> /setup/requirements.txt && \
     pip install -r /setup/requirements.txt
 
-# TODO
-# Install QGIS and make PyQGIS available in notebooks as kernel.
-# Judging from first research this is going to be non-trivial.
-
+# Final touches
 RUN mkdir /geo
 WORKDIR /geo
-
-# Copy examples into container
-COPY ./example_notebooks ./example_notebooks
+COPY ./tutorial_notebooks ./tutorial_notebooks
 
 CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]
