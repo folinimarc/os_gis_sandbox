@@ -24,11 +24,6 @@ services:
       restart: on-failure
       shm_size: 256MB
       mem_limit: ${POSTGRES_CONTAINER_MEMLIMIT}
-      healthcheck:
-        test: ["CMD-SHELL", "pg_isready"]
-        interval: 10s
-        timeout: 5s
-        retries: 3
 
     geoserver:
       container_name: geoserver-container
@@ -52,11 +47,6 @@ services:
         - "TOMCAT_EXTRAS=${TOMCAT_EXTRAS}"
         - "ROOT_WEBAPP_REDIRECT=${ROOT_WEBAPP_REDIRECT}"
       mem_limit: ${GEOSERVER_CONTAINER_MEMLIMIT}
-      healthcheck:
-        test: "curl --fail -s http://localhost:8080/geoserver/web || exit 1"
-        interval: 10s
-        timeout: 10s
-        retries: 3
 
     pgadmin:
       container_name: pgadmin-container
@@ -70,11 +60,6 @@ services:
         - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
         - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}"
       mem_limit: ${PGADMIN_CONTAINER_MEMLIMIT}
-      healthcheck:
-        test: "wget --spider -q http://localhost:80/ || exit 1"
-        interval: 10s
-        timeout: 10s
-        retries: 3
 
     geoscriptingsandbox:
       container_name: geoscriptingsandbox-container
