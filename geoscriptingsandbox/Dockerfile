@@ -65,6 +65,9 @@ RUN echo "GDAL==${GDAL_VERSION}" >> /setup/requirements.txt && \
 # Final touches
 RUN mkdir /geo
 WORKDIR /geo
-COPY ./tutorial_notebooks ./tutorial_notebooks
+COPY ./tutorial_notebooks .
+
+# make sure jupyter lab terminal uses bash
+ENV SHELL=/bin/bash
 
 CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]
