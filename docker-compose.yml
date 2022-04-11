@@ -10,7 +10,7 @@ volumes:
 
 services:
     postgis:
-      container_name: postgis-container
+      container_name: postgis
       image: postgis/postgis:${POSTGIS_VERSION_TAG}
       volumes:
          - postgis-data:/var/lib/postgresql/data
@@ -21,92 +21,87 @@ services:
         - "POSTGRES_USER=${POSTGRES_USER}"
         - "POSTGRES_DB=${POSTGRES_DB}"
         - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
-      restart: on-failure
+      restart: always
       shm_size: 256MB
-      mem_limit: ${POSTGRES_CONTAINER_MEMLIMIT}
 
     geoserver:
-      container_name: geoserver-container
+      container_name: geoserver
       image: kartoza/geoserver:${GS_VERSION}
       volumes:
-        - geoserver-data:${GEOSERVER_DATA_DIR}
-        - datastories-data:${GEOSERVER_DATA_DIR}/_datastories
-        - ${GEOSERVER_HOST_MOUNT_PATH}:${GEOSERVER_DATA_DIR}/_host_mount_dir
+        - geoserver-data:/opt/geoserver/data_dir
+        - datastories-data:/opt/geoserver/data_dir/${DATASTORIES_MOUNT_FOLDER_NAME}
+        - ${HOST_SYSTEM_MOUNT_PATH}:/opt/geoserver/data_dir/${HOST_MOUNT_FOLDER_NAME}
       ports:
-        - 127.0.0.1:${GEOSERVER_PORT}:8080
-      restart: on-failure
+        - 127.0.0.1:${GEOSERVER_PORT_EXTERNAL}:8080
+      restart: always
       environment:
-        - "GEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR}"
-        - "GEOWEBCACHE_CACHE_DIR=${GEOWEBCACHE_CACHE_DIR}"
+        - "GEOSERVER_DATA_DIR=/opt/geoserver/data_dir"
+        - "GEOWEBCACHE_CACHE_DIR=/opt/geoserver/data_dir/gwc"
         - "GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}"
         - "GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER}"
         - "INITIAL_MEMORY=${INITIAL_MEMORY}"
         - "MAXIMUM_MEMORY=${MAXIMUM_MEMORY}"
         - "SAMPLE_DATA=${SAMPLE_DATA}"
+        - "STABLE_EXTENSIONS=${STABLE_EXTENSIONS}"
         - "COMMUNITY_EXTENSIONS=${COMMUNITY_EXTENSIONS}"
         - "TOMCAT_EXTRAS=${TOMCAT_EXTRAS}"
-        - "ROOT_WEBAPP_REDIRECT=${ROOT_WEBAPP_REDIRECT}"
-      mem_limit: ${GEOSERVER_CONTAINER_MEMLIMIT}
+        - "ROOT_WEBAPP_REDIRECT=true"
 
     pgadmin:
-      container_name: pgadmin-container
+      container_name: pgadmin
       image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG}"
       volumes:
         - pgadmin-data:/var/lib/pgadmin
       ports:
-        - 127.0.0.1:${PGADMIN_PORT}:80
-      restart: on-failure
+        - 127.0.0.1:${PGADMIN_PORT_EXTERNAL}:80
+      restart: always
       environment:
         - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
         - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}"
-      mem_limit: ${PGADMIN_CONTAINER_MEMLIMIT}
 
     geoscriptingsandbox:
-      container_name: geoscriptingsandbox-container
+      container_name: geoscriptingsandbox
       image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION}
       volumes:
         - geoscriptingsandbox-data:/geo
-        - datastories-data:/geo/_datastories
-        - ${GEOSCRIPTINGSANDBOX_HOST_MOUNT_PATH}:/geo/_host_mount_dir
+        - datastories-data:/geo/${DATASTORIES_MOUNT_FOLDER_NAME}
+        - ${HOST_SYSTEM_MOUNT_PATH}:/geo/${HOST_MOUNT_FOLDER_NAME}
       ports:
-        - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT}:8888
-      restart: on-failure
-      mem_limit: ${GEOSCRIPTINGSANDBOX_CONTAINER_MEMLIMIT}
-      command: "jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --no-browser --autoreload --LabApp.token=''"
+        - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL}:8888
+      restart: always
+      command: ["jupyter", "lab", "--ip", "0.0.0.0", "--port", "8888", "--allow-root", "--no-browser", "--autoreload", "--LabApp.token=''"]
 
     datastories:
-      #container_name: datastories-container
-      build: ./datastories/
+      container_name: datastories
+      # build: ./datastories/
       image: ghcr.io/laiskasiili/os_geostack_sandbox/datastories:${DATASTORIES_VERSION_TAG}
       volumes:
         - datastories-data:/datastories
-      ports:
-        - 127.0.0.1:${DATASTORIES_PORT}:80
-      restart: on-failure
+      restart: always
 
     hub:
-      #container_name: hub-container
-      build: ./hub/
+      container_name: hub
+      # build: ./hub/
       image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION}
       ports:
-        - 127.0.0.1:${FLASK_PORT}:5000
-      restart: on-failure
-      mem_limit: ${FLASK_CONTAINER_MEMLIMIT}
+        - 127.0.0.1:${HUB_PORT_EXTERNAL}:5000
+      restart: always
+      command: ["gunicorn" ,"--workers", "2", "--threads", "2", "--bind", "0.0.0.0:5000", "app:app"]
       environment:
         - "CARD_1_TITLE=Geoscripting sandbox"
-        - "CARD_1_DESCRIPTION=This is a pre-configured local JupyterLab environment to explore the python geo-ecosystem and use GDAL commands like ogr2ogr. Provides a directory _host_mount_dir that is mounted to the host file system for easy data access."
-        - "CARD_1_HREF=http://localhost:${GEOSCRIPTINGSANDBOX_PORT}"
+        - "CARD_1_DESCRIPTION=This is a pre-configured local JupyterLab environment to explore the python geo-ecosystem and use GDAL commands like ogr2ogr. Here you also find tutorial notebooks as well as the datastories."
+        - "CARD_1_HREF=http://localhost:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL}"
         - "CARD_2_TITLE=Database client"
-        - "CARD_2_DESCRIPTION=pgAdmin provides a nice user interface to interact with databases."
-        - "CARD_2_HREF=http://localhost:${PGADMIN_PORT}"
+        - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL databases."
+        - "CARD_2_HREF=http://localhost:${PGADMIN_PORT_EXTERNAL}"
         - "CARD_2_KEYVALUE=Email,${PGADMIN_DEFAULT_EMAIL};Password,${PGADMIN_DEFAULT_PASSWORD}"
         - "CARD_3_TITLE=Spatial database"
-        - "CARD_3_DESCRIPTION=Postgis is an extension for storing and processing of spatial data in postgreSQL. To interact use pgAdmin or the psql command from the terminal in the geoscripting sandbox. To connect from outside the sandbox use Host(ext) and Port(ext)."
-        - "CARD_3_KEYVALUE=Username,${POSTGRES_USER};Password,${POSTGRES_PASSWORD};DB name,${POSTGRES_DB};Host,postgis-container;Port,5432;Host(ext), localhost;Port(ext),${POSTGIS_PORT_EXTERNAL}"
-        - "CARD_4_TITLE=OGC-Server"
-        - "CARD_4_DESCRIPTION=Geoserver is an OGC compliant server to provide services like WMS and WFS. In Geoserver's data directory there is a _host_mount_dir directory that is mounted to the host file system for easy data access. To connect from outside the sandbox use Host(ext) and Port(ext)."
-        - "CARD_4_HREF=http://localhost:${GEOSERVER_PORT}/geoserver/web"
-        - "CARD_4_KEYVALUE=Username,${GEOSERVER_ADMIN_USER};Password,${GEOSERVER_ADMIN_PASSWORD};Host,geoserver-container;Port,8080;Host(ext), localhost;Port(ext),${GEOSERVER_PORT}"
+        - "CARD_3_DESCRIPTION=Postgis is an extension for storing and processing of spatial data in postgreSQL. To interact use pgAdmin or the psql command from the terminal in the geoscripting sandbox. To connect from outside the sandbox use HostExternal and PortExternal."
+        - "CARD_3_KEYVALUE=Username,${POSTGRES_USER};Password,${POSTGRES_PASSWORD};Database name,${POSTGRES_DB};Host,postgis;Port,5432;HostExternal, localhost;PortExternal,${POSTGIS_PORT_EXTERNAL}"
+        - "CARD_4_TITLE=OGC Data Server"
+        - "CARD_4_DESCRIPTION=Geoserver implements established OGC web services like WMS and WFS. A community extension is activated to provide functionality of the new OGC API standard. To connect from outside the sandbox use HostExternal and PortExternal."
+        - "CARD_4_HREF=http://localhost:${GEOSERVER_PORT_EXTERNAL}/geoserver/web"
+        - "CARD_4_KEYVALUE=Username,${GEOSERVER_ADMIN_USER};Password,${GEOSERVER_ADMIN_PASSWORD};Host,geoserver;Port,8080;HostExternal, localhost;PortExternal,${GEOSERVER_PORT_EXTERNAL}"
         - "CARD_5_TITLE=Webclient sandbox"
-        - "CARD_5_DESCRIPTION=Openlayers is a javascript library for interactive maps in the browser. As it speaks OGC standards it can talk to a geoserver. Let's use codesandbox.io, an awesome online code editor that takes care of the nitty gritty details of modern web development."
-        - "CARD_5_HREF=https://codesandbox.io/s/sharp-thunder-1xbl0"
+        - "CARD_5_DESCRIPTION=Openlayers is a javascript library for interactive maps in the browser. As it speaks OGC standards it can talk to a geoserver. We use codesandbox.io, an awesome online code editor that takes care of the nitty gritty details of modern web development."
+        - "CARD_5_HREF=https://codesandbox.io/s/sharp-thunder-1xbl0?file=/map.js"
