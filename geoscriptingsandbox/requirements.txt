@@ -20,11 +20,13 @@
 # Jupyterlab: Allows to write rich scripts (notebooks) and run code interactively in the browser.
 # Pysal: A collection of packages for advanced geospatial statistical modelling and visualization.
 # OWSlib: A python client library to work with OGC OWS services like WMS, WFS, WCS, ...
+# GeoAlchemy2: Library that allows to interact with spatial databases. Based on the SqlAlchemy.
 
 # Note: GDAL added from  dockerfile with appropriate version.
 ecmwflibs==0.4.6
 Fiona==1.8.20
 folium==0.12.1.post1
+GeoAlchemy2==0.11.1
 geopandas==0.10.2
 ipyleaflet==0.15.0
 jupyterlab==3.2.8
