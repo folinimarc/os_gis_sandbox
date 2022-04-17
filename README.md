@@ -70,7 +70,7 @@ Select a path on your system you want to be accessible through jupyterlab and re
 with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/geo/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:geoscriptingsandbox-v0.0.5
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/geo/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:geoscriptingsandbox-v0.0.6
 ```
 
 The first run will take some time because a lot of data is being downloaded, subsequent runs of this command will take
@@ -100,8 +100,8 @@ This is the default way docker compose handles environment variables and more in
 | HOST_SYSTEM_MOUNT_PATH            | ./                             |                                                                                                                                      |
 | HOST_MOUNT_FOLDER_NAME            | _host_mount_dir                |                                                                                                                                      |
 | DATASTORIES_MOUNT_FOLDER_NAME     | _datastories                   |                                                                                                                                      |
-| DATASTORIES_VERSION_TAG           | datastories-v0.0.1             |                                                                                                                                      |
-| GEOSCRIPTINGSANDBOX_VERSION       | geoscriptingsandbox-v0.0.5     |                                                                                                                                      |
+| DATASTORIES_VERSION_TAG           | datastories-v0.0.2             |                                                                                                                                      |
+| GEOSCRIPTINGSANDBOX_VERSION       | geoscriptingsandbox-v0.0.6     |                                                                                                                                      |
 | GEOSCRIPTINGSANDBOX_PORT_EXTERNAL | 8004                           |                                                                                                                                      |
 | GEOSERVER_VERSION                 | 2.20.1                         |                                                                                                                                      |
 | GEOSERVER_PORT_EXTERNAL           | 8003                           |                                                                                                                                      |
@@ -111,7 +111,7 @@ This is the default way docker compose handles environment variables and more in
 | GEOSERVER_SAMPLE_DATA             | true                           |                                                                                                                                      |
 | GEOSERVER_STABLE_EXTENSIONS       |                                | [Stable extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/stable_plugins.txt)       |
 | GEOSERVER_COMMUNITY_EXTENSIONS    | geostyler-plugin,ogcapi-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
-| HUB_VERSION                       | hub-v0.0.5                     |                                                                                                                                      |
+| HUB_VERSION                       | hub-v0.0.6                     |                                                                                                                                      |
 | HUB_PORT_EXTERNAL                 | 80                             |                                                                                                                                      |
 | PGADMIN_VERSION_TAG               | 6.8                            |                                                                                                                                      |
 | PGADMIN_PORT_EXTERNAL             | 8002                           |                                                                                                                                      |
