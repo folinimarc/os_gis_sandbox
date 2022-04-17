@@ -1,3 +1,4 @@
 gitignored/
+**/*_checkpoints/
 **/*-checkpoint.ipynb
 **/python_geoprocessing/

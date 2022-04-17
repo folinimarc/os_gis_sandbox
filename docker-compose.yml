@@ -21,7 +21,6 @@ services:
         - "POSTGRES_USER=${POSTGRES_USER:-gis}"
         - "POSTGRES_DB=${POSTGRES_DB:-gis}"
         - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-gis}"
-      restart: always
       shm_size: 256MB
 
     geoserver:
@@ -33,7 +32,6 @@ services:
         - ${HOST_SYSTEM_MOUNT_PATH:-./}:/opt/geoserver/data_dir/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
       ports:
         - 127.0.0.1:${GEOSERVER_PORT_EXTERNAL:-8003}:8080
-      restart: always
       environment:
         - "GEOSERVER_DATA_DIR=/opt/geoserver/data_dir"
         - "GEOWEBCACHE_CACHE_DIR=/opt/geoserver/data_dir/gwc"
@@ -53,7 +51,6 @@ services:
         - pgadmin-data:/var/lib/pgadmin
       ports:
         - 127.0.0.1:${PGADMIN_PORT_EXTERNAL:-8002}:80
-      restart: always
       environment:
         - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-gis@gis.com}"
         - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-gis}"
@@ -63,12 +60,11 @@ services:
       #build: ./geoscriptingsandbox/
       image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.5}
       volumes:
-        - geoscriptingsandbox-data:/geo
-        - datastories-data:/geo/${DATASTORIES_MOUNT_FOLDER_NAME:-_datastories}
-        - ${HOST_SYSTEM_MOUNT_PATH:-./}:/geo/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
+        - geoscriptingsandbox-data:/home
+        - datastories-data:/home/${DATASTORIES_MOUNT_FOLDER_NAME:-_datastories}
+        - ${HOST_SYSTEM_MOUNT_PATH:-./}:/home/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
       ports:
         - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL:-8004}:8888
-      restart: always
       command: ["jupyter", "lab", "--ip", "0.0.0.0", "--port", "8888", "--allow-root", "--no-browser", "--autoreload", "--LabApp.token=''"]
 
     datastories:
@@ -76,8 +72,7 @@ services:
       build: ./datastories/
       # image: ghcr.io/laiskasiili/os_geostack_sandbox/datastories:${DATASTORIES_VERSION_TAG:-datastories-v0.0.1}
       volumes:
-        - datastories-data:/datastories
-      restart: always
+        - datastories-data:/shared_datastories
 
     hub:
       container_name: hub-container
@@ -85,7 +80,6 @@ services:
       # image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION:-hub-v0.0.5}
       ports:
         - 127.0.0.1:${HUB_PORT_EXTERNAL:-80}:5000
-      restart: always
       command: ["gunicorn" ,"--workers", "2", "--threads", "2", "--bind", "0.0.0.0:5000", "app:app"]
       environment:
         - "CARD_1_TITLE=Geoscripting sandbox"

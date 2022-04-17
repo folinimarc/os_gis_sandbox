@@ -24,6 +24,16 @@
 
     </style>
     <script src="/masonry-4.2.2/js/masonry.pkgd.min.js" defer></script>
+    <script src="/bootstrap-5.0.2/js/bootstrap.bundle.min.js" defer></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        // Enable bootstrap popovers
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+          return new bootstrap.Popover(popoverTriggerEl, {"html": true})
+        })
+      });
+    </script>
   </head>
   <body>
 
@@ -117,14 +127,5 @@
         {% endfor %}
       </div>
     </div>
-
-    <script src="/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
-    <script>
-      // Enable bootstrap popovers
-      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl, {"html": true})
-      })
-    </script>
   </body>
 </html>
