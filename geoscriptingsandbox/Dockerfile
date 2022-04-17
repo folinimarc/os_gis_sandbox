@@ -62,12 +62,14 @@ RUN echo "GDAL==${GDAL_VERSION}" >> /setup/requirements.txt && \
     echo "--no-binary=shapely,pygeos" >> /setup/requirements.txt && \
     pip install -r /setup/requirements.txt
 
-# Final touches
-RUN mkdir /geo
-WORKDIR /geo
-COPY ./tutorial_notebooks .
-
 # make sure jupyter lab terminal uses bash
 ENV SHELL=/bin/bash
+
+# Copy tutorial notebooks into image. Will be copied to /home/tutorial_notebooks in entrypoint.sh
+COPY ./tutorial_notebooks /setup/tutorial_notebooks_img
+COPY entrypoint.sh /setup
+ENTRYPOINT ["/setup/entrypoint.sh"]
+
+WORKDIR /home
 
 CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]

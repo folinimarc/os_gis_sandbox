@@ -1,4 +1,2 @@
-Dockerfile
-.dockerignore
 **/*_checkpoints/
 **/*-checkpoint.ipynb
