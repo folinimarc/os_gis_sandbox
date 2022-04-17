@@ -70,7 +70,7 @@ Select a path on your system you want to be accessible through jupyterlab and re
 with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/geo/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:geoscriptingsandbox-v0.0.6
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:geoscriptingsandbox-v0.0.6
 ```
 
 The first run will take some time because a lot of data is being downloaded, subsequent runs of this command will take
