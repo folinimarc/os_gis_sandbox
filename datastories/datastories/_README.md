@@ -1,4 +1,8 @@
-# Hey there fellow friend - a word about file persistence?
+If this text looks spartanic and hard to read, right-click here and select "Show Markdown Preview"!
+
+***
+
+# Hey there friend - a word about file persistence?
 - All files and folders you did not create in here will be **reset** every time the sandbox is restarted!
 - Whatever files and folders you create are safe and will be persisted across restarts as long as the names do not clash
 with existing folders and files. This also applies to files you create inside existing folders, because we do not
