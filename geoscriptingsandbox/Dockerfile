@@ -67,9 +67,12 @@ ENV SHELL=/bin/bash
 
 # Copy tutorial notebooks into image. Will be copied to /home/tutorial_notebooks in entrypoint.sh
 COPY ./tutorial_notebooks /setup/tutorial_notebooks_img
+
+# Copy entrypoint and make executable
 COPY entrypoint.sh /setup
-ENTRYPOINT ["/setup/entrypoint.sh"]
+RUN chmod 0700 /setup/entrypoint.sh
 
 WORKDIR /home
 
+ENTRYPOINT ["/setup/entrypoint.sh"]
 CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]
