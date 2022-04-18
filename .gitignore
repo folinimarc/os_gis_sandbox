@@ -1,6 +1,7 @@
 .vscode/
 
 gitignored/
+**/*_checkpoints/
 **/*-checkpoint.ipynb
 **/python_geoprocessing/
 thesis/*

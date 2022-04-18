@@ -7,4 +7,4 @@ COPY ./flask_app /home/flask_app
 
 WORKDIR /home/flask_app
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn" ,"--workers", "2", "--threads", "2", "--bind", "0.0.0.0:5000", "app:app"]

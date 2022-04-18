@@ -1,0 +1,6 @@
+﻿Sie haben folgende Bestellung aufgegeben: 
+Name des Geodatensatzes: Fuss- und Velowegnetz 
+Name des Ausschnittes: full
+Ausschnitt (falls definiert): 0, 0, 0,0 
+Zeitpunkt der Bearbeitung: 05.04.2022 - 15:41 
+
