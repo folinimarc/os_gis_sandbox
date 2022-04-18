@@ -58,7 +58,7 @@ services:
     geoscriptingsandbox:
       container_name: geoscriptingsandbox-container
       #build: ./geoscriptingsandbox/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.6}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.7}
       volumes:
         - geoscriptingsandbox-data:/home
         - datastories-data:/home/${DATASTORIES_MOUNT_FOLDER_NAME:-_datastories}
@@ -72,7 +72,7 @@ services:
     datastories:
       container_name: datastories-container
       # build: ./datastories/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/datastories:${DATASTORIES_VERSION_TAG:-datastories-v0.0.2}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/datastories:${DATASTORIES_VERSION_TAG:-datastories-v0.0.3}
       volumes:
         - datastories-data:/shared_datastories
 
