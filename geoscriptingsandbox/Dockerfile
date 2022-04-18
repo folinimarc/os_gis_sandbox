@@ -51,28 +51,38 @@ RUN DEBIAN_FRONTEND=noninteractive && \
 # https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
+
 # Install python packages
 # - Copy requirements
 # - Add GDAL with correct version
 # - Add directive for shapely and pygeos to use existing library
 # - Install from requirements.txt
-RUN mkdir /setup
-COPY ./requirements.txt /setup/requirements.txt
-RUN echo "GDAL==${GDAL_VERSION}" >> /setup/requirements.txt && \
-    echo "--no-binary=shapely,pygeos" >> /setup/requirements.txt && \
-    pip install -r /setup/requirements.txt
+RUN mkdir /assets
+COPY ./copy_to_image/requirements.txt /assets/requirements.txt
+RUN echo "GDAL==${GDAL_VERSION}" >> /assets/requirements.txt && \
+    echo "--no-binary=shapely,pygeos" >> /assets/requirements.txt && \
+    pip install -r /assets/requirements.txt
 
 # make sure jupyter lab terminal uses bash
 ENV SHELL=/bin/bash
 
-# Copy tutorial notebooks into image. Will be copied to /home/tutorial_notebooks in entrypoint.sh
-COPY ./tutorial_notebooks /setup/tutorial_notebooks_img
+# Copy readme about file persistence which will be copied to home directory in entrypoint.sh
+# if HOME_IS_PERSISTED is true. Defaults to false for the docker standalone usecase without volume.
+ENV HOME_IS_PERSISTED=false
+COPY ./copy_to_image/_README.md /assets/_README.md
+
+# Copy tutorial notebooks to home directory accessible by user.
+# Copy also to backup location in case of home folder is persisted on volume (HOME_IS_PERSISTED=true),
+# in which case entrypoint.sh will overwrite from backup location at each restart. This is to ensure
+# that changes from new image versions are made available to users without them having to remove the volumes.
+COPY ./copy_to_image/tutorial_notebooks /home/tutorial_notebooks
+COPY ./copy_to_image/tutorial_notebooks /assets/tutorial_notebooks_img
 
 # Copy entrypoint and make executable
-COPY entrypoint.sh /setup
-RUN chmod 0700 /setup/entrypoint.sh
+COPY ./copy_to_image/entrypoint.sh /assets/entrypoint.sh
+RUN chmod 0700 /assets/entrypoint.sh
 
 WORKDIR /home
 
-ENTRYPOINT ["/setup/entrypoint.sh"]
+ENTRYPOINT ["/assets/entrypoint.sh"]
 CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]
