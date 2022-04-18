@@ -17,7 +17,7 @@
 \graphicspath{ {img/} } % path where grahics are stored
 
 % title page parameters
-\title{Make experimentation fun in educational GIS workshops with Sandboxes \& Data journeys}
+\title{Open-source GIS sandbox and data stories - A new tool for GIS workshops}
 \author{Marc Folini}
 \date{May 2022}
 
@@ -35,25 +35,27 @@
   \thispagestyle{empty}
   % abstract
   \begin{abstract}
-    It is generally desirable in educational GIS workshops to supplement the
-    theoretical concepts with hands-on exercises in order for participants to
-    become an active part in the learning experience. This requires that
-    participants have access to an environment that provides the necessary
-    software and data - ideally with minimal setup effort, independent of the
-    system they use and easy to uninstall without leaving traces after the
-    workshop. Different approaches were evaluated, and container technology was
-    found to be a good fit to abstract away the hassle of setting up the tools
-    and infrastructure. A proof of concept of what will be referred to as
-    \emph{sandbox environment} was implemented and published as open source
-    project.
+    It is desirable in GIS workshops to supplement the theoretical concepts with
+    hands-on exercises in order for participants to become an active part in the
+    learning experience. This requires that participants have access to an
+    environment that provides the necessary software and data - ideally with
+    minimal setup effort, independent of the system they use and easy to
+    uninstall without leaving traces after the workshop. Different approaches
+    were evaluated, and container technology was found to be a good fit to
+    abstract away the hassle of setting up the tools and infrastructure. A proof
+    of concept of what will be referred to as \emph{sandbox environment} was
+    implemented and published as open source project.
 
-    Furthermore, this thesis explored the concept of \emph{data journeys}. A
-    data story provides selected raw data, a motivating tangible goal and
+    Furthermore, this thesis explored the concept of \emph{data stories}. A data
+    story provides selected raw data, a motivating tangible goal and
     instructions that connect the raw data to the goal. This allows participants
     to fully focus on how the available tools interact with data and other tools
-    to achieve something useful. An example data journey was implemented that
-    covers aggregating data in PostGIS and serving it as web service using
-    Geoserver.
+    to achieve something useful. An example data story was implemented whereby
+    open data from the city of Zürich is used to derive a map showing what
+    percentage of roads in each district are suitable for biking. Participants
+    learn about GDAL's command line tools to inspect datasets and load them into
+    PostGIS, where spatial processing and aggregation is performed. The result
+    is made available as a new dataset to be consumed and styled in QGIS.
   \end{abstract}
 \end{titlepage}
 
@@ -91,13 +93,12 @@ to address them on two different levels:
   a first version were chosen to support the content of this thesis' further
   education curriculum.
   \item \textbf{Content} In order to help participants to make sense of the
-  sandbox components and their interactions, the concept of a \emph{data
-  journey} was explored. Each data journey has a tangible data use case goal
-  statement that participants can identify with, for example: Let's visualize
-  risk of wildfire and serve it as interactive map on a website. Starting from
-  given raw data, participants follow the processing of this dataset through the
-  different components and experience how they work together to achieve the
-  goal.
+  sandbox components and their interactions, the concept of a \emph{data story}
+  was explored. Each data story has a tangible data use case goal statement that
+  participants can identify with, for example: Let's visualize risk of wildfire
+  and serve it as interactive map on a website. Starting from given raw data,
+  participants follow the processing of this dataset through the different
+  components and experience how they work together to achieve the goal.
 \end{enumerate}
 
 
@@ -118,10 +119,9 @@ or performance. } were then derived.
 At the time of writing the course consisted of four weeks of content modules on
 a wide variety of topics. Each module was screened with a focus on where
 hands-on exercises could be added or expanded without substantially altering the
-module structure or material. Modules which already have a strong hands-on
-component and/or which focus primarily on usage of proprietary software like
-ArcGIS were ignored. Table \ref{tab:t_content_analysis} shows the modules where
-hands-on potential was identified.
+module structure or material. Modules focus primarily on usage of proprietary
+software like ArcGIS were ignored. Table \ref{tab:t_content_analysis} shows the
+modules where hands-on potential was identified.
 
 \begin{table}[!htbp]
   \centering
@@ -150,7 +150,7 @@ hands-on potential was identified.
       \item Run basic spatial queries on sample data.
       \item Perform spatial aggregation on sample data.
       \item Optional: Connect spatial database to QGIS.
-    \end{itemize}\nointerlineskip\\
+      \end{itemize}\nointerlineskip\\
     \midrule
     % multirow(4) start
     Geometrische Methoden & \multirow[t]{4}{*}{Run simple examples on sample
@@ -183,18 +183,23 @@ hands-on potential was identified.
 % Functional requirements
 %-------------
 \subsection{Functional requirements}
+The following functional requirements were identified for the sandbox to be
+useful in realizing the hands-on potential identified in the content analysis:
 \begin{itemize}
   \item A spatial database is available together with utilities to import and
   query data.
-  \item The GDAL command line utilities, particularly gdalinfo and ogr2ogr, are
-  available. There is a way to read either predefined example data or read data
-  from the host system.
   \item An OGC server implementation is available. There is a way to read
-  predefined example data, read data from the host system or connect to the
+  predefined example data, read data from the user's system or connect to the
   sandbox spatial database.
   \item An OGC client implementation is available, which can interact with the
   sandbox OGC server or any other OGC service publicly available on the
   internet.
+  \item The GDAL command line utilities, particularly gdalinfo and ogr2ogr, are
+  available. There is a way to read either predefined example data or read data
+  from the user's system.
+  \item An environment to write and run python scripts which make use of the
+  python geo-ecosystem. A use case would be to provide illustrative examples for
+  the concepts of geometry, topology and spatial statistics.
 \end{itemize}
 
 % Non-Functional requirements
@@ -206,8 +211,8 @@ hands-on potential was identified.
   \item There is a possibility to ship example scripts and data as part of the
   sandbox.
   \item The sandbox can be installed effortlessly and in a uniform way across
-  the most common host systems, namely Apple OS, Linux and Windows.
-  \item The sandbox can be uninstalled without leaving traces on the host
+  the most common operating systems, namely Apple OS, Linux and Windows.
+  \item The sandbox can be uninstalled without leaving traces on the operating
   system.
   \item Turning the sandbox on/off and accessing components should not require
   any programming knowledge.
@@ -225,6 +230,22 @@ hands-on potential was identified.
 %-------------
 \subsection{Technology screening}
 
+\subsubsection*{Idea 1: Sandbox as direct installation}
+It was found that only 3 established open-source projects (QGIS, PostGIS and
+Geoserver) would probably be enough to satisfy the functional requirements. The
+roles of PostGIS as spatial database and Geoserver as OGC data server are
+well-defined. The QGIS installation is particularly interesting because it comes
+bundled with versions of GDAL and python that work together well and provides
+appropriate interfaces.
+
+The community has produced installers for all major
+operating systems, which makes the installation relatively straight-forward.
+
+\subsubsection*{Sandbox as local containerized application}
+
+
+\subsubsection*{Sandbox as cloud service}
+
 
 % Docker compose setup
 %-------------
@@ -237,9 +258,9 @@ hands-on potential was identified.
 \end{figure}
 
 %-------------
-% DATA JOURNEY
+% DATA STORY
 %-------------
-\section{Data journey}
+\section{Data story}
 
 %-------------
 % CONCLUSION
