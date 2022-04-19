@@ -49,14 +49,17 @@
 
     Furthermore, this thesis explored the concept of \emph{data stories}. A data
     story provides selected raw data, a motivating tangible goal and
-    instructions that connect the raw data to the goal. This allows participants
-    to fully focus on how the available tools interact with data and other tools
-    to achieve something useful. An example data story was implemented whereby
-    open data from the city of Zürich is used to derive a map showing what
-    percentage of roads in each district are suitable for biking. Participants
-    learn about GDAL's command line tools to inspect datasets and load them into
-    PostGIS, where spatial processing and aggregation is performed. The result
-    is made available as a new dataset to be consumed and styled in QGIS.
+    instructions that connect the raw data to the goal. It allows participants
+    to fully focus on how the different tools interact with the data itself and
+    other tools to achieve a meaningful result. This is in contrast to the
+    majority of tutorials, which are tool focused and to which data is secondary
+    to teach the necessary functionalities of a specific tool. An example data
+    story was implemented whereby open data from the city of Zürich is used to
+    derive a map showing what percentage of roads in each district are suitable
+    for biking. Participants learn about GDAL's command line tools to inspect
+    datasets and load them into PostGIS, where spatial processing and
+    aggregation is performed. The result is made available as a new dataset to
+    be consumed and styled in QGIS.
   \end{abstract}
 \end{titlepage}
 
@@ -364,9 +367,9 @@ management.
 
 The approach \emph{Sandbox as local containerized application} was eventually
 chosen for the further implementation, because simplicity of a local setup
-combined with the advantages of container technologies was found to outweigh
-the cost of the initial setup, which is still orders of magnitude simpler than
-with the direct installation approach.
+combined with the advantages of container technologies was found to outweigh the
+cost of the initial setup, which is still orders of magnitude simpler than with
+the direct installation approach.
 
 
 % Docker compose setup
