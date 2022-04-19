@@ -13,6 +13,7 @@
 \usepackage{booktabs} % table utilities like \midrule
 \usepackage{multirow} % span multiple rows in table
 \usepackage{enumitem} % pass key-value config to itemize and enumberable
+\usepackage{hyperref} % for links and urls
 
 \graphicspath{ {img/} } % path where grahics are stored
 
@@ -105,13 +106,12 @@ to address them on two different levels:
 %-------------
 % REQUIREMENTS
 %-------------
-\section{Requirements}
-The content of the CAS RIS was analyzed and assessed for potential hands-on
-exercises. From these findings functional and non-functional
-requirements\footnote{Functional requirements specify the tasks an application
-must be able to perform. Non-functional requirements specify additional aspects
-about the application performing the task, for example usability, look and feel
-or performance. } were then derived.
+\section{Requirements} \label{sectionrequirements} The content of the CAS RIS
+was analyzed and assessed for potential hands-on exercises. From these findings
+functional and non-functional requirements\footnote{Functional requirements
+specify the tasks an application must be able to perform. Non-functional
+requirements specify additional aspects about the application performing the
+task, for example usability, look and feel or performance. } were then derived.
 
 % Content analyis
 %-------------
@@ -120,13 +120,13 @@ At the time of writing the course consisted of four weeks of content modules on
 a wide variety of topics. Each module was screened with a focus on where
 hands-on exercises could be added or expanded without substantially altering the
 module structure or material. Modules focus primarily on usage of proprietary
-software like ArcGIS were ignored. Table \ref{tab:t_content_analysis} shows the
+software like ArcGIS were ignored. Table \ref{tab:tContentAnalysis} shows the
 modules where hands-on potential was identified.
 
 \begin{table}[!htbp]
   \centering
   \caption{Content analysis of existing lectures for hands-on potential.}
-  \label{tab:t_content_analysis}
+  \label{tab:tContentAnalysis}
   \begin{tabularx}{\textwidth}{lX}
     \toprule
     % header row start
@@ -210,6 +210,9 @@ useful in realizing the hands-on potential identified in the content analysis:
   sandbox.
   \item There is a possibility to ship example scripts and data as part of the
   sandbox.
+  \item Creation and distribution of data stories that are compatible with the
+  tools of the sandbox should be possible without in-depth technological
+  knowledge.
   \item The sandbox can be installed effortlessly and in a uniform way across
   the most common operating systems, namely Apple OS, Linux and Windows.
   \item The sandbox can be uninstalled without leaving traces on the operating
@@ -226,20 +229,71 @@ useful in realizing the hands-on potential identified in the content analysis:
 % SANDBOX
 %-------------
 \section{Sandbox}
+
+% Existing projects
+%-------------
+\subsection{Existing projects}
+The Google search engine was used to look for already existing similar projects
+using various combinations of the terms \emph{gis}, \emph{geo}, \emph{sandbox},
+\emph{workshop}, \emph{playground} and \emph{spatial}. No project was found that
+satisfied the requirements outlined in section \ref{sectionrequirements}, but
+some noteworthy findings are listed below.
+
+\begin{itemize}
+  \item \href{https://joeyklee.github.io/geosandbox/}{Joeyklee's Geosandbox} is
+  a collection of tutorials which seems to focus on JavaScript client side
+  mapping libraries such as Leaflet. It is not suitable for our purpose but
+  mentioned here for the very similar name Geosandbox to avoid confusion.
+  \item \href{https://sandbox.idre.ucla.edu/sandbox/category/projects}{UCLA
+  sandbox} does not provide any easy access to tools, but seems to be a
+  collection of workshops and tutorials. It is mentioned here because the
+  interesting goals and presentation of some workshops served as inspiration for
+  the data story of this thesis.
+  \item \href{https://www.dea.ga.gov.au/developers/sandbox}{Digital Earth
+  Australia (DEA) Sandbox} was a wonderful discovery. After creating a free
+  account a cloud hosted JupyterJab platform with extensive python notebooks
+  provide an interactive engaging experience to learn about the analysis of
+  satellite imagery and much more. The DEA sandbox was a major inspiration for
+  the heavy focus use of JupyterLab in our sandbox.
+  \item \href{https://github.com/geopython/geopython-workshop}{Geopython
+  Workshop Repository} is an extensive knowledge hub about a broad range of
+  geospatial topics. The workshop is built on python notebooks using a
+  containerized JupyterLab environment with pre-installed libraries. Docker
+  compose is used as container orchestration technology. Even though the setup
+  is too limited for the use case of this thesis (a spatial database is missing
+  for example) the idea of using container technology to abstract away
+  dependency management provided major inspiration for this thesis.
+\end{itemize}
+
 % Technology screening
 %-------------
-\subsection{Technology screening}
+\subsection{Technology evaluation}
+The research on existing projects and further exploration of potential
+technologies led to three distinct groups of architectural approaches. The
+approaches are a) Sandbox as direct installation on user system, b) Sandbox as
+local containerized application and c) Sandbox as cloud service.
 
-\subsubsection*{Idea 1: Sandbox as direct installation}
-It was found that only 3 established open-source projects (QGIS, PostGIS and
-Geoserver) would probably be enough to satisfy the functional requirements. The
-roles of PostGIS as spatial database and Geoserver as OGC data server are
-well-defined. The QGIS installation is particularly interesting because it comes
-bundled with versions of GDAL and python that work together well and provides
-appropriate interfaces.
+\subsubsection*{Sandbox as direct installation on user system}
+It was found that only four established open-source projects (QGIS, PostGIS,
+pgAdmin and Geoserver) would be enough to satisfy the major part of the
+functional requirements. While the roles of PostGIS as spatial database and
+Geoserver as OGC data server are well-defined, the QGIS installation is
+particularly interesting because it comes bundled with versions of GDAL and
+python that work together well and provides appropriate interfaces. The
+community has produced installers for all major operating systems, which makes
+the installation relatively straight-forward.
 
-The community has produced installers for all major
-operating systems, which makes the installation relatively straight-forward.
+When it comes to non-functional requirements this approach falls short. A major
+shortcoming is the lengthy and intrusive setup stemming from the lack of
+separation of the sandbox software from the rest of the user's system. Depending
+on already existing software and specific configurations this approach is at
+best error-prone and at worst capable to permanently alter the user's system.
+Because with this approach only the tools themselves are installed, tutorials
+and data stories would need to be provided in a separate way. On the positive
+side, the installed tools could be used beyond the duration of the CAS course
+without problems and the decoupling of the distribution of tutorials and data
+stories make it easy to be updated without technical knowledge.
+
 
 \subsubsection*{Sandbox as local containerized application}
 
@@ -252,7 +306,7 @@ operating systems, which makes the installation relatively straight-forward.
 \subsection{Docker compose setup}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{compose_setup}
+  \includegraphics[width=1\textwidth]{composeSetup}
   \caption{Sandbox setup using docker compose}
   \label{fig:sandboxsetup}
 \end{figure}
