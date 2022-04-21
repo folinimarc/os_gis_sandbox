@@ -14,6 +14,9 @@
 \usepackage{multirow} % span multiple rows in table
 \usepackage{enumitem} % pass key-value config to itemize and enumberable
 \usepackage{hyperref} % for links and urls
+\usepackage[style=numeric,backend=biber,sorting=none]{biblatex} % For citing
+
+\addbibresource{thesis.bib}
 
 \graphicspath{ {img/} } % path where grahics are stored
 
@@ -57,9 +60,9 @@
     story was implemented whereby open data from the city of Zürich is used to
     derive a map showing what percentage of roads in each district are suitable
     for biking. Participants learn about GDAL's command line tools to inspect
-    datasets and load them into PostGIS, where spatial processing and
-    aggregation is performed. The result is made available as a new dataset to
-    be consumed and styled in QGIS.
+    datasets and load them into PostGIS\cite{postgis}, where spatial processing
+    and aggregation is performed. The result is made available as a new dataset
+    to be consumed and styled in QGIS\cite{qgis}.
   \end{abstract}
 \end{titlepage}
 
@@ -76,9 +79,9 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \section{Introduction}
-Educational GIS\footnote{Geographic Information System} workshops face a few
-particular challenges, two of which are central to this thesis. Firstly, it is
-generally desirable that participants can immediately experience theoretical
+Educational GIS\footnote{Geographic Information System (GIS).} workshops face a
+few particular challenges, two of which are central to this thesis. Firstly, it
+is generally desirable that participants can immediately experience theoretical
 concepts hands-on for themselves. The challenge here lies in providing all
 participants with access to the respective software and data with minimal setup
 efforts. Secondly, the GIS landscape today consists of many components covering
@@ -139,9 +142,9 @@ modules where hands-on potential was identified.
     Interoperabilität &
       \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
       ={\end{minipage}}]
-      \item Download data from WFS and save as Shapefile.
-      \item Inspection and conversion of formats using gdalinfo and ogr2ogr.
-      \item Read Shapefile into PostGIS. \end{itemize}\nointerlineskip\\
+      \item Inspection of and conversion between various data formats.
+      \item Read Shapefile into a spatial database.
+      \end{itemize}\nointerlineskip\\
     \midrule
     % row start
     SQL & Write and run basic SQL queries on sample data. \\
@@ -152,7 +155,6 @@ modules where hands-on potential was identified.
     ={\end{minipage}}]
       \item Run basic spatial queries on sample data.
       \item Perform spatial aggregation on sample data.
-      \item Optional: Connect spatial database to QGIS.
       \end{itemize}\nointerlineskip\\
     \midrule
     % multirow(4) start
@@ -163,14 +165,19 @@ modules where hands-on potential was identified.
     \cmidrule(r){1-1} Statistische Methoden &  \\
     \midrule
     % row start
-    Einführung in Python & Self-study introduction via Jupyter Notebook. \\
+    Einführung in Python & Self-study introduction of python basics. \\
     \midrule
     % row start
     Internet und GIS I \& II &
       \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
       ={\end{minipage}}]
-      \item Load data from WMS/WFS/WCS.
-      \item Optional: Consume WMS in QGIS. \end{itemize}\nointerlineskip \\
+      \item Load data from OGC web services WMS/WFS/WCS\footnote{The Open
+      Geospatial Consortium (OGC) is a worldwide community to improve the access
+      to geospatial data by various means such as developing standards. Such
+      standards for the web include Web Map Service (WMS), Web Feature Service
+      (WFS) and Web Coverage Service (WCS) to load styled map images, simple
+      geometry features and raster data via http respectively.}.
+      \item Optional: Consume WMS with QGIS. \end{itemize}\nointerlineskip \\
     \midrule
     % row start
     Projekt Internet \& GIS &
@@ -178,7 +185,7 @@ modules where hands-on potential was identified.
       ={\end{minipage}}]
       \item Use geodatabase as data source for OGC server.
       \item Create style and serve data as WMS.
-      \item Consume WMS with OGC client. \end{itemize}\nointerlineskip \\
+      \item Consume WMS with QGIS. \end{itemize}\nointerlineskip \\
     \bottomrule
   \end{tabularx}%
 \end{table}%
@@ -243,34 +250,28 @@ satisfied the requirements outlined in section \ref{sectionrequirements}, but
 some noteworthy findings are listed below.
 
 \begin{itemize}
-  \item \href{https://joeyklee.github.io/geosandbox/}{Joeyklee's
-  Geosandbox}\footnote{https://joeyklee.github.io/geosandbox/} is a collection
-  of tutorials which seems to focus on JavaScript client side mapping libraries
+  \item Joeyklee's Geosandbox\cite{project-joeyklee} is a collection of
+  tutorials which seems to focus on JavaScript client side mapping libraries
   such as Leaflet. It is not suitable for our purpose but mentioned here for the
   very similar name Geosandbox to avoid confusion.
-  \item \href{https://sandbox.idre.ucla.edu/sandbox/category/projects}{UCLA
-  sandbox}\footnote{https://sandbox.idre.ucla.edu/sandbox/category/projects}
-  does not provide any easy access to tools, but seems to be a collection of
-  workshops and tutorials. It is mentioned here because the interesting goals
-  and presentation of some workshops served as inspiration for the data story of
-  this thesis.
-  \item \href{https://www.dea.ga.gov.au/developers/sandbox}{Digital Earth
-  Australia (DEA)
-  Sandbox}\footnote{https://www.dea.ga.gov.au/developers/sandbox} was a
-  wonderful discovery. After creating a free account a cloud hosted JupyterJab
-  platform with extensive python notebooks provide an interactive engaging
+  \item IDRE sandbox\cite{project-idre} does not provide any easy access to
+  tools, but seems to be a collection of workshops and tutorials. It is
+  mentioned here because the interesting goals and presentation of some
+  workshops served as inspiration for the data story of this thesis.
+  \item Digital Earth Australia (DEA) Sandbox\cite{project-dea} was a wonderful
+  discovery. After creating a free account a cloud hosted JupyterJab platform
+  with extensive python Juypter notebooks provide an interactive engaging
   experience to learn about the analysis of satellite imagery and much more. The
-  DEA sandbox was a major inspiration for the heavy focus use of JupyterLab in
-  our sandbox.
-  \item \href{https://github.com/geopython/geopython-workshop}{Geopython
-  Workshop Repository}\footnote{https://github.com/geopython/geopython-workshop}
-  is an extensive knowledge hub about a broad range of geospatial topics. The
-  workshop is built on python notebooks using a containerized JupyterLab
-  environment with pre-installed libraries. Docker compose is used as container
-  orchestration technology. Even though the setup is too limited for the use
-  case of this thesis (a spatial database is missing for example) the idea of
-  using container technology to abstract away dependency management provided
-  major inspiration for this thesis.
+  DEA sandbox was a major inspiration for the heavy focus use of
+  JupyterLab\cite{jupyterlab} in our sandbox.
+  \item Geopython Workshop Repository\cite{project-geopython} is an extensive
+  knowledge hub about a broad range of geospatial topics. The workshop is built
+  on python Juypter notebooks using a containerized JupyterLab environment with
+  pre-installed libraries. Docker compose is used as container orchestration
+  technology. Even though the setup is too limited for the use case of this
+  thesis (a spatial database is missing for example) the idea of using container
+  technology to abstract away dependency management provided major inspiration
+  for this thesis.
 \end{itemize}
 
 % Technology evaluation
@@ -285,13 +286,13 @@ local containerized application and c) Sandbox as cloud service.
 
 \subsubsection*{Sandbox as direct installation on user system}
 It was found that only four established open-source projects (QGIS, PostGIS,
-pgAdmin and Geoserver) would be enough to satisfy the major part of the
-functional requirements. While the roles of PostGIS as spatial database and
-Geoserver as OGC data server are well-defined, the QGIS installation is
-particularly interesting because it comes bundled with versions of GDAL and
-python that work together well and provides appropriate interfaces. The
-community has produced installers for all major operating systems, which makes
-the installation relatively straight-forward.
+pgAdmin\cite{pgadmin} and GeoServer\cite{geoserver}) would be enough to satisfy
+the major part of the functional requirements. While the roles of PostGIS as
+spatial database and GeoServer as OGC data server are well-defined, the QGIS
+installation is particularly interesting because it comes bundled with versions
+of GDAL\cite{gdal} and python that work together well and provides appropriate
+interfaces. The community has produced installers for all major operating
+systems, which makes the installation relatively straight-forward.
 
 When it comes to non-functional requirements this approach falls short. A major
 shortcoming is the lengthy and intrusive setup stemming from the lack of
@@ -381,12 +382,97 @@ the direct installation approach.
 \subsubsection{Technology evaluation for local containerized setup}
 The technology to be used for local containerized setup has to be able to run
 multiple containers which can communicate among each other as well as with the
-host system and store data which is persisted beyond the lifecycle of a
-container.
+host system and store data which is persisted beyond the lifecycle of each
+container. Among many possibilities, three technologies were considered more
+closely due to their popularity and the availability of detailed documentation:
+Docker Compose, Docker Swarm and Minikube.
 
-% Sandbox architecture
+\begin{itemize}
+  \item \textbf{Docker Compose}\cite{dockercompose} is a tool that allows to run
+  multi-container applications on a single host. A single compose file acts as
+  configuration for container lifecycle and environment as well as the
+  networking and storage layers.
+  \item \textbf{Docker Swarm}\cite{dockerswarm} shares many concepts with Docker
+  Compose and can be considered an evolution towards orchestrating multiple
+  containers across multiple host machines. It is also possible to run Docker
+  Swarm on a single host machine.
+  \item \textbf{Minikube}\cite{minikube} is a tool that lets you run a local
+  version of a Kubernetes Cluster. Kubernetes is one of the most popular
+  container orchestration softwares and at a high level similar to Docker Swarm.
+  It provides its own approach towards managing containers, networking and
+  storage which is generally more targeted towards large-scale enteprise
+  applications.
+\end{itemize}
+
+All three technologies were evaluated on a two container setup of a spatial
+database (PostGIS) and an associated administrator application (pgAdmin). While
+all three technologies provided extensive documentation that allowed for
+successful testing, Docker Compose proved to be the simplest solution in terms
+of inital setup and ease of use, due to its single configuration file and the
+targeted usecase to run on a single host. To that end \emph{Docker Compose} was
+chosen as the technology to implement the \emph{Sandbox as local containerized
+application}.
+
+
+% Docker Compose architecture
 %-------------
-\subsection{Sandbox architecture}
+\subsection{Docker Compose architecture}
+
+At the heart of a Docker Compose application is a configuration file, called
+\emph{compose file} which describes the components of the multi-container
+application and how they interact. Each component is called a \emph{service},
+which consists of an image that specifies the containerized application at the
+heart of the service and additional configuration about how to interact with
+other services or how to be accessible from the host system. When the Docker
+Compose application is startet, the images of each service are used to start
+containers within which the application of interest then runs. A compose file
+can also declare \emph{volumes}, which can be used by services to save data
+which should be persisted across restarts of a service.
+
+The architecture of the sandbox is outlined in Figure \ref{fig:sandboxsetup}.
+The following containerized applications are provided as downloadable images by
+third parties and used without modifications:
+
+\begin{itemize}
+  \item \textbf{postgis-container}\cite{postgis-container} is a containerized
+  version of PostGIS, a spatial database. The container uses a volume called
+  postgis-data to persist the database content.
+  \item \textbf{pgadmin-container}\cite{pgadmin-container} is a containerized
+  version of pgAdmin4, a graphical user interface to facilitate the
+  administration of PostgreSQL based databases, such as PostGIS. The container
+  uses a volume called pgadmin-data to persist configurations, such as database
+  connections.
+  \item \textbf{geoserver-container}\cite{geoserver-container} is a
+  containerized version of Geoserver, which is an OGC data server and a
+  reference implementation of the OGC web standards . The version used priovided
+  by Kartoza and has configuration options to include community extensions,
+  plugins and sample data. The container uses a volume called geoserver-data to
+  persist its configuration and data directories.
+\end{itemize}
+
+The following components were created in the course of this thesis and the code
+is provided in this thesis' repository\cite{osgeostacksandbox}:
+
+\begin{itemize}
+  \item \textbf{geoscriptingsandbox-container} is a containerized version of
+  JupyterLab with various preinstalled python packages from the geo-ecosystem
+  and fundamental libraries such as GDAL and GEOS\cite{geos}. This setup allows
+  users to explore the python geo-ecosystem as well as the various command line
+  utilities that GDAL offers. The expressive nature of Jupyter Notebooks is also
+  used to visualize the data stories. The container uses a volume called
+  geoscriptingsandbox-data to persist user created Jupyter notebooks and data.
+  \item \textbf{datastories-container} is called a data container because it
+  serves solely as a data storage without application. It contains the data
+  story related narrative in form of Jupyter notebooks as well as the sample
+  data. Upon start, it copies all its content to a volume datastories-data which
+  can be accessed by other components such as geoscriptingsandbox-container to
+  run through the data story notebooks.
+  \item \textbf{hub-container} runs a simple web application that serves as an
+  entry point and central. Here a user finds links to access other sandbox
+  components and the relevant connection information. The hub is the first thing
+  a user sees when typing \emph{localhost} in the browser after starting the
+  sandbox.
+\end{itemize}
 
 \begin{figure}[H]
   \centering
@@ -395,15 +481,27 @@ container.
   \label{fig:sandboxsetup}
 \end{figure}
 
+
+% Using the sandbox
+%-------------
+\subsection{Sandbox setup and usage}
+
+
 %-------------
 % DATA STORY
 %-------------
 \section{Data story}
+
 
 %-------------
 % CONCLUSION
 %-------------
 \section{Conclusion}
 
+
+%-------------
+% REFERENCES
+%-------------
+\printbibliography
 
 \end{document}
