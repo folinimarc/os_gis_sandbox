@@ -243,34 +243,41 @@ satisfied the requirements outlined in section \ref{sectionrequirements}, but
 some noteworthy findings are listed below.
 
 \begin{itemize}
-  \item \href{https://joeyklee.github.io/geosandbox/}{Joeyklee's Geosandbox} is
-  a collection of tutorials which seems to focus on JavaScript client side
-  mapping libraries such as Leaflet. It is not suitable for our purpose but
-  mentioned here for the very similar name Geosandbox to avoid confusion.
+  \item \href{https://joeyklee.github.io/geosandbox/}{Joeyklee's
+  Geosandbox}\footnote{https://joeyklee.github.io/geosandbox/} is a collection
+  of tutorials which seems to focus on JavaScript client side mapping libraries
+  such as Leaflet. It is not suitable for our purpose but mentioned here for the
+  very similar name Geosandbox to avoid confusion.
   \item \href{https://sandbox.idre.ucla.edu/sandbox/category/projects}{UCLA
-  sandbox} does not provide any easy access to tools, but seems to be a
-  collection of workshops and tutorials. It is mentioned here because the
-  interesting goals and presentation of some workshops served as inspiration for
-  the data story of this thesis.
+  sandbox}\footnote{https://sandbox.idre.ucla.edu/sandbox/category/projects}
+  does not provide any easy access to tools, but seems to be a collection of
+  workshops and tutorials. It is mentioned here because the interesting goals
+  and presentation of some workshops served as inspiration for the data story of
+  this thesis.
   \item \href{https://www.dea.ga.gov.au/developers/sandbox}{Digital Earth
-  Australia (DEA) Sandbox} was a wonderful discovery. After creating a free
-  account a cloud hosted JupyterJab platform with extensive python notebooks
-  provide an interactive engaging experience to learn about the analysis of
-  satellite imagery and much more. The DEA sandbox was a major inspiration for
-  the heavy focus use of JupyterLab in our sandbox.
+  Australia (DEA)
+  Sandbox}\footnote{https://www.dea.ga.gov.au/developers/sandbox} was a
+  wonderful discovery. After creating a free account a cloud hosted JupyterJab
+  platform with extensive python notebooks provide an interactive engaging
+  experience to learn about the analysis of satellite imagery and much more. The
+  DEA sandbox was a major inspiration for the heavy focus use of JupyterLab in
+  our sandbox.
   \item \href{https://github.com/geopython/geopython-workshop}{Geopython
-  Workshop Repository} is an extensive knowledge hub about a broad range of
-  geospatial topics. The workshop is built on python notebooks using a
-  containerized JupyterLab environment with pre-installed libraries. Docker
-  compose is used as container orchestration technology. Even though the setup
-  is too limited for the use case of this thesis (a spatial database is missing
-  for example) the idea of using container technology to abstract away
-  dependency management provided major inspiration for this thesis.
+  Workshop Repository}\footnote{https://github.com/geopython/geopython-workshop}
+  is an extensive knowledge hub about a broad range of geospatial topics. The
+  workshop is built on python notebooks using a containerized JupyterLab
+  environment with pre-installed libraries. Docker compose is used as container
+  orchestration technology. Even though the setup is too limited for the use
+  case of this thesis (a spatial database is missing for example) the idea of
+  using container technology to abstract away dependency management provided
+  major inspiration for this thesis.
 \end{itemize}
 
-% Technology screening
+% Technology evaluation
 %-------------
 \subsection{Technology evaluation}
+
+\subsubsection{High level architectural approaches}
 The research on existing projects and further exploration of potential
 technologies led to three distinct groups of architectural approaches. The
 approaches are a) Sandbox as direct installation on user system, b) Sandbox as
@@ -371,10 +378,16 @@ combined with the advantages of container technologies was found to outweigh the
 cost of the initial setup, which is still orders of magnitude simpler than with
 the direct installation approach.
 
+\subsubsection{Technology evaluation for local containerized setup}
+The technology to be used for local containerized setup has to be able to run
+multiple containers which can communicate among each other as well as with the
+host system and store data which is persisted beyond the lifecycle of a
+container.
 
-% Docker compose setup
+% Sandbox architecture
 %-------------
-\subsection{Docker compose setup}
+\subsection{Sandbox architecture}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{composeSetup}
