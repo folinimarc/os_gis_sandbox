@@ -610,18 +610,20 @@ There is a gap what people new to the field need to what is widely available.
 Think of it as a puzzle with many pieces (tools), whereby each piece is
 explained in detail on its own (tool focused tutorials) but there is much less
 explanation on how puzzle pieces relate to each other and how they need to be
-connected to get a desirable bigger picture. Imagine how frustrating
-such a puzzle is to solve.
+connected to get a desirable bigger picture. Imagine how frustrating such a
+puzzle is to solve.
 
-Data stories aim to bridge the above-mentioned gap and to put emphasis on the
-fact how the puzzle pieces relate to each other. A data story provides selected
-raw data, a motivating tangible goal and instructions that connect the raw data
-to the goal. It allows to fully focus on how the different tools interact with
-the data and other tools to achieve a meaningful result.
+Data stories aim to bridge the above-mentioned gap and to put emphasis on how
+the puzzle pieces relate to each other. A data story provides selected raw data,
+a motivating tangible goal and instructions how to use suitable tools to
+transform the raw data into the desired output. It allows to fully focus on how
+the different tools interact with the data and each other to achieve a
+meaningful result.
 
 % Intregration with Sandbox
 %-------------
 \subsection{Integration with Sandbox}
+
 
 % Example data story
 %-------------
@@ -631,10 +633,44 @@ is used to derive a map showing what percentage of roads in each district are
 suitable for biking. Participants learn about GDAL's command line tools to
 inspect datasets and load them into PostGIS\cite{postgis}, where spatial
 processing and aggregation is performed. The result is made available as a new
-dataset to be consumed and styled in QGIS\cite{qgis}.
+dataset to be consumed and styled in QGIS\cite{qgis}. The scenario with the use
+case is presented below. The full data story can be found under
+\emph{\_datastories/bike\_suitability\_zurich} in the geoscriptingsandbox.
 
-The data story can be found under \emph{\_datastories/bike\_suitability\_zurich}
-in the geoscriptingsandbox.
+\subsubsection*{Scenario}
+
+You are working at a small company that is specialized in city micromobility.
+Your company allows people to easily rent bikes on an ad-hoc basis to get around
+town. You recently participated in a brainstorming session how to increase
+public awareness about the fact that still many roads are not suitable to be
+used by bikes.
+
+At that meeting the idea was born to visualize the ratio of streets which are
+suitable for biking for each district in Zürich. This ratio, or "biking
+suitability indicator", could then be turned into beautiful choropleth maps to
+highlight leader and laggard districts. This would surely spark a public debate
+on the topic! Your team even had the idea to make this not only a one-time
+thing, but to update this indicator and downstream visualizations on a monthly
+basis to incentivize the government to take action.
+
+Excited by this idea, your friend checked the publicly available geodata of the
+city of Zürich and sent you two Shapefile containing the city districts and the
+road network with indication which roads are suitable for biking. As the GIS
+expert the joy of making this work is now on you...
+
+You plan to make use of a spatial database which can be accessed by your
+coworkers to reduce the number of files being sent around. Furthermore, you plan
+to create this new dataset in a way which is easy to update when the underlying
+data changes - thus making the monthly update as painless as possible.
+
+You plan your work in steps:
+\begin{enumerate}
+  \item Explore the road and district data your coworker sent you.
+  \item Load the Shapefile into PostGIS.
+  \item Calculate the ratio of roads suitable for bikes per district.
+  \item Create a new dataset to share with coworkers.
+  \item Visualize the results as a map in QGIS.
+\end{enumerate}
 
 %-------------
 % CONCLUSION
@@ -647,5 +683,6 @@ in the geoscriptingsandbox.
 % REFERENCES
 %-------------
 \printbibliography
+
 
 \end{document}
