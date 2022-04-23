@@ -6,4 +6,7 @@ gitignored/
 **/python_geoprocessing/
 thesis/*
 !thesis/*.tex
+!thesis/*.bib
+!thesis/*.pdf
+!thesis/*.md
 !thesis/img/
