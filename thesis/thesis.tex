@@ -466,11 +466,11 @@ Some containers make use of virtual volumes as shown in Figure
 include the data stored in PostGIS, the database connections set up in pgAdmin
 or the data and configuration files used by GeoServer.
 
-A special case is datastories-container, which upon each start copies all
-its content to a volume datastories-data which can be accessed by other
-containers such as geoscriptingsandbox-container to run through the data story
-Jupyter Notebooks. This pattern assures that the data stories on the volume
-always correspond to the data stories container content.
+A special case is datastories-container, which upon each start copies all its
+content to a volume datastories-data which can be accessed by other containers
+such as geoscriptingsandbox-container to access the data story Jupyter
+Notebooks. This pattern assures that the data stories on the volume always
+correspond to the data stories container content.
 
 \subsubsection*{Networking}
 All containers are part of a virtual network managed by Docker Compose which is
@@ -494,17 +494,17 @@ Even though not indicated in Figure \ref{fig:sandboxsetup}, it is also possible
 to grant containers access to the file system of the host machine. This seems to
 contradict the basic idea of isolation but proves to be useful in certain cases.
 The current Sandbox implementation creates such a link to the host file system
-for the geoscriptingsandbox and GeoServer containers with the intent to make it
-easy for users to let Sandbox components make use of data saved on their local
-machine.
+for the geoscriptingsandbox-container and geoserver-container with the intent to
+make it easy for users to let these components make use of data saved on their
+local machine.
 
 % Implementation
 %-------------
 \subsection{Implementation}
 
 This section covers the implementation of the Sandbox using Docker Compose. The
-result is provided in this thesis' repository\cite{osgeostacksandbox} and is
-free to use under MIT license.
+resulting implementation is provided in this thesis'
+repository\cite{osgeostacksandbox} and is free to use under MIT license.
 
 At the heart of a Docker Compose application is a configuration file, called
 \emph{compose file} which describes the components of the multi-container setup
@@ -536,10 +536,10 @@ appropriate versions were added to the compose file:
 The other components were created in the course of this thesis. For each
 component a suitable Dockerfile was created describing how to build an image
 containing the desired application and data. GitHub Actions\cite{githubactions}
-was used to create an automated workflow to build the image and then make it
-publicly available on the GitHub Container Registry\cite{gcr}, GitHub's image
-distribution platform. The image name with appropriate version was then added to
-the compose file.
+was used to create an automated workflow to build the image from the Dockerfile
+and then make it publicly available on the GitHub Container Registry\cite{gcr},
+GitHub's image distribution platform. The image name with appropriate version
+was then added to the compose file.
 
 % Using the Sandbox
 %-------------
@@ -593,16 +593,16 @@ volumes, networks and images, etc.
 % Motivation
 %-------------
 \subsection{Motivation}
-Today's GIS ecosystem is extensive and fast evolving with multiple tools solving
-similar challenges with varying overlap in functionality. For somebody new to
-the field, the vast amount of possibilities might be overwhelming at best and
-frustrating at worst when trying to develop a holistic mental model about what
-technologies to use in what way to tackle real world use cases. This is because
-real world use cases are often data driven instead of tool centered, i.e. a
-company usually wants to gain some insights from data or transform it to be used
-in a product whereby the tools and technologies are usually means to achieve
-this. Many tutorials exist, but these are usually centered around a specific
-tool or technology, whereby data is usually of secondary nature to explain the
+Today's GIS ecosystem is extensive and fast evolving with multiple tools
+addressing similar use cases with varying overlap in functionality. For somebody
+new to the field, the vast amount of possibilities might be overwhelming at best
+and frustrating at worst when trying to develop a holistic mental model about
+what technologies to use in what way to tackle real world use cases. This is
+because they are often data driven instead of tool centered, i.e. a company
+usually wants to gain some insights from data or transform it to be used in a
+product whereby the tools and technologies are usually means to achieve this.
+Many tutorials exist, but these are usually centered around a specific tool or
+technology, whereby data is usually of secondary nature to explain the
 functionalities in a narrow scope.
 
 There is a gap between what people new to the field need to what is widely
@@ -648,11 +648,12 @@ the data stories. This pattern has several nice properties:
   \item Updating a data story is as simple as updating the Jupyter Notebooks and
   associated data in the sandbox repository, followed by a new release of the
   data stories component.
-  \item From the user perspective, obtaining new versions of data stories is as
-  easy as updating the data stories component version in the compose file (or
-  downloading the updated compose file from the repository). Assuming only the
-  version the data stories component changes, the update will be very quick
-  because all other components do not need to be downloaded.
+  \item From the user perspective, obtaining new versions of data stories at the
+  next Sandbox start is as easy as updating the data stories component version
+  in the compose file (or downloading the updated compose file from the
+  repository). Assuming only the version the data stories component changes, the
+  update will be very quick because all other components do not need to be
+  downloaded.
 \end{itemize}
 
 % Example data story
@@ -661,13 +662,13 @@ the data stories. This pattern has several nice properties:
 An example data story was implemented whereby open data from the city of Zürich
 is used to derive a map showing what percentage of roads in each district are
 suitable for biking. Participants learn about GDAL's command line tools to
-inspect datasets and load them into PostGIS\cite{postgis}, where spatial
+inspect datasets and load them into PostGIS, where spatial
 processing and aggregation is performed. The result is made available as a new
-dataset to be consumed and styled in QGIS\cite{qgis}. The scenario with the use
-case is presented below. The full data story can be found under
-\emph{\_datastories/bike\_suitability\_zurich} in the geoscriptingsandbox.
+dataset to be consumed and styled as a informative map in QGIS. The
+scenario with the use case is presented below. The full data story can be found
+under \emph{\_datastories/bike\_suitability\_zurich} in the geoscriptingsandbox.
 
-\subsubsection*{Scenario}
+\subsubsection*{Example Data Story Scenario}
 
 You are working at a small company that is specialized in city micromobility.
 Your company allows people to easily rent bikes on an ad-hoc basis to get around
