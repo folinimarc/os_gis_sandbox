@@ -60,10 +60,10 @@
     to teach the necessary functionalities of a specific tool. An example data
     story was implemented whereby open data from the city of Zürich is used to
     derive a map showing what percentage of roads in each district are suitable
-    for biking. Participants learn about the GDAL\cite{gdal} command line tools
-    to inspect datasets and load them into PostGIS\cite{postgis}, where spatial
-    processing and aggregation is performed. The result is made available as a
-    new dataset to be consumed and styled in QGIS\cite{qgis}.
+    for biking. Participants learn about the GDAL command line tools to inspect
+    datasets and load them into PostGIS, where spatial processing and
+    aggregation is performed. The result is made available as a new dataset to
+    be consumed and styled in QGIS.
   \end{abstract}
 \end{titlepage}
 
@@ -178,7 +178,8 @@ results of the analysis.
       standards for the web include Web Map Service (WMS), Web Feature Service
       (WFS) and Web Coverage Service (WCS) to load styled map images, simple
       geometry features and raster data via HTTP respectively.}.
-      \item Optional: Consume WMS with QGIS. \end{itemize}\nointerlineskip \\
+      \item Optional: Consume WMS with an OGC compliant client system.
+      \end{itemize}\nointerlineskip \\
     \midrule
     % row start
     Projekt Internet \& GIS &
@@ -186,7 +187,8 @@ results of the analysis.
       ={\end{minipage}}]
       \item Use geodatabase as data source for OGC server.
       \item Create style and serve data as WMS.
-      \item Consume WMS with QGIS. \end{itemize}\nointerlineskip \\
+      \item Consume WMS with an OGC compliant client system.
+      \end{itemize}\nointerlineskip \\
     \bottomrule
   \end{tabularx}%
 \end{table}%
@@ -205,9 +207,9 @@ useful in realizing the potential identified in the content analysis:
   \item An OGC client implementation is available, which can interact with the
   Sandbox OGC server or any other OGC service publicly available on the
   internet.
-  \item The GDAL command line utilities, particularly gdalinfo and ogr2ogr, are
-  available. There is a way to read either predefined example data or read data
-  from the user's system.
+  \item The GDAL\cite{gdal} command line utilities, particularly gdalinfo and
+  ogr2ogr, are available. There is a way to read either predefined example data
+  or read data from the user's system.
   \item An environment to write and run python scripts which make use of the
   python geo-ecosystem. A use case would be to provide illustrative examples for
   the concepts of geometry, topology and spatial statistics.
@@ -286,14 +288,14 @@ evaluated: Sandbox as direct installation on user system, Sandbox as local
 containerized application and Sandbox as cloud service.
 
 \subsubsection*{Sandbox as direct installation on user system}
-It was found that only four established open-source projects (QGIS, PostGIS,
-pgAdmin\cite{pgadmin} and GeoServer\cite{geoserver}) would be enough to satisfy
-the major part of the functional requirements. While the roles of PostGIS as
-spatial database and GeoServer as OGC data server are well-defined, the QGIS
-installation is particularly interesting because it comes bundled with versions
-of GDAL and python that work together well. The community has produced
-installers for all major operating systems, which makes the installation
-relatively straight-forward.
+It was found that only four established open-source projects (QGIS\cite{qgis},
+PostGIS\cite{postgis}, pgAdmin\cite{pgadmin} and GeoServer\cite{geoserver})
+would be enough to satisfy the major part of the functional requirements. While
+the roles of PostGIS as spatial database and GeoServer as OGC data server are
+well-defined, the QGIS installation is particularly interesting because it comes
+bundled with versions of GDAL and python that work together well. The community
+has produced installers for all major operating systems, which makes the
+installation relatively straight-forward.
 
 When it comes to non-functional requirements this approach falls short. A major
 shortcoming is the lengthy and intrusive setup stemming from the lack of
@@ -662,11 +664,14 @@ the data stories. This pattern has several nice properties:
 An example data story was implemented whereby open data from the city of Zürich
 is used to derive a map showing what percentage of roads in each district are
 suitable for biking. Participants learn about GDAL's command line tools to
-inspect datasets and load them into PostGIS, where spatial
-processing and aggregation is performed. The result is made available as a new
-dataset to be consumed and styled as an informative map in QGIS. The
-scenario with the use case is presented below. The full data story can be found
-under \emph{\_datastories/bike\_suitability\_zurich} in the geoscriptingsandbox.
+inspect datasets and load them into PostGIS, where spatial processing and
+aggregation is performed. The result is made available as a new dataset to be
+consumed and styled as an informative map in QGIS.
+
+The following section outlines the data story scenario, which presents a
+tangible real world use case and serves as the big picture motivation. The full
+data story can be found under \emph{\_datastories/bike\_suitability\_zurich} in
+the geoscriptingsandbox.
 
 \subsubsection*{Example Data Story Scenario}
 
@@ -707,14 +712,35 @@ You plan your work in steps:
 % CONCLUSION
 %-------------
 \section{Conclusion}
-
+As a result of this thesis a GIS sandbox was created and made publicly available
+free to use under MIT license\cite{osgeostacksandbox}. The Sandbox is based on
+Docker Compose and provides access to a spatial database, a OGC data server, and
+GDAL and python scripting capabilities with access to libraries from the
+geo-ecosystem. Built upon the capabilities of the Sandbox a data story was
+conceptualized and implemented to create a bike suitability map in QGIS from raw
+open data from the city of Zürich.
 
 \subsubsection*{Challenges and learnings}
+
+
+\subsubsection*{Outlook}
+The functional requirements for the Sandbox were derived by screening the
+existing CAS course modules for potential where a Sandbox could be leveraged to
+provide participants with hand-on exercises to become an active part in the
+learning process. With that in mind the data stories concept was implemented in
+a way that is easily extensible with further content.
+
+In a next step it would be great to work on realizing the identified potential
+with the new capabilities provided by this thesis.
+
+This could either happen by leveraging the data stories framework, by creating
+Jupyter Notebooks with exercises that are distributed differently and just
+consumed by the Sandbox, or by simply giving participants time to experiment on
+existing examples from slides within the Sandbox.
 
 %-------------
 % REFERENCES
 %-------------
 \printbibliography
-
 
 \end{document}
