@@ -124,20 +124,20 @@ a Sandbox were then derived.
 %-------------
 \subsection{Content analysis}
 At the time of writing the CAS course consisted of four weeks of content modules
-on a wide variety of topics. Each module was screened with a focus on where
-hands-on exercises could be added or expanded without substantially altering the
-module structure or material. Modules focus primarily on usage of proprietary
+on a wide variety of topics. Each module was screened with a focus on where a
+Sandbox could facilitate hands-on experiences without substantially altering the
+module structure or material. Modules focusing primarily on usage of proprietary
 software like ArcGIS were ignored. Table \ref{tab:tContentAnalysis} shows the
-modules where hands-on potential was identified.
+results of the analysis.
 
 \begin{table}[!htbp]
   \centering
-  \caption{Content analysis of existing lectures for hands-on potential.}
+  \caption{Content analysis of existing lectures for Sandbox facilitation potential.}
   \label{tab:tContentAnalysis}
   \begin{tabularx}{\textwidth}{lX}
     \toprule
     % header row start
-    \textbf{Module} & \textbf{Hands-on potential} \\
+    \textbf{Module} & \textbf{Sandbox facilitation potential} \\
     \midrule
     % row start
     Interoperabilität &
@@ -195,7 +195,7 @@ modules where hands-on potential was identified.
 %-------------
 \subsection{Functional requirements}
 The following functional requirements were identified for the Sandbox to be
-useful in realizing the hands-on potential identified in the content analysis:
+useful in realizing the potential identified in the content analysis:
 \begin{itemize}
   \item A spatial database is available together with utilities to import and
   query data.
@@ -244,7 +244,7 @@ useful in realizing the hands-on potential identified in the content analysis:
 % Existing projects
 %-------------
 \subsection{Existing projects}
-The Google search engine was used to look for already existing similar projects
+Google search engine was used to look for already existing similar projects
 using various combinations of the terms \emph{gis}, \emph{geo}, \emph{Sandbox},
 \emph{workshop}, \emph{playground} and \emph{spatial}. No project was found that
 satisfied the requirements outlined in section \ref{sectionrequirements}, but
@@ -260,19 +260,19 @@ some noteworthy findings are listed below.
   mentioned here because the interesting goals and presentation of some
   workshops served as inspiration for the data story of this thesis.
   \item Digital Earth Australia (DEA) Sandbox\cite{project-dea} was a wonderful
-  discovery. After creating a free account a cloud hosted JupyterJab platform
-  with extensive python Jupyter notebooks provide an interactive engaging
-  experience to learn about the analysis of satellite imagery and much more. The
-  DEA Sandbox was a major inspiration for the heavy focus use of
-  JupyterLab\cite{jupyterlab} in our Sandbox.
+  discovery. After creating a free account a cloud hosted
+  JupyterLab\cite{jupyterlab} platform with extensive python Jupyter Notebooks
+  provide an interactive engaging experience to learn about the analysis of
+  satellite imagery and much more. The DEA Sandbox was a major inspiration for
+  the heavy focus use of JupyterLab in our Sandbox.
   \item Geopython Workshop Repository\cite{project-geopython} is an extensive
   knowledge hub about a broad range of geospatial topics. The workshop is built
-  on python Jupyter notebooks using a containerized JupyterLab environment with
-  pre-installed libraries. Docker compose is used as container orchestration
-  technology. Even though the setup is too limited for the use case of this
-  thesis (a spatial database is missing for example) the idea of using container
-  technology to abstract away dependency management provided major inspiration
-  for this thesis.
+  on python Jupyter Notebooks using a containerized JupyterLab environment with
+  pre-installed libraries. Docker Compose\cite{dockercompose} is used as
+  container orchestration technology. Even though the setup is too limited for
+  the use case of this thesis (a spatial database is missing for example) the
+  idea of using container technology to abstract away dependency management
+  provided major inspiration for this thesis.
 \end{itemize}
 
 % Technology evaluation
@@ -281,9 +281,9 @@ some noteworthy findings are listed below.
 
 \subsubsection{High level architectural approaches}
 The research on existing projects and further exploration of potential
-technologies led to three distinct groups of architectural approaches. The
-approaches are a) Sandbox as direct installation on user system, b) Sandbox as
-local containerized application and c) Sandbox as cloud service.
+technologies led to three distinct groups of architectural approaches to be
+evaluated: Sandbox as direct installation on user system, Sandbox as local
+containerized application and Sandbox as cloud service.
 
 \subsubsection*{Sandbox as direct installation on user system}
 It was found that only four established open-source projects (QGIS, PostGIS,
@@ -291,9 +291,9 @@ pgAdmin\cite{pgadmin} and GeoServer\cite{geoserver}) would be enough to satisfy
 the major part of the functional requirements. While the roles of PostGIS as
 spatial database and GeoServer as OGC data server are well-defined, the QGIS
 installation is particularly interesting because it comes bundled with versions
-of GDAL and python that work together well and provides appropriate interfaces.
-The community has produced installers for all major operating systems, which
-makes the installation relatively straight-forward.
+of GDAL and python that work together well. The community has produced
+installers for all major operating systems, which makes the installation
+relatively straight-forward.
 
 When it comes to non-functional requirements this approach falls short. A major
 shortcoming is the lengthy and intrusive setup stemming from the lack of
@@ -317,12 +317,10 @@ can be started and stopped within seconds.
 
 This approach takes the direct installation approach one step further by running
 a spatial database or an OGC data server in containers isolated from the host
-system. The environment within each container can be configured to be fully
-tailored to the requirements. Complex installation procedures can be fully
-abstracted away from the user as part of the image creation, which would allow
-for example to set up a JupyterLab environment with system dependencies like
-GDAL in order to have access to a wide variety of python packages from the
-geo-ecosystem.
+system. Complex installation procedures can be fully abstracted away from the
+user as part of the image creation process, which would allow for example to set
+up a JupyterLab environment with system dependencies like GDAL in order to have
+access to a wide variety of python packages from python's geo-ecosystem.
 
 The setup complexity is comparatively low, because the only prerequisite is the
 installation of Docker, which is an easy and mature process for all major
@@ -364,7 +362,7 @@ uploaded before being accessible and spatial data can quickly become rather
 large for standard internet connection upload speeds leading to disruptions and
 waiting times.
 
-\subsubsection*{Conclusion}
+\subsubsection*{Conclusion: Sandbox as local containerized application}
 All three approaches satisfy the functional requirements, which is why the
 non-functional requirements will be used to argue for the final decision. The
 direct installation approach falls short here. The local containerization
@@ -389,10 +387,10 @@ closely due to their popularity and the availability of detailed documentation:
 Docker Compose, Docker Swarm and Minikube.
 
 \begin{itemize}
-  \item \textbf{Docker Compose}\cite{dockercompose} is a tool that allows to run
-  multi-container applications on a single host. A single compose file acts as
-  configuration for container lifecycle and environment as well as the
-  networking and storage layers.
+  \item \textbf{Docker Compose} is a tool that allows to run multi-container
+  applications on a single host. A single compose file acts as configuration for
+  container lifecycle and environment as well as the networking and storage
+  layers.
   \item \textbf{Docker Swarm}\cite{dockerswarm} shares many concepts with Docker
   Compose and can be considered an evolution towards orchestrating multiple
   containers across multiple host machines. It is also possible to run Docker
@@ -455,7 +453,7 @@ purpose:
   Notebooks is also used to visualize the data stories.
   \item \textbf{datastories-container} is called a data container because it
   serves solely as a data storage without application. It contains the data
-  story related narrative in form of Jupyter notebooks as well as the sample
+  story related narrative in form of Jupyter Notebooks as well as the sample
   data.
 \end{itemize}
 
@@ -468,8 +466,8 @@ or the data and configuration files used by GeoServer.
 A special case is the data stories container, which upon each start copies all
 its content to a volume datastories-data which can be accessed by other
 containers such as geoscriptingsandbox-container to run through the data story
-notebooks. This pattern assures that the data stories on the volume always
-correspond to the data stories container content.
+Jupyter Notebooks. This pattern assures that the data stories on the volume
+always correspond to the data stories container content.
 
 \subsubsection*{Networking}
 All containers are part of a virtual network managed by Docker Compose which is
@@ -638,11 +636,11 @@ The decision where to store the Jupyter Notebooks and the associated data was
 mainly driven by the requirement to allow shipping updated and new data story
 content with minimal impact on the users. To that end a separate
 datastories-container was introduced to the sandbox, which contains the data
-story notebooks and associated data. Upon starting the sandbox, the containers
-data gets copied to a volume that is accessible by the geoscriptingsandbox
-component. Instead of reinventing the wheel, the geoscriptingsandbox' JupyterLab
-is used as the primary way of interacting with the data stories. This pattern
-has several nice properties:
+story Jupyter Notebooks and associated data. Upon starting the sandbox, the
+containers data gets copied to a volume that is accessible by the
+geoscriptingsandbox component. Instead of reinventing the wheel, the
+geoscriptingsandbox' JupyterLab is used as the primary way of interacting with
+the data stories. This pattern has several nice properties:
 \begin{itemize}
   \item Updating a data story is as simple as updating the Jupyter Notebooks and
   associated data in the sandbox repository, followed by a new release of the
