@@ -15,13 +15,14 @@
 \usepackage{enumitem} % pass key-value config to itemize and enumberable
 \usepackage{hyperref} % for links and urls
 \usepackage[style=numeric,backend=biber,sorting=none]{biblatex} % For citing
+\usepackage{listings} % For code snippets
 
 \addbibresource{thesis.bib}
 
 \graphicspath{ {img/} } % path where grahics are stored
 
 % title page parameters
-\title{Open-source GIS sandbox and data stories - A new tool for GIS workshops}
+\title{A new tool for GIS workshops -\\GIS infrastructure Sandbox and data stories}
 \author{Marc Folini}
 \date{May 2022}
 
@@ -47,7 +48,7 @@
     uninstall without leaving traces after the workshop. Different approaches
     were evaluated, and container technology was found to be a good fit to
     abstract away the hassle of setting up the tools and infrastructure. A proof
-    of concept of what will be referred to as \emph{sandbox environment} was
+    of concept of what will be referred to as \emph{Sandbox environment} was
     implemented and published as open source project.
 
     Furthermore, this thesis explored the concept of \emph{data stories}. A data
@@ -95,12 +96,12 @@ explores the two above-mentioned challenges in the context of the CAS and aims
 to address them on two different levels:
 \begin{enumerate}
   \item \textbf{Infrastructure} In order to provide participants access to a
-  variety of software with minimal setup effort the concept of a \emph{sandbox
+  variety of software with minimal setup effort the concept of a \emph{Sandbox
   environment} is adopted. The requirements and components to be implemented in
   a first version were chosen to support the content of this thesis' further
   education curriculum.
   \item \textbf{Content} In order to help participants to make sense of the
-  sandbox components and their interactions, the concept of a \emph{data story}
+  Sandbox components and their interactions, the concept of a \emph{data story}
   was explored. Each data story has a tangible data use case goal statement that
   participants can identify with, for example: Let's visualize risk of wildfire
   and serve it as interactive map on a website. Starting from given raw data,
@@ -193,16 +194,16 @@ modules where hands-on potential was identified.
 % Functional requirements
 %-------------
 \subsection{Functional requirements}
-The following functional requirements were identified for the sandbox to be
+The following functional requirements were identified for the Sandbox to be
 useful in realizing the hands-on potential identified in the content analysis:
 \begin{itemize}
   \item A spatial database is available together with utilities to import and
   query data.
   \item An OGC server implementation is available. There is a way to read
   predefined example data, read data from the user's system or connect to the
-  sandbox spatial database.
+  Sandbox spatial database.
   \item An OGC client implementation is available, which can interact with the
-  sandbox OGC server or any other OGC service publicly available on the
+  Sandbox OGC server or any other OGC service publicly available on the
   internet.
   \item The GDAL command line utilities, particularly gdalinfo and ogr2ogr, are
   available. There is a way to read either predefined example data or read data
@@ -217,17 +218,17 @@ useful in realizing the hands-on potential identified in the content analysis:
 \subsection{Non-Functional requirements}
 \begin{itemize}
   \item Users can create content which is persisted between usages of the
-  sandbox.
+  Sandbox.
   \item There is a possibility to ship example scripts and data as part of the
-  sandbox.
+  Sandbox.
   \item Creation and distribution of data stories that are compatible with the
-  tools of the sandbox should be possible without in-depth technological
+  tools of the Sandbox should be possible without in-depth technological
   knowledge.
-  \item The sandbox can be installed effortlessly and in a uniform way across
+  \item The Sandbox can be installed effortlessly and in a uniform way across
   the most common operating systems, namely Apple OS, Linux and Windows.
-  \item The sandbox can be uninstalled without leaving traces on the operating
+  \item The Sandbox can be uninstalled without leaving traces on the operating
   system.
-  \item Turning the sandbox on/off and accessing components should not require
+  \item Turning the Sandbox on/off and accessing components should not require
   any programming knowledge.
   \item A partial or total reset of applications and data is possible in case
   something got messed up.
@@ -244,7 +245,7 @@ useful in realizing the hands-on potential identified in the content analysis:
 %-------------
 \subsection{Existing projects}
 The Google search engine was used to look for already existing similar projects
-using various combinations of the terms \emph{gis}, \emph{geo}, \emph{sandbox},
+using various combinations of the terms \emph{gis}, \emph{geo}, \emph{Sandbox},
 \emph{workshop}, \emph{playground} and \emph{spatial}. No project was found that
 satisfied the requirements outlined in section \ref{sectionrequirements}, but
 some noteworthy findings are listed below.
@@ -254,7 +255,7 @@ some noteworthy findings are listed below.
   tutorials which seems to focus on JavaScript client side mapping libraries
   such as Leaflet. It is not suitable for our purpose but mentioned here for the
   very similar name Geosandbox to avoid confusion.
-  \item IDRE sandbox\cite{project-idre} does not provide any easy access to
+  \item IDRE Sandbox\cite{project-idre} does not provide any easy access to
   tools, but seems to be a collection of workshops and tutorials. It is
   mentioned here because the interesting goals and presentation of some
   workshops served as inspiration for the data story of this thesis.
@@ -262,8 +263,8 @@ some noteworthy findings are listed below.
   discovery. After creating a free account a cloud hosted JupyterJab platform
   with extensive python Jupyter notebooks provide an interactive engaging
   experience to learn about the analysis of satellite imagery and much more. The
-  DEA sandbox was a major inspiration for the heavy focus use of
-  JupyterLab\cite{jupyterlab} in our sandbox.
+  DEA Sandbox was a major inspiration for the heavy focus use of
+  JupyterLab\cite{jupyterlab} in our Sandbox.
   \item Geopython Workshop Repository\cite{project-geopython} is an extensive
   knowledge hub about a broad range of geospatial topics. The workshop is built
   on python Jupyter notebooks using a containerized JupyterLab environment with
@@ -296,7 +297,7 @@ systems, which makes the installation relatively straight-forward.
 
 When it comes to non-functional requirements this approach falls short. A major
 shortcoming is the lengthy and intrusive setup stemming from the lack of
-separation of the sandbox software from the rest of the user's system. Depending
+separation of the Sandbox software from the rest of the user's system. Depending
 on already existing software and specific configurations this approach is at
 best error-prone and at worst capable to permanently alter the user's system.
 Because with this approach only the tools themselves are installed, tutorials
@@ -329,7 +330,7 @@ operating systems at this point thanks to its huge popularity. Once installed,
 the containers can be started and stopped with single commands in seconds.
 Containers can also contain data which optionally can be persisted on the host
 on virtual volumes. Example scripts and data stories can be distributed as part
-of the container and by using volumes they can be persisted across sandbox
+of the container and by using volumes they can be persisted across Sandbox
 restarts or selectively reset. Except for the initial installation this approach
 satisfies all requirements.
 
@@ -341,7 +342,7 @@ services ranging from authentication to load balancing.
 
 This approach takes the local containerized approach one step further into the
 cloud. Instead of bothering with the installation of Docker on the user's
-computer and running the containers locally the sandbox is made available as a
+computer and running the containers locally the Sandbox is made available as a
 service with a simple web interface and optionally some kind of login. Some
 functional requirements such as the availability of a spatial database could
 even be satisfied with cloud native components such as fully managed database
@@ -350,11 +351,11 @@ services.
 The advantage of a cloud service is the low entry barrier because there is no
 installation required. Example data and data stories can be made readily
 available as part of the container setup and resetting is as simple as starting
-a new sandbox cloud instance. This convenience comes at the price of a cost and
+a new Sandbox cloud instance. This convenience comes at the price of a cost and
 complexity overhead at the cloud side, because for persisting data across
 sessions some form of authentication must be in place and every cloud session
-uses resources which are billed by the second. Assuming the cloud sandbox is
-publicly available to fulfill the requirement that the sandbox' usage should not
+uses resources which are billed by the second. Assuming the cloud Sandbox is
+publicly available to fulfill the requirement that the Sandbox' usage should not
 be coupled to the duration of the CAS course, further complexity arises from
 implementing and maintaining security best practices against malicious attacks.
 Data management is another topic which can prove challenging when it comes to
@@ -417,25 +418,26 @@ application}.
 % Architecture
 %-------------
 \subsection{Architecture}
-The sandbox was designed as a modular multi-container setup to be run locally by
+The Sandbox was designed as a modular multi-container setup to be run locally by
 Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{composeSetup}
-  \caption{Sandbox setup using docker compose}
+  \caption{Sandbox architecture}
   \label{fig:sandboxsetup}
 \end{figure}
 
 \subsubsection*{Containers}
-At its heart it consists of six containers, each with a distinct purpose:
+At its heart the Sandbox consists of six containers, each with a distinct
+purpose:
 
 \begin{itemize}
   \item \textbf{hub-container} runs a simple web application that serves as an
-  entry point and central hub for the sandbox. Here a user finds links to access
-  other sandbox components and the relevant connection information. The hub is
+  entry point and central hub for the Sandbox. Here a user finds links to access
+  other Sandbox components and the relevant connection information. The hub is
   the first thing a user sees when typing \emph{localhost} in the browser after
-  starting the sandbox.
+  starting the Sandbox.
   \item \textbf{postgis-container} is a containerized version of PostGIS, a
   spatial database.
   \item \textbf{pgadmin-container} is a containerized version of pgAdmin4, a
@@ -445,11 +447,12 @@ At its heart it consists of six containers, each with a distinct purpose:
   which is an OGC data server and a reference implementation of the OGC web
   standards.
   \item \textbf{geoscriptingsandbox-container} is a containerized version of
-  JupyterLab with various pre-installed python packages from the geo-ecosystem
-  and fundamental libraries such as GDAL and GEOS\cite{geos}. This setup allows
-  users to explore the python geo-ecosystem as well as the various command line
-  utilities that GDAL offers. The expressive nature of Jupyter Notebooks is also
-  used to visualize the data stories.
+  JupyterLab, a web-based interactive development environment for python script
+  sand more. It comes with various pre-installed python packages from the
+  geo-ecosystem and fundamental libraries such as GDAL and GEOS\cite{geos}. This
+  setup allows users to explore the python geo-ecosystem as well as the various
+  command line utilities that GDAL offers. The expressive nature of Jupyter
+  Notebooks is also used to visualize the data stories.
   \item \textbf{datastories-container} is called a data container because it
   serves solely as a data storage without application. It contains the data
   story related narrative in form of Jupyter notebooks as well as the sample
@@ -458,7 +461,7 @@ At its heart it consists of six containers, each with a distinct purpose:
 
 \subsubsection*{Usage of volumes for persistent data storage}
 Some containers make use of virtual volumes as shown in Figure
-\ref{fig:sandboxsetup} to persist data across restarts of the sandbox. Examples
+\ref{fig:sandboxsetup} to persist data across restarts of the Sandbox. Examples
 include the data stored in PostGIS, the database connections set up in pgAdmin
 or the data and configuration files used by GeoServer.
 
@@ -469,22 +472,38 @@ notebooks. This pattern assures that the data stories on the volume always
 correspond to the data stories container content.
 
 \subsubsection*{Networking}
+All containers are part of a virtual network managed by Docker Compose which is
+isolated from the host system. In this network every container can connect to
+every other container by its container name and the port exposed by the
+container's application. As shown in Figure \ref{fig:sandboxsetup} some
+containers also expose selected ports to the host network, which allows
+interacting with the application within the container from outside the Docker
+Compose network through the host network's localhost interface. This has
+consequences for the user experience, because the way to connect to a certain
+Sandbox component differs based on whether the connection happens from another
+Sandbox component (e.g. Sandbox pgAdmin to Sandbox PostGIS) or from outside the
+Sandbox (e.g. QGIS to Sandbox PostGIS) because each case uses a different
+network. Hours were spent researching how to homogenize the user experience
+without success and in the current implementation the Sandbox hub's connection
+information makes it as explicit as possible which connection information to use
+in which case.
 
 \subsubsection*{Access to host file system}
 Even though not indicated in Figure \ref{fig:sandboxsetup}, it is also possible
-to grant containers access to the file system of the host machine. This seems
-to contradict the basic idea of isolation but proves to be useful in
-certain cases. The current sandbox implementation creates such a link to the
-host file system for the geoscriptingsandbox and GeoServer containers with the
-intent to make it very easy for users to use data saved on their local machine.
+to grant containers access to the file system of the host machine. This seems to
+contradict the basic idea of isolation but proves to be useful in certain cases.
+The current Sandbox implementation creates such a link to the host file system
+for the geoscriptingsandbox and GeoServer containers with the intent to make it
+easy for users to let Sandbox components make use of data saved on their local
+machine.
 
 % Implementation
 %-------------
 \subsection{Implementation}
 
-This section will walk through the implementation of the sandbox using Docker
-Compose. The result is provided in this thesis'
-repository\cite{osgeostacksandbox} and is free to use under MIT license.
+This section covers the implementation of the Sandbox using Docker Compose. The
+result is provided in this thesis' repository\cite{osgeostacksandbox} and is
+free to use under MIT license.
 
 At the heart of a Docker Compose application is a configuration file, called
 \emph{compose file} which describes the components of the multi-container setup
@@ -495,18 +514,19 @@ or how to be accessible from the host system. When the Docker Compose
 application is started, the images of each service are used to start containers
 within which the application of interest then runs. A compose file can also
 declare \emph{volumes}, which can be used by services to save data which should
-be persisted across restarts of a service.
+be persisted across restarts of a service and \emph{network settings}, which
+define how containers can interact with each other and the host network.
 
 In a first step, a search was performed on DockerHub\cite{dockerhub}, an online
 repository for image distribution. For the following components of our
 architecture suitable third-party images were available and the image names with
-appropriate version were added to the compose file:
+appropriate versions were added to the compose file:
 
 \begin{itemize}
   \item For postgis-container the official PostGIS image was
   used\cite{postgis-container}.
   \item For pgadmin-container the official pgAdmin4 image was
-  sued\cite{pgadmin-container}.
+  used\cite{pgadmin-container}.
   \item For geoserver-container a GeoServer image provided by Kartoza was
   used\cite{geoserver-container}. This image has configuration options to
   include community extensions, plugins and sample data.
@@ -515,24 +535,73 @@ appropriate version were added to the compose file:
 The other components were created in the course of this thesis. For each
 component a suitable Dockerfile was created describing how to build an image
 containing the desired application and data. GitHub Actions\cite{githubactions}
-was used to create an automated workflow to actually build the image and then
-make it publicly available on the GitHub Container Registry\cite{gcr}, GitHub's
-image distribution platform. The image name with appropriate version was then
-added to the compose file.
+was used to create an automated workflow to build the image and then make it
+publicly available on the GitHub Container Registry\cite{gcr}, GitHub's image
+distribution platform. The image name with appropriate version was then added to
+the compose file.
 
-% Using the sandbox
+% Using the Sandbox
 %-------------
-\subsection{Sandbox setup and usage}
+\subsection{Setup and usage}
+\emph{Disclaimer: Due to the dynamic nature of this young project, this section
+might be quickly outdated. For a detailed and up-to-date documentation on how to
+set up and use the Sandbox please refer to the top level README page of this
+thesis' repository\cite{osgeostacksandbox}.}
 
+\subsubsection*{Initial setup}
+The only prerequisite to use the Sandbox is a working installation of Docker,
+which has become a straight-forward task across all common operating systems in
+recent years by the maturation of Docker Desktop\cite{dockerdesktop}.
 
-Upon starting the sandbox, Docker Compose will check for the availability of the
-images on the host machine and download them from DockerHub if necessary.
+\subsubsection*{Starting and stopping the Sandbox}
+With Docker Desktop running in the background, only the compose file needs to be
+available on the host system. It can be downloaded from this thesis'
+repository\cite{sandboxcomposefile}. Then open a terminal and navigate to the
+same folder the compose file resides in and run this command\footnote{At
+startup, Docker Compose checks the availability of the images on the host
+machine and downloads them from DockerHub or other provided image repositories
+if necessary. These initial downloads will take some time, so make sure to be
+connected to a fast and reliable internet connection. Further startups use the
+downloaded images and will only take seconds and work even without internet
+connection.}:
+\begin{lstlisting}
+  docker compose up -d
+\end{lstlisting}
+
+By default, Docker Compose looks for the compose file in the same directory
+where the above command was executed, which is why you should first navigate to
+the location of the compose file. Once the Sandbox started, open your favorite
+web browser and navigate to \emph{localhost}, which should display the Sandbox
+hub.
+
+To shut down the Sandbox, simply run:
+\begin{lstlisting}
+  docker compose down
+\end{lstlisting}
+
+\subsubsection*{Removing the Sandbox from your system}
+If you want to remove all traces of Docker Compose and the Sandbox from your
+system, simply uninstall Docker Desktop. This will remove all containers,
+volumes, networks and images, etc.
 
 %-------------
 % DATA STORY
 %-------------
 \section{Data story}
 
+% Motivation
+%-------------
+\subsection{Motivation}
+
+
+
+% Intregration with Sandbox
+%-------------
+\subsection{Integration with Sandbox}
+
+% Example data story
+%-------------
+\subsection{Example Data Story}
 
 %-------------
 % CONCLUSION
