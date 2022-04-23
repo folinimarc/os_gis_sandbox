@@ -176,7 +176,7 @@ modules where hands-on potential was identified.
       to geospatial data by various means such as developing standards. Such
       standards for the web include Web Map Service (WMS), Web Feature Service
       (WFS) and Web Coverage Service (WCS) to load styled map images, simple
-      geometry features and raster data via http respectively.}.
+      geometry features and raster data via HTTP respectively.}.
       \item Optional: Consume WMS with QGIS. \end{itemize}\nointerlineskip \\
     \midrule
     % row start
@@ -260,13 +260,13 @@ some noteworthy findings are listed below.
   workshops served as inspiration for the data story of this thesis.
   \item Digital Earth Australia (DEA) Sandbox\cite{project-dea} was a wonderful
   discovery. After creating a free account a cloud hosted JupyterJab platform
-  with extensive python Juypter notebooks provide an interactive engaging
+  with extensive python Jupyter notebooks provide an interactive engaging
   experience to learn about the analysis of satellite imagery and much more. The
   DEA sandbox was a major inspiration for the heavy focus use of
   JupyterLab\cite{jupyterlab} in our sandbox.
   \item Geopython Workshop Repository\cite{project-geopython} is an extensive
   knowledge hub about a broad range of geospatial topics. The workshop is built
-  on python Juypter notebooks using a containerized JupyterLab environment with
+  on python Jupyter notebooks using a containerized JupyterLab environment with
   pre-installed libraries. Docker compose is used as container orchestration
   technology. Even though the setup is too limited for the use case of this
   thesis (a spatial database is missing for example) the idea of using container
@@ -398,9 +398,9 @@ Docker Compose, Docker Swarm and Minikube.
   Swarm on a single host machine.
   \item \textbf{Minikube}\cite{minikube} is a tool that lets you run a local
   version of a Kubernetes Cluster. Kubernetes is one of the most popular
-  container orchestration softwares and at a high level similar to Docker Swarm.
+  container orchestration software and at a high level similar to Docker Swarm.
   It provides its own approach towards managing containers, networking and
-  storage which is generally more targeted towards large-scale enteprise
+  storage which is generally more targeted towards large-scale enterprise
   applications.
 \end{itemize}
 
@@ -408,8 +408,8 @@ All three technologies were evaluated on a two container setup of a spatial
 database (PostGIS) and an associated administrator application (pgAdmin). While
 all three technologies provided extensive documentation that allowed for
 successful testing, Docker Compose proved to be the simplest solution in terms
-of inital setup and ease of use, due to its single configuration file and the
-targeted usecase to run on a single host. To that end \emph{Docker Compose} was
+of initial setup and ease of use, due to its single configuration file and the
+targeted use case to run on a single host. To that end \emph{Docker Compose} was
 chosen as the technology to implement the \emph{Sandbox as local containerized
 application}.
 
@@ -445,7 +445,7 @@ At its heart it consists of six containers, each with a distinct purpose:
   which is an OGC data server and a reference implementation of the OGC web
   standards.
   \item \textbf{geoscriptingsandbox-container} is a containerized version of
-  JupyterLab with various preinstalled python packages from the geo-ecosystem
+  JupyterLab with various pre-installed python packages from the geo-ecosystem
   and fundamental libraries such as GDAL and GEOS\cite{geos}. This setup allows
   users to explore the python geo-ecosystem as well as the various command line
   utilities that GDAL offers. The expressive nature of Jupyter Notebooks is also
@@ -456,25 +456,26 @@ At its heart it consists of six containers, each with a distinct purpose:
   data.
 \end{itemize}
 
-\subsubsection*{Data storage}
+\subsubsection*{Usage of volumes for persistent data storage}
 Some containers make use of virtual volumes as shown in Figure
 \ref{fig:sandboxsetup} to persist data across restarts of the sandbox. Examples
 include the data stored in PostGIS, the database connections set up in pgAdmin
 or the data and configuration files used by GeoServer.
 
-A special case is the datastories container, which upon each start copies all
+A special case is the data stories container, which upon each start copies all
 its content to a volume datastories-data which can be accessed by other
 containers such as geoscriptingsandbox-container to run through the data story
-notebooks.
+notebooks. This pattern assures that the data stories on the volume always
+correspond to the data stories container content.
 
 \subsubsection*{Networking}
 
 \subsubsection*{Access to host file system}
 Even though not indicated in Figure \ref{fig:sandboxsetup}, it is also possible
 to grant containers access to the file system of the host machine. This seems
-contradictionary to the basic idea of isolation but proves to be useful in
+to contradict the basic idea of isolation but proves to be useful in
 certain cases. The current sandbox implementation creates such a link to the
-host file system for the geoscriptingsandbox and geoserver containers with the
+host file system for the geoscriptingsandbox and GeoServer containers with the
 intent to make it very easy for users to use data saved on their local machine.
 
 % Implementation
@@ -491,7 +492,7 @@ and how they interact. Each component is called a \emph{service}, which consists
 of an image that specifies the containerized application at the heart of the
 service and additional configuration about how to interact with other services
 or how to be accessible from the host system. When the Docker Compose
-application is startet, the images of each service are used to start containers
+application is started, the images of each service are used to start containers
 within which the application of interest then runs. A compose file can also
 declare \emph{volumes}, which can be used by services to save data which should
 be persisted across restarts of a service.
@@ -513,9 +514,9 @@ appropriate version were added to the compose file:
 
 The other components were created in the course of this thesis. For each
 component a suitable Dockerfile was created describing how to build an image
-containing the desired application and data. Github Actions\cite{githubactions}
+containing the desired application and data. GitHub Actions\cite{githubactions}
 was used to create an automated workflow to actually build the image and then
-make it publicly available on the Github Container Registry\cite{gcr}, Github's
+make it publicly available on the GitHub Container Registry\cite{gcr}, GitHub's
 image distribution platform. The image name with appropriate version was then
 added to the compose file.
 
@@ -524,7 +525,7 @@ added to the compose file.
 \subsection{Sandbox setup and usage}
 
 
-Upon starting the sandbox, Docker Compose will check for the availablity of the
+Upon starting the sandbox, Docker Compose will check for the availability of the
 images on the host machine and download them from DockerHub if necessary.
 
 %-------------
