@@ -623,7 +623,22 @@ meaningful result.
 % Intregration with Sandbox
 %-------------
 \subsection{Integration with Sandbox}
+Several possible approaches were evaluated on how to integrate data stories in
+the context of the existing sandbox architecture, ranging from complete
+decoupling via external static websites or file transfer to full integration
+into existing containers. It was found that the expressive nature of Jupyter
+Notebooks was well suited as medium for a data story's narrative, offering full
+support for text styling through Markdown language and support for images and
+GIFs. More so, the creation of new content using Jupyter Notebooks is possible
+without technical background, which is a big plus compared to an evaluated
+alternative that framed data stories as static websites made up of HTML and
+CSS\footnote{HTML (HyperText Markup Language) defines the structure of a
+website, i.e. what is considered a header, a title or a paragraph. CSS
+(Cascading Style Sheets) defines the styling (look) of a website.}.
 
+The decision where to store the Jupyter Notebooks and the associated data was
+driven by the requirement to allow shipping updated and new data story content
+to users without
 
 % Example data story
 %-------------
@@ -654,7 +669,7 @@ thing, but to update this indicator and downstream visualizations on a monthly
 basis to incentivize the government to take action.
 
 Excited by this idea, your friend checked the publicly available geodata of the
-city of Zürich and sent you two Shapefile containing the city districts and the
+city of Zürich and sent you two Shapefiles containing the city districts and the
 road network with indication which roads are suitable for biking. As the GIS
 expert the joy of making this work is now on you...
 
@@ -666,7 +681,7 @@ data changes - thus making the monthly update as painless as possible.
 You plan your work in steps:
 \begin{enumerate}
   \item Explore the road and district data your coworker sent you.
-  \item Load the Shapefile into PostGIS.
+  \item Load the Shapefile data into PostGIS.
   \item Calculate the ratio of roads suitable for bikes per district.
   \item Create a new dataset to share with coworkers.
   \item Visualize the results as a map in QGIS.
