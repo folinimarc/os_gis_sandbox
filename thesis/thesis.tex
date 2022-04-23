@@ -317,10 +317,15 @@ can be started and stopped within seconds.
 
 This approach takes the direct installation approach one step further by running
 a spatial database or an OGC data server in containers isolated from the host
-system. Complex installation procedures can be fully abstracted away from the
-user as part of the image creation process, which would allow for example to set
-up a JupyterLab environment with system dependencies like GDAL in order to have
-access to a wide variety of python packages from python's geo-ecosystem.
+system. A difference from the direct installation approach is that QGIS was
+found to be not suitable as containerized application in the context of the
+Sandbox because of extra configuration required on the host system for graphical
+output. On a positive note, complex installation procedures can be fully
+abstracted away from the user in a containerized setup as part of the image
+creation process, which would allow for example to set up a JupyterLab
+environment with system dependencies like GDAL in order to have access to a wide
+variety of python packages from python's geo-ecosystem and GDAL terminal
+commands.
 
 The setup complexity is comparatively low, because the only prerequisite is the
 installation of Docker, which is an easy and mature process for all major
@@ -363,14 +368,13 @@ large for standard internet connection upload speeds leading to disruptions and
 waiting times.
 
 \subsubsection*{Conclusion: Sandbox as local containerized application}
-All three approaches satisfy the functional requirements, which is why the
-non-functional requirements will be used to argue for the final decision. The
-direct installation approach falls short here. The local containerization
-approach has some minor shortcomings when it comes to the initial installation,
-but shines in almost all other areas. The cloud service approach is the
-opposite, shining with a zero-effort setup but falling behind the local
-containerization approach in terms of maintainability, cost, and data
-management.
+All three approaches satisfy the functional requirements, so the non-functional
+requirements will be used to argue for the final decision. The direct
+installation approach falls short here. The local containerization approach has
+some minor shortcomings when it comes to the initial installation, but shines in
+almost all other areas. The cloud service approach is the opposite, shining with
+a zero-effort setup but falling behind the local containerization approach in
+terms of maintainability, cost, and data management.
 
 The approach \emph{Sandbox as local containerized application} was eventually
 chosen for the further implementation, because simplicity of a local setup
@@ -378,19 +382,18 @@ combined with the advantages of container technologies was found to outweigh the
 cost of the initial setup, which is still orders of magnitude simpler than with
 the direct installation approach.
 
-\subsubsection{Technology evaluation for local containerized setup}
-The technology to be used for local containerized setup has to be able to run
-multiple containers which can communicate among each other as well as with the
-host system and store data which is persisted beyond the lifecycle of each
+\subsubsection{Technology evaluation for local containerized application}
+The technology to be used for local containerized application has to be able to
+run multiple containers which can communicate among each other as well as with
+the host system and store data which is persisted beyond the lifecycle of each
 container. Among many possibilities, three technologies were considered more
 closely due to their popularity and the availability of detailed documentation:
 Docker Compose, Docker Swarm and Minikube.
 
 \begin{itemize}
-  \item \textbf{Docker Compose} is a tool that allows to run multi-container
-  applications on a single host. A single compose file acts as configuration for
-  container lifecycle and environment as well as the networking and storage
-  layers.
+  \item \textbf{Docker Compose} allows running multi-container applications on a
+  single host. A single compose file acts as configuration for container
+  lifecycle and environment as well as the networking and storage layers.
   \item \textbf{Docker Swarm}\cite{dockerswarm} shares many concepts with Docker
   Compose and can be considered an evolution towards orchestrating multiple
   containers across multiple host machines. It is also possible to run Docker
@@ -441,16 +444,16 @@ purpose:
   \item \textbf{pgadmin-container} is a containerized version of pgAdmin4, a
   graphical user interface to facilitate the administration of PostgreSQL based
   databases, such as PostGIS.
-  \item \textbf{geoserver-container} is a containerized version of Geoserver,
+  \item \textbf{geoserver-container} is a containerized version of GeoServer,
   which is an OGC data server and a reference implementation of the OGC web
-  standards.
+  services.
   \item \textbf{geoscriptingsandbox-container} is a containerized version of
-  JupyterLab, a web-based interactive development environment for python script
-  sand more. It comes with various pre-installed python packages from the
-  geo-ecosystem and fundamental libraries such as GDAL and GEOS\cite{geos}. This
-  setup allows users to explore the python geo-ecosystem as well as the various
-  command line utilities that GDAL offers. The expressive nature of Jupyter
-  Notebooks is also used to visualize the data stories.
+  JupyterLab, a web-based interactive development environment for python scripts
+  and more. It should come bundled with various pre-installed python packages
+  from the geo-ecosystem and fundamental libraries such as GDAL and
+  GEOS\cite{geos}. This setup allows users to explore the python geo-ecosystem
+  as well as the various command line utilities that GDAL offers. The expressive
+  nature of Jupyter Notebooks is also used to visualize the data stories.
   \item \textbf{datastories-container} is called a data container because it
   serves solely as a data storage without application. It contains the data
   story related narrative in form of Jupyter Notebooks as well as the sample
@@ -463,7 +466,7 @@ Some containers make use of virtual volumes as shown in Figure
 include the data stored in PostGIS, the database connections set up in pgAdmin
 or the data and configuration files used by GeoServer.
 
-A special case is the data stories container, which upon each start copies all
+A special case is datastories-container, which upon each start copies all
 its content to a volume datastories-data which can be accessed by other
 containers such as geoscriptingsandbox-container to run through the data story
 Jupyter Notebooks. This pattern assures that the data stories on the volume
