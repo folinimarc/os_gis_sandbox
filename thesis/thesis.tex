@@ -102,11 +102,9 @@ to address them on two different levels:
   education curriculum.
   \item \textbf{Content} In order to help participants to make sense of the
   Sandbox components and their interactions, the concept of a \emph{data story}
-  was explored. Each data story has a tangible data use case goal statement that
-  participants can identify with, for example: Let's visualize risk of wildfire
-  and serve it as interactive map on a website. Starting from given raw data,
-  participants follow the processing of this dataset through the different
-  components and experience how they work together to achieve the goal.
+  was explored. Each data story has a tangible data driven use case and then
+  provides guidance on how available technologies and tools interact with the
+  data to achieve the desired result.
 \end{enumerate}
 
 
@@ -606,11 +604,11 @@ this. Many tutorials exist, but these are usually centered around a specific
 tool or technology, whereby data is usually of secondary nature to explain the
 functionalities in a narrow scope.
 
-There is a gap what people new to the field need to what is widely available.
-Think of it as a puzzle with many pieces (tools), whereby each piece is
-explained in detail on its own (tool focused tutorials) but there is much less
-explanation on how puzzle pieces relate to each other and how they need to be
-connected to get a desirable bigger picture. Imagine how frustrating such a
+There is a gap between what people new to the field need to what is widely
+available. Think of it as a puzzle with many pieces (tools), whereby each piece
+is explained in detail on its own (tool focused tutorials) but there is much
+less explanation on how puzzle pieces relate to each other and how they need to
+be connected to get a desirable bigger picture. Imagine how frustrating such a
 puzzle is to solve.
 
 Data stories aim to bridge the above-mentioned gap and to put emphasis on how
@@ -627,13 +625,13 @@ Several possible approaches were evaluated on how to integrate data stories in
 the context of the existing sandbox architecture, ranging from complete
 decoupling via external static websites or file transfer to full integration
 into existing containers. It was found that the expressive nature of Jupyter
-Notebooks was well suited as medium for a data story's narrative, offering full
-support for text styling through Markdown language and support for images and
-GIFs. More so, the creation of new content using Jupyter Notebooks is possible
-without technical background, which is a big plus compared to an evaluated
-alternative that framed data stories as static websites made up of HTML and
-CSS\footnote{HTML (HyperText Markup Language) defines the structure of a
-website, i.e. what is considered a header, a title or a paragraph. CSS
+Notebooks was well suited for a data story's narrative, offering full support
+for text styling through Markdown language and support for images, GIFs and
+in-line code execution. More so, the creation of new content using Jupyter
+Notebooks is possible without technical background, which is a big plus compared
+to an evaluated alternative that framed data stories as static websites made up
+of HTML and CSS\footnote{HTML (HyperText Markup Language) defines the structure
+of a website, i.e. what is considered a header, a title or a paragraph. CSS
 (Cascading Style Sheets) defines the styling (look) of a website.}.
 
 The decision where to store the Jupyter Notebooks and the associated data was
@@ -641,8 +639,9 @@ mainly driven by the requirement to allow shipping updated and new data story
 content with minimal impact on the users. To that end a separate
 datastories-container was introduced to the sandbox, which contains the data
 story notebooks and associated data. Upon starting the sandbox, the containers
-data gets copied to a volume that is accessible by the geoscriptingsandbox'
-JupyterLab as the primary way of interacting with the data stories. This pattern
+data gets copied to a volume that is accessible by the geoscriptingsandbox
+component. Instead of reinventing the wheel, the geoscriptingsandbox' JupyterLab
+is used as the primary way of interacting with the data stories. This pattern
 has several nice properties:
 \begin{itemize}
   \item Updating a data story is as simple as updating the Jupyter Notebooks and
