@@ -414,65 +414,11 @@ chosen as the technology to implement the \emph{Sandbox as local containerized
 application}.
 
 
-% Docker Compose architecture
+% Architecture
 %-------------
-\subsection{Docker Compose architecture}
-
-At the heart of a Docker Compose application is a configuration file, called
-\emph{compose file} which describes the components of the multi-container
-application and how they interact. Each component is called a \emph{service},
-which consists of an image that specifies the containerized application at the
-heart of the service and additional configuration about how to interact with
-other services or how to be accessible from the host system. When the Docker
-Compose application is startet, the images of each service are used to start
-containers within which the application of interest then runs. A compose file
-can also declare \emph{volumes}, which can be used by services to save data
-which should be persisted across restarts of a service.
-
-The architecture of the sandbox is outlined in Figure \ref{fig:sandboxsetup}.
-The following containerized applications are provided as downloadable images by
-third parties and used without modifications:
-
-\begin{itemize}
-  \item \textbf{postgis-container}\cite{postgis-container} is a containerized
-  version of PostGIS, a spatial database. The container uses a volume called
-  postgis-data to persist the database content.
-  \item \textbf{pgadmin-container}\cite{pgadmin-container} is a containerized
-  version of pgAdmin4, a graphical user interface to facilitate the
-  administration of PostgreSQL based databases, such as PostGIS. The container
-  uses a volume called pgadmin-data to persist configurations, such as database
-  connections.
-  \item \textbf{geoserver-container}\cite{geoserver-container} is a
-  containerized version of Geoserver, which is an OGC data server and a
-  reference implementation of the OGC web standards . The version used priovided
-  by Kartoza and has configuration options to include community extensions,
-  plugins and sample data. The container uses a volume called geoserver-data to
-  persist its configuration and data directories.
-\end{itemize}
-
-The following components were created in the course of this thesis and the code
-is provided in this thesis' repository\cite{osgeostacksandbox}:
-
-\begin{itemize}
-  \item \textbf{geoscriptingsandbox-container} is a containerized version of
-  JupyterLab with various preinstalled python packages from the geo-ecosystem
-  and fundamental libraries such as GDAL and GEOS\cite{geos}. This setup allows
-  users to explore the python geo-ecosystem as well as the various command line
-  utilities that GDAL offers. The expressive nature of Jupyter Notebooks is also
-  used to visualize the data stories. The container uses a volume called
-  geoscriptingsandbox-data to persist user created Jupyter notebooks and data.
-  \item \textbf{datastories-container} is called a data container because it
-  serves solely as a data storage without application. It contains the data
-  story related narrative in form of Jupyter notebooks as well as the sample
-  data. Upon start, it copies all its content to a volume datastories-data which
-  can be accessed by other components such as geoscriptingsandbox-container to
-  run through the data story notebooks.
-  \item \textbf{hub-container} runs a simple web application that serves as an
-  entry point and central. Here a user finds links to access other sandbox
-  components and the relevant connection information. The hub is the first thing
-  a user sees when typing \emph{localhost} in the browser after starting the
-  sandbox.
-\end{itemize}
+\subsection{Architecture}
+The sandbox was designed as a modular multi-container setup to be run locally by
+Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}.
 
 \begin{figure}[H]
   \centering
@@ -481,11 +427,105 @@ is provided in this thesis' repository\cite{osgeostacksandbox}:
   \label{fig:sandboxsetup}
 \end{figure}
 
+\subsubsection*{Containers}
+At its heart it consists of six containers, each with a distinct purpose:
+
+\begin{itemize}
+  \item \textbf{hub-container} runs a simple web application that serves as an
+  entry point and central hub for the sandbox. Here a user finds links to access
+  other sandbox components and the relevant connection information. The hub is
+  the first thing a user sees when typing \emph{localhost} in the browser after
+  starting the sandbox.
+  \item \textbf{postgis-container} is a containerized version of PostGIS, a
+  spatial database.
+  \item \textbf{pgadmin-container} is a containerized version of pgAdmin4, a
+  graphical user interface to facilitate the administration of PostgreSQL based
+  databases, such as PostGIS.
+  \item \textbf{geoserver-container} is a containerized version of Geoserver,
+  which is an OGC data server and a reference implementation of the OGC web
+  standards.
+  \item \textbf{geoscriptingsandbox-container} is a containerized version of
+  JupyterLab with various preinstalled python packages from the geo-ecosystem
+  and fundamental libraries such as GDAL and GEOS\cite{geos}. This setup allows
+  users to explore the python geo-ecosystem as well as the various command line
+  utilities that GDAL offers. The expressive nature of Jupyter Notebooks is also
+  used to visualize the data stories.
+  \item \textbf{datastories-container} is called a data container because it
+  serves solely as a data storage without application. It contains the data
+  story related narrative in form of Jupyter notebooks as well as the sample
+  data.
+\end{itemize}
+
+\subsubsection*{Data storage}
+Some containers make use of virtual volumes as shown in Figure
+\ref{fig:sandboxsetup} to persist data across restarts of the sandbox. Examples
+include the data stored in PostGIS, the database connections set up in pgAdmin
+or the data and configuration files used by GeoServer.
+
+A special case is the datastories container, which upon each start copies all
+its content to a volume datastories-data which can be accessed by other
+containers such as geoscriptingsandbox-container to run through the data story
+notebooks.
+
+\subsubsection*{Networking}
+
+\subsubsection*{Access to host file system}
+Even though not indicated in Figure \ref{fig:sandboxsetup}, it is also possible
+to grant containers access to the file system of the host machine. This seems
+contradictionary to the basic idea of isolation but proves to be useful in
+certain cases. The current sandbox implementation creates such a link to the
+host file system for the geoscriptingsandbox and geoserver containers with the
+intent to make it very easy for users to use data saved on their local machine.
+
+% Implementation
+%-------------
+\subsection{Implementation}
+
+This section will walk through the implementation of the sandbox using Docker
+Compose. The result is provided in this thesis'
+repository\cite{osgeostacksandbox} and is free to use under MIT license.
+
+At the heart of a Docker Compose application is a configuration file, called
+\emph{compose file} which describes the components of the multi-container setup
+and how they interact. Each component is called a \emph{service}, which consists
+of an image that specifies the containerized application at the heart of the
+service and additional configuration about how to interact with other services
+or how to be accessible from the host system. When the Docker Compose
+application is startet, the images of each service are used to start containers
+within which the application of interest then runs. A compose file can also
+declare \emph{volumes}, which can be used by services to save data which should
+be persisted across restarts of a service.
+
+In a first step, a search was performed on DockerHub\cite{dockerhub}, an online
+repository for image distribution. For the following components of our
+architecture suitable third-party images were available and the image names with
+appropriate version were added to the compose file:
+
+\begin{itemize}
+  \item For postgis-container the official PostGIS image was
+  used\cite{postgis-container}.
+  \item For pgadmin-container the official pgAdmin4 image was
+  sued\cite{pgadmin-container}.
+  \item For geoserver-container a GeoServer image provided by Kartoza was
+  used\cite{geoserver-container}. This image has configuration options to
+  include community extensions, plugins and sample data.
+\end{itemize}
+
+The other components were created in the course of this thesis. For each
+component a suitable Dockerfile was created describing how to build an image
+containing the desired application and data. Github Actions\cite{githubactions}
+was used to create an automated workflow to actually build the image and then
+make it publicly available on the Github Container Registry\cite{gcr}, Github's
+image distribution platform. The image name with appropriate version was then
+added to the compose file.
 
 % Using the sandbox
 %-------------
 \subsection{Sandbox setup and usage}
 
+
+Upon starting the sandbox, Docker Compose will check for the availablity of the
+images on the host machine and download them from DockerHub if necessary.
 
 %-------------
 % DATA STORY
@@ -498,6 +538,7 @@ is provided in this thesis' repository\cite{osgeostacksandbox}:
 %-------------
 \section{Conclusion}
 
+\subsubsection*{Challenges and learnings}
 
 %-------------
 % REFERENCES
