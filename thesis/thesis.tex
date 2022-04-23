@@ -60,10 +60,10 @@
     to teach the necessary functionalities of a specific tool. An example data
     story was implemented whereby open data from the city of Zürich is used to
     derive a map showing what percentage of roads in each district are suitable
-    for biking. Participants learn about GDAL's command line tools to inspect
-    datasets and load them into PostGIS\cite{postgis}, where spatial processing
-    and aggregation is performed. The result is made available as a new dataset
-    to be consumed and styled in QGIS\cite{qgis}.
+    for biking. Participants learn about the GDAL\cite{gdal} command line tools
+    to inspect datasets and load them into PostGIS\cite{postgis}, where spatial
+    processing and aggregation is performed. The result is made available as a
+    new dataset to be consumed and styled in QGIS\cite{qgis}.
   \end{abstract}
 \end{titlepage}
 
@@ -82,13 +82,13 @@
 \section{Introduction}
 Educational GIS\footnote{Geographic Information System (GIS).} workshops face a
 few particular challenges, two of which are central to this thesis. Firstly, it
-is generally desirable that participants can immediately experience theoretical
-concepts hands-on for themselves. The challenge here lies in providing all
-participants with access to the respective software and data with minimal setup
-efforts. Secondly, the GIS landscape today consists of many components covering
-the whole data lifecycle from initial data exploration to visualization and
-distribution. Together with the myriad of commercial and open source tools for
-each component, this might be overwhelming to unfamiliar participants.
+is desirable for participants to experience theoretical concepts hands-on for
+themselves. The challenge here lies in providing all participants with access to
+the respective software and data with minimal setup efforts. Secondly, the GIS
+landscape today consists of many components covering the whole data lifecycle
+from initial data exploration to visualization and distribution. Together with
+the myriad of commercial and open source tools for each component, this might be
+overwhelming to people new to the field.
 
 This thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
 advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. It
@@ -97,7 +97,7 @@ to address them on two different levels:
 \begin{enumerate}
   \item \textbf{Infrastructure} In order to provide participants access to a
   variety of software with minimal setup effort the concept of a \emph{Sandbox
-  environment} is adopted. The requirements and components to be implemented in
+  environment} is explored. The requirements and components to be implemented in
   a first version were chosen to support the content of this thesis' further
   education curriculum.
   \item \textbf{Content} In order to help participants to make sense of the
@@ -113,18 +113,18 @@ to address them on two different levels:
 %-------------
 \section{Requirement analysis} \label{sectionrequirements}
 
-The content of the CAS RIS was analyzed and assessed for potential hands-on
-exercises. From these findings functional and non-functional
-requirements\footnote{Functional requirements specify the tasks an application
-must be able to perform. Non-functional requirements specify additional aspects
-about the application performing the task, for example usability, look and feel
-or performance. } were then derived.
+The content of the CAS RIS was analyzed for potential hands-on exercises. From
+these findings functional and non-functional requirements\footnote{Functional
+requirements specify the tasks an application must be able to perform.
+Non-functional requirements specify additional aspects about the application
+performing the task, for example usability, look and feel or performance. } for
+a Sandbox were then derived.
 
 % Content analyis
 %-------------
 \subsection{Content analysis}
-At the time of writing the course consisted of four weeks of content modules on
-a wide variety of topics. Each module was screened with a focus on where
+At the time of writing the CAS course consisted of four weeks of content modules
+on a wide variety of topics. Each module was screened with a focus on where
 hands-on exercises could be added or expanded without substantially altering the
 module structure or material. Modules focus primarily on usage of proprietary
 software like ArcGIS were ignored. Table \ref{tab:tContentAnalysis} shows the
@@ -291,9 +291,9 @@ pgAdmin\cite{pgadmin} and GeoServer\cite{geoserver}) would be enough to satisfy
 the major part of the functional requirements. While the roles of PostGIS as
 spatial database and GeoServer as OGC data server are well-defined, the QGIS
 installation is particularly interesting because it comes bundled with versions
-of GDAL\cite{gdal} and python that work together well and provides appropriate
-interfaces. The community has produced installers for all major operating
-systems, which makes the installation relatively straight-forward.
+of GDAL and python that work together well and provides appropriate interfaces.
+The community has produced installers for all major operating systems, which
+makes the installation relatively straight-forward.
 
 When it comes to non-functional requirements this approach falls short. A major
 shortcoming is the lengthy and intrusive setup stemming from the lack of
