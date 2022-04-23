@@ -637,8 +637,23 @@ website, i.e. what is considered a header, a title or a paragraph. CSS
 (Cascading Style Sheets) defines the styling (look) of a website.}.
 
 The decision where to store the Jupyter Notebooks and the associated data was
-driven by the requirement to allow shipping updated and new data story content
-to users without
+mainly driven by the requirement to allow shipping updated and new data story
+content with minimal impact on the users. To that end a separate
+datastories-container was introduced to the sandbox, which contains the data
+story notebooks and associated data. Upon starting the sandbox, the containers
+data gets copied to a volume that is accessible by the geoscriptingsandbox'
+JupyterLab as the primary way of interacting with the data stories. This pattern
+has several nice properties:
+\begin{itemize}
+  \item Updating a data story is as simple as updating the Jupyter Notebooks and
+  associated data in the sandbox repository, followed by a new release of the
+  data stories component.
+  \item From the user perspective, obtaining new versions of data stories is as
+  easy as updating the data stories component version in the compose file (or
+  downloading the updated compose file from the repository). Assuming only the
+  version the data stories component changes, the update will be very quick
+  because all other components do not need to be downloaded.
+\end{itemize}
 
 % Example data story
 %-------------
