@@ -113,12 +113,14 @@ to address them on two different levels:
 %-------------
 % REQUIREMENTS
 %-------------
-\section{Requirements} \label{sectionrequirements} The content of the CAS RIS
-was analyzed and assessed for potential hands-on exercises. From these findings
-functional and non-functional requirements\footnote{Functional requirements
-specify the tasks an application must be able to perform. Non-functional
-requirements specify additional aspects about the application performing the
-task, for example usability, look and feel or performance. } were then derived.
+\section{Requirement analysis} \label{sectionrequirements}
+
+The content of the CAS RIS was analyzed and assessed for potential hands-on
+exercises. From these findings functional and non-functional
+requirements\footnote{Functional requirements specify the tasks an application
+must be able to perform. Non-functional requirements specify additional aspects
+about the application performing the task, for example usability, look and feel
+or performance. } were then derived.
 
 % Content analyis
 %-------------
@@ -592,8 +594,30 @@ volumes, networks and images, etc.
 % Motivation
 %-------------
 \subsection{Motivation}
+Today's GIS ecosystem is extensive and fast evolving with multiple tools solving
+similar challenges with varying overlap in functionality. For somebody new to
+the field, the vast amount of possibilities might be overwhelming at best and
+frustrating at worst when trying to develop a holistic mental model about what
+technologies to use in what way to tackle real world use cases. This is because
+real world use cases are often data driven instead of tool centered, i.e. a
+company usually wants to gain some insights from data or transform it to be used
+in a product whereby the tools and technologies are usually means to achieve
+this. Many tutorials exist, but these are usually centered around a specific
+tool or technology, whereby data is usually of secondary nature to explain the
+functionalities in a narrow scope.
 
+There is a gap what people new to the field need to what is widely available.
+Think of it as a puzzle with many pieces (tools), whereby each piece is
+explained in detail on its own (tool focused tutorials) but there is much less
+explanation on how puzzle pieces relate to each other and how they need to be
+connected to get a desirable bigger picture. Imagine how frustrating
+such a puzzle is to solve.
 
+Data stories aim to bridge the above-mentioned gap and to put emphasis on the
+fact how the puzzle pieces relate to each other. A data story provides selected
+raw data, a motivating tangible goal and instructions that connect the raw data
+to the goal. It allows to fully focus on how the different tools interact with
+the data and other tools to achieve a meaningful result.
 
 % Intregration with Sandbox
 %-------------
@@ -602,6 +626,15 @@ volumes, networks and images, etc.
 % Example data story
 %-------------
 \subsection{Example Data Story}
+An example data story was implemented whereby open data from the city of Zürich
+is used to derive a map showing what percentage of roads in each district are
+suitable for biking. Participants learn about GDAL's command line tools to
+inspect datasets and load them into PostGIS\cite{postgis}, where spatial
+processing and aggregation is performed. The result is made available as a new
+dataset to be consumed and styled in QGIS\cite{qgis}.
+
+The data story can be found under \emph{\_datastories/bike\_suitability\_zurich}
+in the geoscriptingsandbox.
 
 %-------------
 % CONCLUSION
