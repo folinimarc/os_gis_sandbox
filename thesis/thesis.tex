@@ -53,16 +53,16 @@
 
     Furthermore, this thesis explored the concept of \emph{data stories}. A data
     story provides selected raw data, a motivating tangible goal and
-    instructions that connect the raw data to the goal. It allows participants
-    to fully focus on how the different tools interact with the data and other
-    tools to achieve a meaningful result. This is in contrast to the majority of
-    tutorials, which are tool focused and to which data is secondary to teach
-    the necessary functionalities. An example data story was implemented whereby
-    open data from the city of Zürich is used to derive a map showing what
-    percentage of roads in each district are suitable for biking. Participants
-    learn about the GDAL command line tools to inspect datasets and load them
-    into PostGIS, where spatial processing and aggregation is performed. The
-    result is made available as a new dataset to be consumed and styled in QGIS.
+    instructions. In contrast to other tutorials, which are often tool focused
+    and to which data is secondary to teach the necessary functionalities, a
+    data story allows participants to fully focus on how different tools
+    interact with the data and among each other to achieve a meaningful result.
+    An example data story was implemented whereby open data from the city of
+    Zürich is used to derive a map showing what percentage of roads in each
+    district are suitable for biking. Participants learn about the GDAL command
+    line tools to inspect datasets and load them into PostGIS, where spatial
+    processing and aggregation is performed. The result is made available as a
+    new dataset to be consumed and styled in QGIS.
   \end{abstract}
 \end{titlepage}
 
@@ -79,9 +79,21 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \section{Introduction}
-Educational GIS\footnote{Geographic Information System (GIS).} workshops face a
-few particular challenges, two of which are central to this thesis. Firstly, it
-is desirable for participants to experience theoretical concepts hands-on for
+
+This thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
+advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}.
+
+It is desirable in GIS\footnote{Geographic Information System (GIS).} workshops
+and lectures to supplement the theoretical concepts with hands-on exercises for
+participants to become an active part in the learning experience. This poses the
+challenge that participants must have access to an environment that provides the
+necessary software and data - ideally with minimal setup effort, independent of
+the system they use and easy to uninstall without leaving traces after the
+workshop.
+
+GIS\footnote{Geographic Information System (GIS).} workshops face a few
+particular challenges, two of which are central to this thesis. Firstly, it is
+desirable for participants to experience theoretical concepts hands-on for
 themselves. The challenge here lies in providing all participants with access to
 the respective software and data with minimal setup efforts. Secondly, the GIS
 landscape today consists of many components covering the whole data lifecycle
@@ -89,10 +101,7 @@ from initial data exploration to visualization and distribution. Together with
 the myriad of commercial and open source tools for each component, this might be
 overwhelming to people new to the field.
 
-This thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
-advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. It
-explores the two above-mentioned challenges in the context of the CAS and aims
-to address them on two different levels:
+It aims to address these challenges on two different levels:
 \begin{enumerate}
   \item \textbf{Infrastructure} In order to provide participants access to a
   variety of software with minimal setup effort the concept of a \emph{Sandbox}
@@ -106,10 +115,46 @@ to address them on two different levels:
 \end{enumerate}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% Sandbox - Identify need
+
+% Sandbox - Solution
+
+% Data Story - Identify need
+Today's GIS ecosystem is extensive and fast evolving with multiple tools
+addressing similar use cases with varying overlap in functionality. Many
+tutorials exist, but these are usually centered around a specific tool or
+technology, whereby data is of secondary nature to explain the functionalities
+in a narrow scope. Meanwhile, the motivation to employ GIS technology is often
+data-driven, i.e. a company usually wants to gain some insights from data or
+transform it to be used in a product whereby the tools and technologies are
+usually means to achieve this. For somebody new to the field, the vast amount of
+possibilities might be overwhelming at best and frustrating at worst when trying
+to develop a holistic mental model about what technologies to use in what way to
+tackle real world use cases.
+
+It is hypothesized here that there is a gap between what people new to the field
+need to what is widely available. Data stories aim to bridge this gap. A data
+story provides selected raw data, a motivating tangible goal and instructions
+how to use suitable tools to transform the raw data into the desired output. It
+allows to fully focus on how the different tools interact with the data and each
+other to achieve a meaningful result. Think of data stories as data driven
+cross-component tutorials.
+
+% Data Story - Solution
+
+
+
 %-------------
-% REQUIREMENTS
+% SANDBOX
 %-------------
-\section{Requirement analysis} \label{sectionrequirements}
+\section{Sandbox}
+
+% Requirements
+%-------------
+\subsection{Requirement analysis} \label{sectionrequirements}
 
 The content of the CAS RIS was analyzed for potential hands-on exercises. From
 these findings functional and non-functional requirements\footnote{Functional
@@ -120,7 +165,7 @@ a Sandbox were then derived.
 
 % Content analyis
 %-------------
-\subsection{Content analysis}
+\subsubsection{Content analysis}
 At the time of writing the CAS curriculum consisted of four weeks of content
 modules on a wide variety of topics. Each module was screened with a focus on
 where a Sandbox could facilitate hands-on experiences without substantially
@@ -164,7 +209,7 @@ of proprietary software like ArcGIS were ignored. Table
     \cmidrule(r){1-1} Statistische Methoden &  \\
     \midrule
     % row start
-    Einführung in Python & Self-study introduction of python basics. \\
+    Einführung in Python & Self-study introduction of Python basics. \\
     \midrule
     % row start
     Internet und GIS I \& II &
@@ -193,7 +238,7 @@ of proprietary software like ArcGIS were ignored. Table
 
 % Functional requirements
 %-------------
-\subsection{Functional requirements}
+\subsubsection{Functional requirements}
 The following functional requirements were identified for the Sandbox to be
 useful in realizing the potential identified in the content analysis:
 \begin{itemize}
@@ -208,14 +253,14 @@ useful in realizing the potential identified in the content analysis:
   \item GDAL\cite{gdal} command line utilities such as gdalinfo, ogrinfo and
   ogr2ogr are available. There is a way to read either predefined example data
   or read data from the user's system.
-  \item An environment is available to write and run python scripts which make
-  use of the python geo-ecosystem. A use case would be to provide illustrative
+  \item An environment is available to write and run Python scripts which make
+  use of the Python geo-ecosystem. A use case would be to provide illustrative
   examples for the concepts of geometry, topology and spatial statistics.
 \end{itemize}
 
 % Non-Functional requirements
 %-------------
-\subsection{Non-Functional requirements}
+\subsubsection{Non-Functional requirements}
 \begin{itemize}
   \item Users can create content which is persisted between usages of the
   Sandbox.
@@ -235,11 +280,6 @@ useful in realizing the potential identified in the content analysis:
   \item Usage is not coupled to the duration of the CAS course or otherwise
   restricted (e.g. via externally controlled credentials).
 \end{itemize}
-
-%-------------
-% SANDBOX
-%-------------
-\section{Sandbox}
 
 % Existing projects
 %-------------
@@ -261,13 +301,13 @@ some noteworthy findings are listed below.
   workshops served as inspiration for the data story of this thesis.
   \item Digital Earth Australia (DEA) Sandbox\cite{project-dea} was a wonderful
   discovery. After creating a free account a cloud hosted
-  JupyterLab\cite{jupyterlab} platform with extensive python Jupyter Notebooks
+  JupyterLab\cite{jupyterlab} platform with extensive Python Jupyter Notebooks
   provide an interactive engaging experience to learn about the analysis of
   satellite imagery and much more. The DEA Sandbox was a major inspiration for
   the heavy focus use of JupyterLab in our Sandbox.
   \item Geopython Workshop Repository\cite{project-geopython} is an extensive
   knowledge hub about a broad range of geospatial topics. The workshop is built
-  on python Jupyter Notebooks using a containerized JupyterLab environment with
+  on Python Jupyter Notebooks using a containerized JupyterLab environment with
   pre-installed libraries. Docker Compose\cite{dockercompose} is used as
   container orchestration technology. Even though the setup is too limited for
   the use case of this thesis (a spatial database is missing for example) the
@@ -280,12 +320,6 @@ some noteworthy findings are listed below.
 \subsection{Technology evaluation}
 
 \subsubsection{Container terminology by the example of Docker}
-Container technology has been around for decades but took off in 2013 with the
-release of Docker, which provided the tools that made container technology
-accessible to the broader mass. The basic idea is to package applications, so
-they can be run in isolation from other applications. Compared to virtual
-machines containers are very lightweight and can be started and stopped within
-seconds.
 
 In Docker terminology, the first step towards packaging an application is to
 create a \emph{Dockerfile}, a text file which describes the installation
@@ -308,7 +342,7 @@ PostGIS\cite{postgis}, pgAdmin\cite{pgadmin} and GeoServer\cite{geoserver})
 would be enough to satisfy the major part of the functional requirements. While
 the roles of PostGIS as spatial database and GeoServer as OGC data server are
 well-defined, the QGIS installation is particularly interesting because it comes
-bundled with versions of GDAL and python that work together well. The community
+bundled with versions of GDAL and Python that work together well. The community
 has produced installers for all major operating systems, which makes the
 installation relatively straight-forward.
 
@@ -324,27 +358,37 @@ without problems and the decoupling of the distribution of tutorials and data
 stories makes it easy to be updated without technical knowledge.
 
 \subsubsection*{Sandbox as local containerized application}
-This approach takes the direct installation approach one step further by running
-a spatial database and an OGC data server as containers isolated from the host
-system. A difference from the direct installation approach is that QGIS was
-found to be not suitable as containerized application in the context of the
-Sandbox because of extra configuration required on the host system for graphical
-output. On a positive note, complex installation procedures can be fully
-abstracted away from the user in a containerized setup as part of the image
-creation process, which would allow for example to set up a JupyterLab
-environment with system dependencies like GDAL in order to have access to a wide
-variety of python packages from python's geo-ecosystem and GDAL terminal
-commands.
+Container technology has been around for decades but took off in 2013 with the
+release of Docker, which provided the tools that made container technology
+accessible to the broader mass. The basic idea is to package applications, so
+they can be run in isolation from other applications. Compared to virtual
+machines containers are very lightweight and can be started and stopped within
+seconds.
 
-The setup complexity is comparatively low, because the only prerequisite is the
-installation of Docker, which is an easy and mature process for all major
-operating systems at this point thanks to its huge popularity. Once installed,
-the containers can be started and stopped with single commands in seconds.
+This approach takes the direct installation approach one step further by running
+a spatial database and an OGC data server as containerized applications isolated
+from the host system. A difference from the direct installation approach is that
+QGIS was found to be not suitable for this approach because of extra
+configuration required for graphical output on the host system (the computer the
+containerized applications run on). On a positive note, complex installation
+procedures for containerized applications can be fully abstracted away from the
+user during the packaging process. This would allow for example to fulfill the
+functional requirements without QGIS by setting up JupyterLab environment with
+system dependencies like GDAL in order to have access to a wide variety of
+Python packages from Python's geo-ecosystem and GDAL terminal commands.
 Containers can also contain data which optionally can be persisted on the host
 on virtual volumes. Example scripts and data stories can be distributed as part
 of the container and by using volumes they can be persisted across Sandbox
-restarts or selectively reset. Except for the initial installation this approach
-satisfies all requirements.
+restarts or selectively reset.
+
+An initial setup complexity is the installation of a container runtime, here
+Docker\footnote{Any other software that provides a container runtime will do to
+run containerized applications. Up to this day Docker remains one of the most
+popular tools for that purpose to the point where it is often used synonymously
+for everything to do with containers. Docker is chosen for its maturity and
+excellent documentation.}, on the user's computer, which is an easy and mature
+process for all major operating systems at this point. Except for the initial
+installation this approach satisfies all requirements.
 
 \subsubsection*{Sandbox as cloud service}
 The advances of container technology went hand in hand with the maturation of
@@ -363,7 +407,7 @@ services.
 The advantage of a cloud service is the low entry barrier because there is no
 installation required. Example data and data stories can be made readily
 available as part of the container setup and resetting is as simple as starting
-a new Sandbox cloud instance. This convenience comes at the price of a cost and
+a new Sandbox cloud instance. But this convenience comes with a cost and
 complexity overhead at the cloud side, because for persisting data across
 sessions some form of authentication must be in place and every cloud session
 uses resources which are billed by the second. Assuming the cloud Sandbox is
@@ -386,10 +430,9 @@ a zero-effort setup but falling behind the local containerization approach in
 terms of maintainability, cost, and data management.
 
 The approach \emph{Sandbox as local containerized application} was eventually
-chosen for the further implementation, because simplicity of a local setup
+chosen for the further implementation, because the simplicity of a local setup
 combined with the advantages of container technologies was found to outweigh the
-cost of the initial setup, which is still orders of magnitude simpler than with
-the direct installation approach.
+cost of the initial setup.
 
 \subsubsection{Technology evaluation for local containerized application}
 The technology to be used for local containerized application has to be able to
@@ -401,7 +444,7 @@ Docker Compose, Docker Swarm and Minikube.
 
 \begin{itemize}
   \item \textbf{Docker Compose} allows running multi-container applications on a
-  single host. A single compose file acts as configuration for container
+  single host. A single compose-file acts as configuration for container
   lifecycle and environment as well as the networking and storage layers.
   \item \textbf{Docker Swarm}\cite{dockerswarm} shares many concepts with Docker
   Compose and can be considered an evolution towards orchestrating multiple
@@ -411,18 +454,18 @@ Docker Compose, Docker Swarm and Minikube.
   version of a Kubernetes Cluster. Kubernetes is one of the most popular
   container orchestration software and at a high level similar to Docker Swarm.
   It provides its own approach towards managing containers, networking and
-  storage which is generally more targeted towards large-scale enterprise
+  storage which is generally more geared towards large-scale enterprise
   applications.
 \end{itemize}
 
 All three technologies were evaluated on a two container setup of a spatial
 database (PostGIS) and an associated administrator application (pgAdmin). While
 all three technologies provided extensive documentation that allowed for
-successful testing, Docker Compose proved to be the simplest solution in terms
-of initial setup and ease of use, due to its single configuration file and the
-targeted use case to run on a single host. To that end \emph{Docker Compose} was
-chosen as the technology to implement the \emph{Sandbox as local containerized
-application}.
+successful testing, Docker Compose was found to be the simplest solution in
+terms of initial setup and ease of use, due to its single configuration file and
+the targeted use case to run on a single host. To that end \emph{Docker Compose}
+was chosen as the technology to implement the \emph{Sandbox as local
+containerized application}.
 
 % Architecture
 %-------------
@@ -440,13 +483,13 @@ Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}.
 \subsubsection*{Docker Compose terminology}
 
 At the heart of a Docker Compose application is a configuration file, called
-\emph{compose file} which describes the components of the multi-container setup
+\emph{compose-file} which describes the components of the multi-container setup
 and how they interact. Each component is called a \emph{service}, which consists
 of an image that specifies the containerized application at the heart of the
 service and additional configuration about how to interact with other services
 or how to be accessible from the host system. When the Docker Compose
 application is started, the images of each service are used to start containers
-within which the application of interest then runs. A compose file can also
+within which the application of interest then runs. A compose-file can also
 declare \emph{volumes}, which can be used by services to save data which should
 be persisted across restarts of a service and \emph{network settings}, which
 define how containers can interact with each other and the host network.
@@ -469,17 +512,17 @@ purpose:
   \item \textbf{geoserver-container} is a containerized version of GeoServer,
   which is an OGC data server and a reference implementation of the OGC web
   services.
-  \item \textbf{geoscriptingsandbox-container} is a containerized version of
-  JupyterLab, a web-based interactive development environment for python scripts
-  and more. It should come bundled with various pre-installed python packages
-  from the geo-ecosystem and fundamental libraries such as GDAL and
-  GEOS\cite{geos}. This setup allows users to explore the python geo-ecosystem
-  as well as the various command line utilities that GDAL offers. The expressive
-  nature of Jupyter Notebooks is also used to visualize the data stories.
   \item \textbf{datastories-container} is called a data container because it
   serves solely as a data storage without application. It contains the data
   story related narrative in form of Jupyter Notebooks as well as the sample
   data.
+  \item \textbf{geoscriptingsandbox-container} is a containerized version of
+  JupyterLab, a web-based interactive development environment for Python scripts
+  and more. It should come bundled with various pre-installed Python packages
+  from the geo-ecosystem and fundamental libraries such as GDAL and
+  GEOS\cite{geos}. This setup allows users to explore the Python geo-ecosystem
+  as well as the various command line utilities that GDAL offers. The expressive
+  nature of Jupyter Notebooks is also used to visualize the data stories.
 \end{itemize}
 
 \subsubsection*{Usage of volumes for persistent data storage}
@@ -531,7 +574,7 @@ repository\cite{osgeostacksandbox} and is free to use under MIT license.
 In a first step, a search was performed on DockerHub\cite{dockerhub}, an online
 repository for image distribution. For the following components of our
 architecture suitable third-party images were available and the image names with
-appropriate versions were added to the compose file:
+appropriate versions were added to the compose-file:
 
 \begin{itemize}
   \item For postgis-container the official PostGIS image was
@@ -549,15 +592,14 @@ containing the desired application and data. GitHub Actions\cite{githubactions}
 was used to create an automated workflow to build the image from the Dockerfile
 and then make it publicly available on the GitHub Container Registry\cite{gcr},
 GitHub's image distribution platform. The image name with appropriate version
-was then added to the compose file.
+was then added to the compose-file.
 
 % Using the Sandbox
 %-------------
 \subsection{Setup and usage}
-\emph{Disclaimer: Due to the dynamic nature of this young project, this section
-might be quickly outdated. For a detailed and up-to-date documentation on how to
-set up and use the Sandbox please refer to the top level README page of this
-thesis' repository\cite{osgeostacksandbox}.}
+For a more detailed documentation on how to set up and use the Sandbox please
+refer to the top level README page of this thesis'
+repository\cite{osgeostacksandbox}.
 
 \subsubsection*{Initial setup}
 The only prerequisite to use the Sandbox is a working installation of Docker,
@@ -565,23 +607,22 @@ which has become a straight-forward task across all common operating systems in
 recent years by the maturation of Docker Desktop\cite{dockerdesktop}.
 
 \subsubsection*{Starting and stopping the Sandbox}
-With Docker Desktop running in the background, only the compose file needs to be
-available on the host system. It can be downloaded from this thesis'
-repository\cite{sandboxcomposefile}. Then open a terminal and navigate to the
-same folder the compose file resides in and run this command\footnote{At
-startup, Docker Compose checks the availability of the images on the host
-machine and downloads them from DockerHub or other provided image repositories
-if necessary. These initial downloads will take some time, so make sure to be
-connected to a fast and reliable internet connection. Further startups use the
-downloaded images and will only take seconds and work even without internet
-connection.}:
+With Docker Desktop running in the background, only the
+compose-file\cite{sandboxcomposefile} needs to be available on the host system.
+Then open a terminal and navigate to the same folder the compose-file resides in
+and run this command\footnote{At startup, Docker Compose checks the availability
+of the images on the host machine and downloads them from DockerHub or other
+provided image repositories if necessary. These initial downloads will take some
+time, so make sure to be connected to a fast and reliable internet connection.
+Further startups use the downloaded images and will only take seconds and work
+even without internet connection.}:
 \begin{lstlisting}
   docker compose up -d
 \end{lstlisting}
 
-By default, Docker Compose looks for the compose file in the same directory
+By default, Docker Compose looks for the compose-file in the same directory
 where the above command was executed, which is why you should first navigate to
-the location of the compose file. Once the Sandbox started, open your favorite
+the location of the compose-file. Once the Sandbox started, open your favorite
 web browser and navigate to \emph{localhost}, which should display the Sandbox
 hub.
 
@@ -600,102 +641,36 @@ volumes, networks and images, etc.
 %-------------
 \section{Data story}
 
-% Motivation
-%-------------
-\subsection{Motivation}
-Today's GIS ecosystem is extensive and fast evolving with multiple tools
-addressing similar use cases with varying overlap in functionality. For somebody
-new to the field, the vast amount of possibilities might be overwhelming at best
-and frustrating at worst when trying to develop a holistic mental model about
-what technologies to use in what way to tackle real world use cases. This is
-because they are often data driven instead of tool centered, i.e. a company
-usually wants to gain some insights from data or transform it to be used in a
-product whereby the tools and technologies are usually means to achieve this.
-Many tutorials exist, but these are usually centered around a specific tool or
-technology, whereby data is usually of secondary nature to explain the
-functionalities in a narrow scope.
+\subsection{Zürich bike suitability map}
+An example data story was implemented to
 
-There is a gap between what people new to the field need to what is widely
-available. Think of it as a puzzle with many pieces (tools), whereby each piece
-is explained in detail on its own (tool focused tutorials) but there is much
-less explanation on how puzzle pieces relate to each other and how they need to
-be connected to get a desirable bigger picture. Imagine how frustrating such a
-puzzle is to solve.
+Open data from the city of Zürich is used to derive a visualization showing what
+percentage of roads in each district are suitable for biking. The full data
+story can be found under \emph{\_datastories/bike\_suitability\_zurich} in the
+geoscriptingsandbox.
 
-Data stories aim to bridge the above-mentioned gap and to put emphasis on how
-the puzzle pieces relate to each other. A data story provides selected raw data,
-a motivating tangible goal and instructions how to use suitable tools to
-transform the raw data into the desired output. It allows to fully focus on how
-the different tools interact with the data and each other to achieve a
-meaningful result.
+\subsubsection*{Introduction}
 
-% Intregration with Sandbox
-%-------------
-\subsection{Integration with Sandbox}
-Several possible approaches were evaluated on how to integrate data stories in
-the context of the existing sandbox architecture, ranging from complete
-decoupling via external static websites or file transfer to full integration
-into existing containers. It was found that the expressive nature of Jupyter
-Notebooks was well suited for a data story's narrative, offering full support
-for text styling through Markdown language and support for images, GIFs and
-in-line code execution. More so, the creation of new content using Jupyter
-Notebooks is possible without technical background, which is a big plus compared
-to an evaluated alternative that framed data stories as static websites made up
-of HTML and CSS\footnote{HTML (HyperText Markup Language) defines the structure
-of a website, i.e. what is considered a header, a title or a paragraph. CSS
-(Cascading Style Sheets) defines the styling (look) of a website.}.
+Participants learn about GDAL's command line tools to inspect datasets and load
+them into PostGIS, where spatial processing and aggregation is performed. The
+result is made available as a new dataset to be consumed and styled as an
+informative map in QGIS.
 
-The decision where to store the Jupyter Notebooks and the associated data was
-mainly driven by the requirement to allow shipping updated and new data story
-content with minimal impact on the users. To that end a separate
-datastories-container was introduced to the sandbox, which contains the data
-story Jupyter Notebooks and associated data. Upon starting the sandbox, the
-containers data gets copied to a volume that is accessible by the
-geoscriptingsandbox component. Instead of reinventing the wheel, the
-geoscriptingsandbox' JupyterLab is used as the primary way of interacting with
-the data stories. This pattern has several nice properties:
-\begin{itemize}
-  \item Updating a data story is as simple as updating the Jupyter Notebooks and
-  associated data in the sandbox repository, followed by a new release of the
-  data stories component.
-  \item From the user perspective, obtaining new versions of data stories at the
-  next Sandbox start is as easy as updating the data stories component version
-  in the compose file (or downloading the updated compose file from the
-  repository). Assuming only the version the data stories component changes, the
-  update will be very quick because all other components do not need to be
-  downloaded.
-\end{itemize}
+\subsubsection*{Scenario}
 
-% Example data story
-%-------------
-\subsection{Example Data Story}
-An example data story was implemented whereby open data from the city of Zürich
-is used to derive a map showing what percentage of roads in each district are
-suitable for biking. Participants learn about GDAL's command line tools to
-inspect datasets and load them into PostGIS, where spatial processing and
-aggregation is performed. The result is made available as a new dataset to be
-consumed and styled as an informative map in QGIS.
-
-The following section outlines the data story scenario, which presents a
-tangible real world use case and serves as the big picture motivation. The full
-data story can be found under \emph{\_datastories/bike\_suitability\_zurich} in
-the geoscriptingsandbox.
-
-\subsubsection*{Example Data Story Scenario}
-
-You are working at a small company that is specialized in city micromobility.
-Your company allows people to easily rent bikes on an ad-hoc basis to get around
-town. You recently participated in a brainstorming session how to increase
-public awareness about the fact that still many roads are not suitable to be
-used by bikes.
+Imagine you are working at a small company that is specialized in city
+micromobility. Your company allows people to easily rent bikes on an ad-hoc
+basis to get around town. You recently participated in a brainstorming session
+how to increase public awareness about the fact that still many roads are not
+suitable to be used by bikes.
 
 At that meeting the idea was born to visualize the ratio of streets which are
 suitable for biking for each district in Zürich. This ratio, or "biking
-suitability indicator", could then be turned into beautiful choropleth maps to
-highlight leader and laggard districts. This would surely spark a public debate
-on the topic! Your team even had the idea to make this not only a one-time
-thing, but to update this indicator and downstream visualizations on a monthly
-basis to incentivize the government to take action.
+suitability indicator", could then be turned into beautiful maps to highlight
+leader and laggard districts. This would surely spark a public debate on the
+topic! Your team even had the idea to make this not only a one-time thing, but
+to update this indicator and downstream visualizations on a monthly basis to
+incentivize the government to take action.
 
 Excited by this idea, your friend checked the publicly available geodata of the
 city of Zürich and sent you two Shapefiles containing the city districts and the
@@ -716,6 +691,44 @@ You plan your work in steps:
   \item Visualize the results as a map in QGIS.
 \end{enumerate}
 
+% Intregration with Sandbox
+%-------------
+\subsection{Integration with Sandbox}
+Several possible approaches were evaluated on how to integrate data stories in
+the context of the Sandbox architecture, ranging from complete decoupling via
+external static websites or file transfer to full integration into existing
+containers. It was found that the expressive nature of Jupyter Notebooks was
+well suited for a data story's narrative, offering full support for text styling
+through Markdown language and support for images, GIFs and in-line code
+execution. More so, the creation of new content using Jupyter Notebooks is
+possible without technical background, which is a big plus compared to an
+evaluated alternative that framed data stories as static websites made up of
+HTML and CSS\footnote{HTML (HyperText Markup Language) defines the structure of
+a website, i.e. what is considered a header, a title or a paragraph. CSS
+(Cascading Style Sheets) defines the styling (look) of a website.}.
+
+The decision where to store these Jupyter Notebooks and the associated data was
+mainly driven by the requirement to allow for shipping updates and new data
+story content with minimal impact on the users. To that end a separate
+datastories-container was introduced to the sandbox, which contains the data
+story Jupyter Notebooks and associated data. Upon starting the sandbox, the
+container's data gets copied to a volume that is accessible by the
+geoscriptingsandbox. Instead of reinventing the wheel, the geoscriptingsandbox'
+JupyterLab is used as the primary way of interacting with the data stories. This
+pattern has several nice properties:
+\begin{itemize}
+  \item Updating a data story is as simple as updating the Jupyter Notebooks and
+  associated data in the Sandbox repository, followed by a new release of the
+  data stories component.
+  \item From the user perspective, obtaining new versions of data stories at the
+  next Sandbox start is as easy as updating the data stories component version
+  in the compose-file (or downloading the updated compose-file from the
+  repository). Assuming only the data stories component version changed, the
+  update will be very quick because all other components do not need to be
+  downloaded again.
+\end{itemize}
+
+
 %-------------
 % CONCLUSION
 %-------------
@@ -725,7 +738,7 @@ You plan your work in steps:
 As a result of this thesis a GIS Sandbox was created and made publicly available
 free to use under MIT license\cite{osgeostacksandbox}. The Sandbox is based on
 Docker Compose and provides access to a spatial database, an OGC data server,
-and GDAL and python scripting capabilities with access to libraries from the
+GDAL and Python scripting capabilities with access to libraries from the
 geo-ecosystem. It requires only minimal setup and only a single command to be
 started and stopped respectively.
 
