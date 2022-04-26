@@ -319,17 +319,6 @@ some noteworthy findings are listed below.
 %-------------
 \subsection{Technology evaluation}
 
-\subsubsection{Container terminology by the example of Docker}
-
-In Docker terminology, the first step towards packaging an application is to
-create a \emph{Dockerfile}, a text file which describes the installation
-procedure and configuration in a standardized way. A Dockerfile is used to
-\emph{build an image}, a lightweight, standalone, executable package of software
-that includes everything needed to run an application: code, runtime, system
-tools, system libraries and settings\cite{dockerimage}. From an image one or
-more \emph{containers} can be created which provide an isolated environment
-within which the containerized application runs.
-
 \subsubsection{High level architectural approaches}
 The research on existing projects and further exploration of potential
 technologies led to three distinct groups of architectural approaches to be
@@ -387,8 +376,7 @@ run containerized applications. Up to this day Docker remains one of the most
 popular tools for that purpose to the point where it is often used synonymously
 for everything to do with containers. Docker is chosen for its maturity and
 excellent documentation.}, on the user's computer, which is an easy and mature
-process for all major operating systems at this point. Except for the initial
-installation this approach satisfies all requirements.
+process for all major operating systems at this point.
 
 \subsubsection*{Sandbox as cloud service}
 The advances of container technology went hand in hand with the maturation of
@@ -430,26 +418,27 @@ a zero-effort setup but falling behind the local containerization approach in
 terms of maintainability, cost, and data management.
 
 The approach \emph{Sandbox as local containerized application} was eventually
-chosen for the further implementation, because the simplicity of a local setup
+chosen for further implementation, because the simplicity of a local setup
 combined with the advantages of container technologies was found to outweigh the
 cost of the initial setup.
 
 \subsubsection{Technology evaluation for local containerized application}
-The technology to be used for local containerized application has to be able to
-run multiple containers which can communicate among each other as well as with
-the host system and store data which is persisted beyond the lifecycle of each
-container. Among many possibilities, three technologies were considered more
-closely due to their popularity and the availability of detailed documentation:
-Docker Compose, Docker Swarm and Minikube.
+The technology has to be able to run multiple containerized applications which
+can communicate among each other as well as with the host system and store data
+which is persisted across Sandbox restarts. Among many possibilities, three
+technologies were considered more closely due to their popularity and the
+availability of detailed documentation: Docker Compose, Docker Swarm and
+Minikube.
 
 \begin{itemize}
-  \item \textbf{Docker Compose} allows running multi-container applications on a
-  single host. A single compose-file acts as configuration for container
-  lifecycle and environment as well as the networking and storage layers.
+  \item \textbf{Docker Compose} allows running multiple containerized
+  applications as one multi-container application on a single host. A simple
+  text file acts as configuration for container lifecycle and environment as
+  well as the networking and storage layers.
   \item \textbf{Docker Swarm}\cite{dockerswarm} shares many concepts with Docker
   Compose and can be considered an evolution towards orchestrating multiple
-  containers across multiple host machines. It is also possible to run Docker
-  Swarm on a single host machine.
+  containerized applications across multiple host machines. It is also possible
+  to run Docker Swarm on a single host machine.
   \item \textbf{Minikube}\cite{minikube} is a tool that lets you run a local
   version of a Kubernetes Cluster. Kubernetes is one of the most popular
   container orchestration software and at a high level similar to Docker Swarm.
@@ -471,7 +460,8 @@ containerized application}.
 %-------------
 \subsection{Architecture}
 The Sandbox was designed as a modular multi-container setup to be run locally by
-Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}.
+ Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}
+ and will be explained in the following sections. \\
 
 \begin{figure}[H]
   \centering
@@ -480,19 +470,30 @@ Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}.
   \label{fig:sandboxsetup}
 \end{figure}
 
-\subsubsection*{Docker Compose terminology}
+\subsubsection*{Terminology of Docker and Docker Compose}
+In Docker terminology, the first step towards packaging an application is to
+create a \emph{Dockerfile}, a text file which describes the installation
+procedure and configuration in a standardized way. A Dockerfile is used to
+\emph{build an image}, a lightweight, standalone package of software that
+includes everything needed to run an application: code, runtime, system tools,
+system libraries and settings\cite{dockerimage}. An image is a template which
+can be easily distributed and from which one or more \emph{containers} can be
+created within which the containerized application runs in its isolated
+environment.
 
-At the heart of a Docker Compose application is a configuration file, called
-\emph{compose-file} which describes the components of the multi-container setup
-and how they interact. Each component is called a \emph{service}, which consists
-of an image that specifies the containerized application at the heart of the
-service and additional configuration about how to interact with other services
-or how to be accessible from the host system. When the Docker Compose
-application is started, the images of each service are used to start containers
-within which the application of interest then runs. A compose-file can also
-declare \emph{volumes}, which can be used by services to save data which should
-be persisted across restarts of a service and \emph{network settings}, which
-define how containers can interact with each other and the host network.
+Docker Compose allows running multiple containerized applications as one
+multi-container application on a single host. At the heart of a Docker Compose
+application is a configuration file, called \emph{compose-file} which describes
+the components of the multi-container setup and how they interact. Each
+component is called a \emph{service}, which consists of an image that specifies
+the containerized application at the heart of the service and additional
+configuration about how to interact with other services or how to be accessible
+from the host system. When the Docker Compose application is started, the images
+of each service are used to start containers within which the application of
+interest then runs. A compose-file can also declare \emph{volumes}, which can be
+used by services to save data which should be persisted across restarts of a
+service and \emph{network settings}, which define how containers can interact
+with each other and the host network.
 
 \subsubsection*{Containers}
 At its heart the Sandbox consists of six containers, each with a distinct
