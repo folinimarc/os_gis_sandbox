@@ -16,6 +16,7 @@
 \usepackage{hyperref} % for links and urls
 \usepackage[style=numeric,backend=biber,sorting=none]{biblatex} % For citing
 \usepackage{listings} % For code snippets
+\usepackage{rotating} % To turn images 90 degrees
 
 \addbibresource{thesis.bib}
 
@@ -47,22 +48,26 @@
     effort, independent of the system they use and easy to uninstall without
     leaving traces after the workshop. Different approaches were evaluated, and
     container technology was found to be a good fit to abstract away the hassle
-    of setting up the tools and infrastructure. A proof of concept of what will
-    be referred to as \emph{Sandbox} was implemented and published as open
-    source project.
+    of setting up the tools and infrastructure. As a result of this thesis a
+    proof of concept of what will be referred to as \emph{Sandbox} was
+    implemented was created and made publicly available free to use under MIT
+    license. The Sandbox is based on Docker Compose and provides access to a
+    spatial database, an OGC data server, GDAL and Python scripting capabilities
+    with access to libraries from the geo-ecosystem. It requires only minimal
+    setup and only a single command to be started and stopped respectively.\\
 
-    Furthermore, this thesis explored the concept of \emph{data stories}. A data
-    story provides selected raw data, a motivating tangible goal and
-    instructions. In contrast to other tutorials, which are often tool focused
-    and to which data is secondary to teach the necessary functionalities, a
-    data story allows participants to fully focus on how different tools
-    interact with the data and among each other to achieve a meaningful result.
-    An example data story was implemented whereby open data from the city of
-    Zürich is used to derive a map showing what percentage of roads in each
-    district are suitable for biking. Participants learn about the GDAL command
-    line tools to inspect datasets and load them into PostGIS, where spatial
-    processing and aggregation is performed. The result is made available as a
-    new dataset to be consumed and styled in QGIS.
+    Furthermore, this thesis explored the concept of \emph{data stories}.
+    Designed as data-driven cross-application tutorials, data story allows
+    participants to fully focus on how different applications interact with the
+    data and among each other to achieve a meaningful result. This is in
+    contrast to many other tutorials, to which data is secondary to teach the
+    tool-centered functionalities in a narrow scope. Built upon the capabilities
+    of the Sandbox a data story was conceptualized and implemented to create a
+    bike suitability map from raw open data from the city of Zürich.
+    Participants learn about the GDAL command line tools to inspect datasets and
+    load them into PostGIS, where spatial processing and aggregation is
+    performed. The result is made available as a new dataset to be consumed and
+    styled in QGIS.
   \end{abstract}
 \end{titlepage}
 
@@ -80,26 +85,43 @@
 \setcounter{page}{1}
 \section{Introduction}
 
-This thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
-advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}.
+This thesis was written as part of the GIS\footnote{Geographic Information
+System (GIS)} further education program CAS RIS 2021/22\footnote{Certificate of
+advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. Similar
+to other GIS workshops and lectures, the program faced a few challenges, two of
+which are central to this thesis.
 
-It is desirable in GIS\footnote{Geographic Information System (GIS).} workshops
-and lectures to supplement the theoretical concepts with hands-on exercises for
-participants to become an active part in the learning experience. This poses the
-challenge that participants must have access to an environment that provides the
-necessary software and data - ideally with minimal setup effort, independent of
-the system they use and easy to uninstall without leaving traces after the
-workshop.
+\emph{Firstly}, it is desirable for participants to experience theoretical concepts
+hands-on for themselves. The challenge here lies in providing all participants
+with access to the respective software and data with minimal setup efforts.
 
-GIS\footnote{Geographic Information System (GIS).} workshops face a few
-particular challenges, two of which are central to this thesis. Firstly, it is
-desirable for participants to experience theoretical concepts hands-on for
-themselves. The challenge here lies in providing all participants with access to
-the respective software and data with minimal setup efforts. Secondly, the GIS
-landscape today consists of many components covering the whole data lifecycle
-from initial data exploration to visualization and distribution. Together with
-the myriad of commercial and open source tools for each component, this might be
-overwhelming to people new to the field.
+
+Secondly, the GIS landscape today consists of many components covering the whole
+data lifecycle from initial data exploration to visualization and distribution.
+Together with the myriad of commercial and open source tools for each component,
+this might be overwhelming to people new to the field. It is hypothesized here
+that there is a gap between what people new to the field need to what is widely
+available.
+
+\emph{Secondly}, today's GIS ecosystem is extensive and fast evolving with
+multiple tools addressing similar use cases with varying overlap in
+functionality. Many tutorials exist, but these are usually centered around a
+specific tool or technology, whereby data is of secondary nature to explain the
+functionalities in a narrow scope. Meanwhile, the motivation to employ GIS
+technology is often data-driven, i.e. a company usually wants to gain some
+insights from data or transform it to be used in a product whereby the tools and
+technologies are usually means to achieve this. For somebody new to the field,
+the vast amount of possibilities might be overwhelming at best and frustrating
+at worst when trying to develop a holistic mental model about what technologies
+to use in what way to tackle real world use cases.
+
+It is hypothesized here that there is a gap between what people new to the field
+need to what is widely available. Data stories aim to bridge this gap. A data
+story provides selected raw data, a motivating tangible goal and instructions
+how to use suitable tools to transform the raw data into the desired output. It
+allows to fully focus on how the different tools interact with the data and each
+other to achieve a meaningful result. Think of data stories as data-driven
+cross-application tutorials.
 
 It aims to address these challenges on two different levels:
 \begin{enumerate}
@@ -113,39 +135,6 @@ It aims to address these challenges on two different levels:
   provides guidance on how available technologies and tools interact with the
   data to achieve the desired result.
 \end{enumerate}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%
-
-% Sandbox - Identify need
-
-% Sandbox - Solution
-
-% Data Story - Identify need
-Today's GIS ecosystem is extensive and fast evolving with multiple tools
-addressing similar use cases with varying overlap in functionality. Many
-tutorials exist, but these are usually centered around a specific tool or
-technology, whereby data is of secondary nature to explain the functionalities
-in a narrow scope. Meanwhile, the motivation to employ GIS technology is often
-data-driven, i.e. a company usually wants to gain some insights from data or
-transform it to be used in a product whereby the tools and technologies are
-usually means to achieve this. For somebody new to the field, the vast amount of
-possibilities might be overwhelming at best and frustrating at worst when trying
-to develop a holistic mental model about what technologies to use in what way to
-tackle real world use cases.
-
-It is hypothesized here that there is a gap between what people new to the field
-need to what is widely available. Data stories aim to bridge this gap. A data
-story provides selected raw data, a motivating tangible goal and instructions
-how to use suitable tools to transform the raw data into the desired output. It
-allows to fully focus on how the different tools interact with the data and each
-other to achieve a meaningful result. Think of data stories as data driven
-cross-component tutorials.
-
-% Data Story - Solution
-
-
 
 %-------------
 % SANDBOX
@@ -431,10 +420,9 @@ availability of detailed documentation: Docker Compose, Docker Swarm and
 Minikube.
 
 \begin{itemize}
-  \item \textbf{Docker Compose} allows running multiple containerized
-  applications as one multi-container application on a single host. A simple
-  text file acts as configuration for container lifecycle and environment as
-  well as the networking and storage layers.
+  \item \textbf{Docker Compose} orchestrates multiple containerized applications
+  on a single host to act like a single application, whereby a simple text file
+  specifies details about the components and their interactions.
   \item \textbf{Docker Swarm}\cite{dockerswarm} shares many concepts with Docker
   Compose and can be considered an evolution towards orchestrating multiple
   containerized applications across multiple host machines. It is also possible
@@ -460,15 +448,18 @@ containerized application}.
 %-------------
 \subsection{Architecture}
 The Sandbox was designed as a modular multi-container setup to be run locally by
- Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}
- and will be explained in the following sections. \\
+Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}
+and will be explained in the following sections. \\
 
-\begin{figure}[H]
+ \begin{sidewaysfigure}
   \centering
-  \includegraphics[width=1\textwidth]{composeSetup}
-  \caption{Sandbox architecture}
-  \label{fig:sandboxsetup}
-\end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{composeSetup}
+    \caption{Sandbox Docker Compose architecture}
+    \label{fig:sandboxsetup}
+  \end{figure}
+\end{sidewaysfigure}
 
 \subsubsection*{Terminology of Docker and Docker Compose}
 In Docker terminology, the first step towards packaging an application is to
@@ -481,30 +472,30 @@ can be easily distributed and from which one or more \emph{containers} can be
 created within which the containerized application runs in its isolated
 environment.
 
-Docker Compose allows running multiple containerized applications as one
-multi-container application on a single host. At the heart of a Docker Compose
-application is a configuration file, called \emph{compose-file} which describes
-the components of the multi-container setup and how they interact. Each
-component is called a \emph{service}, which consists of an image that specifies
-the containerized application at the heart of the service and additional
-configuration about how to interact with other services or how to be accessible
-from the host system. When the Docker Compose application is started, the images
-of each service are used to start containers within which the application of
-interest then runs. A compose-file can also declare \emph{volumes}, which can be
-used by services to save data which should be persisted across restarts of a
-service and \emph{network settings}, which define how containers can interact
-with each other and the host network.
+Docker Compose orchestrates multiple containerized applications on a single host
+to act like a single application. At the heart of a Docker Compose application
+is a configuration file, called \emph{compose-file} which describes the
+components of the multi-container setup and how they interact. Each component is
+called a \emph{service}, which consists of an image that specifies the
+containerized application at the heart of the service and additional
+configuration about how to interact with other services and the host system.
+When a Docker Compose application is started, the images of each service are
+used to create containers within which the application of interest then runs. A
+compose-file can also declare \emph{volumes}, which can be used by services to
+save data which should be persisted across restarts of a service and
+\emph{network settings}, which define how containers can interact with each
+other and the host network.
 
-\subsubsection*{Containers}
-At its heart the Sandbox consists of six containers, each with a distinct
-purpose:
+\subsubsection*{Containerized applications}
+At its heart the Sandbox consists of six services, each defining a container
+with a distinct purpose:
 
 \begin{itemize}
-  \item \textbf{hub-container} runs a simple web application that serves as an
-  entry point and central hub for the Sandbox. Here a user finds links to access
-  other Sandbox components and the relevant connection information. The hub is
-  the first thing a user sees when typing \emph{localhost} in the browser after
-  starting the Sandbox.
+  \item \textbf{hub-container} runs a simple Python Flask\cite{flask} web
+  application that serves as an entry point and central hub for the Sandbox.
+  Here a user finds links to access other Sandbox components and the relevant
+  connection information. This \emph{Sandbox Hub} is the first thing a user sees
+  when typing \emph{localhost} in the browser after starting the Sandbox.
   \item \textbf{postgis-container} is a containerized version of PostGIS, a
   spatial database.
   \item \textbf{pgadmin-container} is a containerized version of pgAdmin4, a
@@ -530,30 +521,18 @@ purpose:
 Some containers make use of virtual volumes as shown in Figure
 \ref{fig:sandboxsetup} to persist data across restarts of the Sandbox. Examples
 include the data stored in PostGIS, the database connections set up in pgAdmin
-or the data and configuration files used by GeoServer.
-
-A special case is datastories-container, which upon each start copies all its
-content to a volume datastories-data which can be accessed by other containers
-such as geoscriptingsandbox-container to access the data story Jupyter
-Notebooks. This pattern assures that the data stories on the volume always
-correspond to the data stories container content.
+or the data and configuration files used by GeoServer. A special case is
+datastories-data, which can be accessed by other containers such as
+geoscriptingsandbox-container to access the data story Jupyter Notebooks.
 
 \subsubsection*{Networking}
 All containers are part of a virtual network managed by Docker Compose which is
 isolated from the host system. In this network every container can connect to
 every other container by its container name and the port exposed by the
 container's application. As shown in Figure \ref{fig:sandboxsetup} some
-containers also expose selected ports to the host network, which allows
-interacting with the application within the container from outside the Docker
-Compose network through the host network's localhost interface. This has
-consequences for the user experience, because the way to connect to a certain
-Sandbox component differs based on whether the connection happens from another
-Sandbox component (e.g. Sandbox pgAdmin to Sandbox PostGIS) or from outside the
-Sandbox (e.g. QGIS to Sandbox PostGIS) because each case uses a different
-network. Hours were spent researching how to homogenize the user experience
-without success and in the current implementation the Sandbox hub's connection
-information makes it as explicit as possible which connection information to use
-in which case.
+containers also expose selected ports to the host network, which allows to
+establish a connection to the application in the container from outside the
+Docker Compose network through the host network's localhost interface.
 
 \subsubsection*{Access to host file system}
 Even though not indicated in Figure \ref{fig:sandboxsetup}, it is also possible
@@ -572,10 +551,11 @@ This section covers the implementation of the Sandbox using Docker Compose. The
 resulting implementation is provided in this thesis'
 repository\cite{osgeostacksandbox} and is free to use under MIT license.
 
+\subsubsection*{Containerized applications}
 In a first step, a search was performed on DockerHub\cite{dockerhub}, an online
-repository for image distribution. For the following components of our
-architecture suitable third-party images were available and the image names with
-appropriate versions were added to the compose-file:
+repository for image distribution. For the following containerized applications
+of our architecture suitable third-party images were available and the image
+names with appropriate versions were added to the compose-file:
 
 \begin{itemize}
   \item For postgis-container the official PostGIS image was
@@ -587,13 +567,35 @@ appropriate versions were added to the compose-file:
   include community extensions, plugins and sample data.
 \end{itemize}
 
-The other components were created in the course of this thesis. For each
-component a suitable Dockerfile was created describing how to build an image
-containing the desired application and data. GitHub Actions\cite{githubactions}
-was used to create an automated workflow to build the image from the Dockerfile
-and then make it publicly available on the GitHub Container Registry\cite{gcr},
-GitHub's image distribution platform. The image name with appropriate version
-was then added to the compose-file.
+For each of the other required containerized applications a suitable Dockerfile
+was created describing how to build an image containing the desired application
+and data. GitHub Actions\cite{githubactions} were used to create automated
+workflows to build images from the Dockerfiles and upload them to GitHub
+Container Registry\cite{gcr}, GitHub's image distribution platform. The image
+name with appropriate version was then added to the compose-file.
+
+\subsubsection*{Configurable compose-file}
+It was found important to let users easily configure parts of the Sandbox. For
+example, the default ports exposed by the Sandbox for external connection might
+clash with those of other pre-installed software on the host. The Sandbox
+implements a standard Docker Compose pattern, whereby variables with default
+values are used in the compose-file, which can be selectively overwritten by
+creating an environment file\cite{composeenvfile}. A complete list of variables
+can be found in the Sandbox repository top level README\cite{osgeostacksandbox}.
+In order to reflect changes that impact how to connect to a container in the
+Sandbox Hub, its content is almost entirely specified in the compose-file using
+the same variables.
+
+\subsubsection*{Networking and user experience challenge}
+Containers interacting with each use the Docker Compose network, while all
+connections from outside the Sandbox are routed via the host's localhost
+interface. For the user this means that the way to connect to a Sandbox
+container differs based on whether the connection happens from another Sandbox
+container (e.g. Sandbox pgAdmin to Sandbox PostGIS) or from outside the Sandbox
+(e.g. QGIS to Sandbox PostGIS). Hours were spent researching how to homogenize
+the user experience without success and in the current implementation the
+Sandbox Hub makes it as explicit as possible which connection information to use
+in which case in the connection information section.
 
 % Using the Sandbox
 %-------------
@@ -625,7 +627,7 @@ By default, Docker Compose looks for the compose-file in the same directory
 where the above command was executed, which is why you should first navigate to
 the location of the compose-file. Once the Sandbox started, open your favorite
 web browser and navigate to \emph{localhost}, which should display the Sandbox
-hub.
+Hub.
 
 To shut down the Sandbox, simply run:
 \begin{lstlisting}
