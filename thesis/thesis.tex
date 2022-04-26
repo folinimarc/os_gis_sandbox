@@ -91,9 +91,10 @@ advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. Similar
 to other GIS workshops and lectures, the program faced a few challenges, two of
 which are central to this thesis.
 
-\emph{Firstly}, it is desirable for participants to experience theoretical concepts
-hands-on for themselves. The challenge here lies in providing all participants
-with access to the respective software and data with minimal setup efforts.
+\emph{Firstly}, it is desirable for participants to experience theoretical
+concepts hands-on for themselves. The challenge here lies in providing all
+participants with access to the respective software and data with minimal setup
+efforts.
 
 
 Secondly, the GIS landscape today consists of many components covering the whole
@@ -464,13 +465,13 @@ and will be explained in the following sections. \\
 \subsubsection*{Terminology of Docker and Docker Compose}
 In Docker terminology, the first step towards packaging an application is to
 create a \emph{Dockerfile}, a text file which describes the installation
-procedure and configuration in a standardized way. A Dockerfile is used to
-\emph{build an image}, a lightweight, standalone package of software that
-includes everything needed to run an application: code, runtime, system tools,
-system libraries and settings\cite{dockerimage}. An image is a template which
-can be easily distributed and from which one or more \emph{containers} can be
-created within which the containerized application runs in its isolated
-environment.
+procedure and configuration of the desired application package in a standardized
+way. A Dockerfile is used to \emph{build an image}, a lightweight, standalone
+package of software that includes everything needed to run an application: code,
+runtime, system tools, system libraries and settings\cite{dockerimage}. An image
+is a template which can be easily distributed and from which one or more
+\emph{containers} can be created within which the containerized application runs
+in its isolated environment.
 
 Docker Compose orchestrates multiple containerized applications on a single host
 to act like a single application. At the heart of a Docker Compose application
@@ -575,8 +576,8 @@ Container Registry\cite{gcr}, GitHub's image distribution platform. The image
 name with appropriate version was then added to the compose-file.
 
 \subsubsection*{Configurable compose-file}
-It was found important to let users easily configure parts of the Sandbox. For
-example, the default ports exposed by the Sandbox for external connection might
+It was deemed important to let users easily configure parts of the Sandbox. For
+example, the default ports exposed by the Sandbox for external connections might
 clash with those of other pre-installed software on the host. The Sandbox
 implements a standard Docker Compose pattern, whereby variables with default
 values are used in the compose-file, which can be selectively overwritten by
@@ -595,7 +596,7 @@ container (e.g. Sandbox pgAdmin to Sandbox PostGIS) or from outside the Sandbox
 (e.g. QGIS to Sandbox PostGIS). Hours were spent researching how to homogenize
 the user experience without success and in the current implementation the
 Sandbox Hub makes it as explicit as possible which connection information to use
-in which case in the connection information section.
+in which case.
 
 % Using the Sandbox
 %-------------
@@ -645,8 +646,6 @@ volumes, networks and images, etc.
 \section{Data story}
 
 \subsection{Zürich bike suitability map}
-An example data story was implemented to
-
 Open data from the city of Zürich is used to derive a visualization showing what
 percentage of roads in each district are suitable for biking. The full data
 story can be found under \emph{\_datastories/bike\_suitability\_zurich} in the
