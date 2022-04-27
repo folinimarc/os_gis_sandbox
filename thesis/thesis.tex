@@ -50,14 +50,14 @@
     container technology was found to be a good fit to abstract away the hassle
     of setting up the tools and infrastructure. As a result of this thesis a
     proof of concept of what will be referred to as \emph{Sandbox} was
-    implemented was created and made publicly available free to use under MIT
-    license. The Sandbox is based on Docker Compose and provides access to a
-    spatial database, an OGC data server, GDAL and Python scripting capabilities
-    with access to libraries from the geo-ecosystem. It requires only minimal
-    setup and only a single command to be started and stopped respectively.\\
+    implemented and made publicly available free to use under MIT license. The
+    Sandbox is based on Docker Compose and provides access to a spatial
+    database, an OGC data server, GDAL and Python scripting capabilities with
+    access to libraries from the geo-ecosystem. It requires only minimal setup
+    and only a single command to be started and stopped respectively.\\
 
     Furthermore, this thesis explored the concept of \emph{data stories}.
-    Designed as data-driven cross-application tutorials, data story allows
+    Designed as data-driven cross-application tutorials, a data story allows
     participants to fully focus on how different applications interact with the
     data and among each other to achieve a meaningful result. This is in
     contrast to many other tutorials, to which data is secondary to teach the
@@ -85,16 +85,47 @@
 \setcounter{page}{1}
 \section{Introduction}
 
-This thesis was written as part of the GIS\footnote{Geographic Information
-System (GIS)} further education program CAS RIS 2021/22\footnote{Certificate of
-advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. Similar
-to other GIS workshops and lectures, the program faced a few challenges, two of
-which are central to this thesis.
+Today's GIS ecosystem is extensive and fast evolving with multiple tools
+addressing similar use cases with varying overlap in functionality. Many
+tutorials exist, but these are usually centered around a specific tool or
+technology, whereby data is of secondary nature to explain the functionalities
+in a narrow scope. Meanwhile, the motivation to employ GIS technology is often
+data-driven, i.e. a company usually wants to gain insights from spatial data or
+process it to be used in a product whereby the tools and technologies are
+usually means to achieve this. For somebody new to the field, the vast amount of
+possibilities might be overwhelming at best and frustrating at worst when trying
+to develop a holistic mental model about what technologies to use in what way to
+tackle real world use cases.
 
-\emph{Firstly}, it is desirable for participants to experience theoretical
-concepts hands-on for themselves. The challenge here lies in providing all
-participants with access to the respective software and data with minimal setup
-efforts.
+It is hypothesized here that there is a gap between what people new to the field
+need and what is widely available. This thesis was written as part of the
+GIS\footnote{Geographic Information System (GIS)} further education program CAS
+RIS 2021/22\footnote{Certificate of advanced studies (CAS) in GIS (in German
+RIS) offered by ETH Zurich.} and aims to bridge this gap by combining two
+concepts:
+
+\begin{enumerate}
+  \item \textbf{Data stories as data-driven cross-application tutorials} allow
+  participants to fully focus on how different applications interact with the
+  data and among each other to achieve a meaningful result.
+
+  \item \textbf{Encourage hands-on } In order to provide participants access to
+  a variety of software with minimal setup effort the concept of a
+  \emph{Sandbox} is explored. The requirements and components to be implemented
+  in a first version were chosen to support the content of the CAS' curriculum.
+  \item \textbf{Content}  Designed as data-driven cross-application tutorials, a
+  data story allows participants to fully focus on how different applications
+  interact with the data and among each other to achieve a meaningful result.
+\end{enumerate}
+
+
+
+
+Similar to other GIS workshops and lectures, it is desirable for participants to
+experience theoretical concepts hands-on for themselves.
+
+The challenge here lies in providing all participants with access to the
+respective software and data with minimal setup efforts.
 
 
 Secondly, the GIS landscape today consists of many components covering the whole
@@ -104,25 +135,26 @@ this might be overwhelming to people new to the field. It is hypothesized here
 that there is a gap between what people new to the field need to what is widely
 available.
 
-\emph{Secondly}, today's GIS ecosystem is extensive and fast evolving with
-multiple tools addressing similar use cases with varying overlap in
-functionality. Many tutorials exist, but these are usually centered around a
-specific tool or technology, whereby data is of secondary nature to explain the
-functionalities in a narrow scope. Meanwhile, the motivation to employ GIS
-technology is often data-driven, i.e. a company usually wants to gain some
-insights from data or transform it to be used in a product whereby the tools and
-technologies are usually means to achieve this. For somebody new to the field,
-the vast amount of possibilities might be overwhelming at best and frustrating
-at worst when trying to develop a holistic mental model about what technologies
-to use in what way to tackle real world use cases.
+Today's GIS ecosystem is extensive and fast evolving with multiple tools
+addressing similar use cases with varying overlap in functionality. Many
+tutorials exist, but these are usually centered around a specific tool or
+technology, whereby data is of secondary nature to explain the functionalities
+in a narrow scope. Meanwhile, the motivation to employ GIS technology is often
+data-driven, i.e. a company usually wants to gain some insights from data or
+transform it to be used in a product whereby the tools and technologies are
+usually means to achieve this. For somebody new to the field, the vast amount of
+possibilities might be overwhelming at best and frustrating at worst when trying
+to develop a holistic mental model about what technologies to use in what way to
+tackle real world use cases.
 
 It is hypothesized here that there is a gap between what people new to the field
-need to what is widely available. Data stories aim to bridge this gap. A data
-story provides selected raw data, a motivating tangible goal and instructions
-how to use suitable tools to transform the raw data into the desired output. It
-allows to fully focus on how the different tools interact with the data and each
-other to achieve a meaningful result. Think of data stories as data-driven
-cross-application tutorials.
+need and what is widely available.
+
+Data stories aim to bridge this gap. A data story provides selected raw data, a
+motivating tangible goal and instructions how to use suitable tools to transform
+the raw data into the desired output. It allows to fully focus on how the
+different tools interact with the data and each other to achieve a meaningful
+result. Think of data stories as data-driven cross-application tutorials.
 
 It aims to address these challenges on two different levels:
 \begin{enumerate}
@@ -130,11 +162,9 @@ It aims to address these challenges on two different levels:
   variety of software with minimal setup effort the concept of a \emph{Sandbox}
   is explored. The requirements and components to be implemented in a first
   version were chosen to support the content of the CAS' curriculum.
-  \item \textbf{Content} In order to help participants to make sense of the
-  Sandbox components and their interactions, the concept of a \emph{data story}
-  was explored. Each data story has a tangible data driven use case and then
-  provides guidance on how available technologies and tools interact with the
-  data to achieve the desired result.
+  \item \textbf{Content}  Designed as data-driven cross-application tutorials, a
+  data story allows participants to fully focus on how different applications
+  interact with the data and among each other to achieve a meaningful result.
 \end{enumerate}
 
 %-------------
@@ -645,18 +675,20 @@ volumes, networks and images, etc.
 %-------------
 \section{Data story}
 
-\subsection{Zürich bike suitability map}
-Open data from the city of Zürich is used to derive a visualization showing what
-percentage of roads in each district are suitable for biking. The full data
-story can be found under \emph{\_datastories/bike\_suitability\_zurich} in the
-geoscriptingsandbox.
 
-\subsubsection*{Introduction}
-
-Participants learn about GDAL's command line tools to inspect datasets and load
-them into PostGIS, where spatial processing and aggregation is performed. The
-result is made available as a new dataset to be consumed and styled as an
-informative map in QGIS.
+% Example data story
+%-------------
+\subsection{Example data story - Zürich bike suitability map}
+An example data story was conceptualized based on topics from the CAS curriculum
+and implemented using the capabilities of the Sandbox. Open data from the city
+of Zürich is used to derive a visualization showing what percentage of roads in
+each district are suitable for biking. Participants learn about GDAL's command
+line tools to inspect datasets and load them into PostGIS, where spatial
+processing and aggregation is performed. The result is made available as a new
+dataset to be consumed and styled as an informative map in QGIS. The following
+section demonstrates the data story scenario as presented to the user. The full
+data story can be found under \emph{\_datastories/bike\_suitability\_zurich} in
+the geoscriptingsandbox.
 
 \subsubsection*{Scenario}
 
@@ -744,24 +776,24 @@ GDAL and Python scripting capabilities with access to libraries from the
 geo-ecosystem. It requires only minimal setup and only a single command to be
 started and stopped respectively.
 
-Built upon the capabilities of the Sandbox a data story was conceptualized and
-implemented to create a bike suitability map in QGIS from raw open data from the
-city of Zürich.
-
-\subsection{Outlook}
 The functional requirements for the Sandbox were derived by screening the
 existing CAS course modules for potential where a Sandbox could be leveraged to
 provide participants with hand-on exercises to become an active part in the
 learning process. With that in mind the data stories concept was implemented in
 a way that is easily extensible with further content.
 
-In a next step it would be great to work on realizing the identified potential
-with the new capabilities provided by this thesis.
+Built upon the capabilities of the Sandbox a data story was conceptualized and
+implemented to create a bike suitability map in QGIS from raw open data from the
+city of Zürich.
 
-This could either happen by leveraging the data stories framework, by creating
-Jupyter Notebooks with exercises that are distributed differently and just
-consumed by the Sandbox, or by simply giving participants time to experiment on
-existing examples from slides within the Sandbox.
+\subsection{Outlook}
+The Sandbox facilitation potential identified in table
+\ref{tab:tContentAnalysis} could be transformed into hands-on learning
+experiences with the new capabilities provided by this thesis. This could either
+happen by leveraging the data stories framework, by creating Jupyter Notebooks
+with exercises that are distributed differently and just consumed by the
+Sandbox, or by simply giving participants time to experiment on existing
+examples from slides within the Sandbox.
 
 %-------------
 % REFERENCES
