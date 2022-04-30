@@ -6,7 +6,7 @@ volumes:
    postgis-data:
    pgadmin-data:
    geoscriptingsandbox-data:
-   datastories-data:
+   content-data:
 
 services:
     postgis:
@@ -28,7 +28,7 @@ services:
       image: kartoza/geoserver:${GEOSERVER_VERSION:-2.20.1}
       volumes:
         - geoserver-data:/opt/geoserver/data_dir
-        - datastories-data:/opt/geoserver/data_dir/${DATASTORIES_MOUNT_FOLDER_NAME:-_datastories}
+        - content-data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-_content}
         - ${HOST_SYSTEM_MOUNT_PATH:-./}:/opt/geoserver/data_dir/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
       ports:
         - 127.0.0.1:${GEOSERVER_PORT_EXTERNAL:-8003}:8080
@@ -61,20 +61,20 @@ services:
       image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.7}
       volumes:
         - geoscriptingsandbox-data:/home
-        - datastories-data:/home/${DATASTORIES_MOUNT_FOLDER_NAME:-_datastories}
+        - content-data:/home/${CONTENT_MOUNT_FOLDER_NAME:-_content}
         - ${HOST_SYSTEM_MOUNT_PATH:-./}:/home/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
       ports:
         - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL:-8004}:8888
       environment:
-        - "HOME_IS_PERSISTED=true"
+        - "PERSISTENCE_NOTE_IN_HOME=true"
       command: ["jupyter", "lab", "--ip", "0.0.0.0", "--port", "8888", "--allow-root", "--no-browser", "--autoreload", "--LabApp.token=''"]
 
-    datastories:
-      container_name: datastories-container
-      # build: ./datastories/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/datastories:${DATASTORIES_VERSION_TAG:-datastories-v0.0.3}
+    content:
+      container_name: content-container
+      # build: ./content/
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/content:${CONTENT_VERSION_TAG:-content-v0.0.3}
       volumes:
-        - datastories-data:/shared_datastories
+        - content-data:/shared_content
 
     hub:
       container_name: hub-container
