@@ -72,7 +72,7 @@ services:
     content:
       container_name: content-container
       # build: ./content/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/content:${CONTENT_VERSION_TAG:-content-v0.0.3}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/content:${CONTENT_VERSION_TAG:-content-v0.0.4}
       volumes:
         - content-data:/shared_content
 
