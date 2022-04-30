@@ -41,29 +41,28 @@
   % abstract
   \begin{abstract}
     It is desirable in GIS workshops to supplement the theoretical concepts with
-    hands-on exercises in order for participants to become an active part in the
-    learning experience. This requires that participants have access to an
-    environment that provides the necessary software and data - ideally with
-    minimal setup effort, independent of the system they use and easy to
-    uninstall without leaving traces after the workshop. Different approaches
-    were evaluated, and container technology was found to be a good fit to
-    abstract away the hassle of setting up the tools and infrastructure. A proof
-    of concept of what will be referred to as \emph{Sandbox environment} was
-    implemented and published as open source project.
+    hands-on exercises for participants to become an active part in the learning
+    experience. This requires that participants have access to an environment
+    that provides the necessary software and data - ideally with minimal setup
+    effort, independent of the system they use and easy to uninstall without
+    leaving traces after the workshop. Different approaches were evaluated, and
+    container technology was found to be a good fit to abstract away the hassle
+    of setting up the tools and infrastructure. A proof of concept of what will
+    be referred to as \emph{Sandbox} was implemented and published as open
+    source project.
 
     Furthermore, this thesis explored the concept of \emph{data stories}. A data
     story provides selected raw data, a motivating tangible goal and
     instructions that connect the raw data to the goal. It allows participants
-    to fully focus on how the different tools interact with the data itself and
-    other tools to achieve a meaningful result. This is in contrast to the
-    majority of tutorials, which are tool focused and to which data is secondary
-    to teach the necessary functionalities of a specific tool. An example data
-    story was implemented whereby open data from the city of Zürich is used to
-    derive a map showing what percentage of roads in each district are suitable
-    for biking. Participants learn about the GDAL command line tools to inspect
-    datasets and load them into PostGIS, where spatial processing and
-    aggregation is performed. The result is made available as a new dataset to
-    be consumed and styled in QGIS.
+    to fully focus on how the different tools interact with the data and other
+    tools to achieve a meaningful result. This is in contrast to the majority of
+    tutorials, which are tool focused and to which data is secondary to teach
+    the necessary functionalities. An example data story was implemented whereby
+    open data from the city of Zürich is used to derive a map showing what
+    percentage of roads in each district are suitable for biking. Participants
+    learn about the GDAL command line tools to inspect datasets and load them
+    into PostGIS, where spatial processing and aggregation is performed. The
+    result is made available as a new dataset to be consumed and styled in QGIS.
   \end{abstract}
 \end{titlepage}
 
@@ -96,10 +95,9 @@ explores the two above-mentioned challenges in the context of the CAS and aims
 to address them on two different levels:
 \begin{enumerate}
   \item \textbf{Infrastructure} In order to provide participants access to a
-  variety of software with minimal setup effort the concept of a \emph{Sandbox
-  environment} is explored. The requirements and components to be implemented in
-  a first version were chosen to support the content of this thesis' further
-  education curriculum.
+  variety of software with minimal setup effort the concept of a \emph{Sandbox}
+  is explored. The requirements and components to be implemented in a first
+  version were chosen to support the content of the CAS' curriculum.
   \item \textbf{Content} In order to help participants to make sense of the
   Sandbox components and their interactions, the concept of a \emph{data story}
   was explored. Each data story has a tangible data driven use case and then
@@ -123,12 +121,12 @@ a Sandbox were then derived.
 % Content analyis
 %-------------
 \subsection{Content analysis}
-At the time of writing the CAS course consisted of four weeks of content modules
-on a wide variety of topics. Each module was screened with a focus on where a
-Sandbox could facilitate hands-on experiences without substantially altering the
-module structure or material. Modules focusing primarily on usage of proprietary
-software like ArcGIS were ignored. Table \ref{tab:tContentAnalysis} shows the
-results of the analysis.
+At the time of writing the CAS curriculum consisted of four weeks of content
+modules on a wide variety of topics. Each module was screened with a focus on
+where a Sandbox could facilitate hands-on experiences without substantially
+altering the module structure or material. Modules focusing primarily on usage
+of proprietary software like ArcGIS were ignored. Table
+\ref{tab:tContentAnalysis} shows the results of the analysis.
 
 \begin{table}[!htbp]
   \centering
@@ -178,7 +176,7 @@ results of the analysis.
       standards for the web include Web Map Service (WMS), Web Feature Service
       (WFS) and Web Coverage Service (WCS) to load styled map images, simple
       geometry features and raster data via HTTP respectively.}.
-      \item Optional: Consume WMS with an OGC compliant client system.
+      \item Consume WMS with an OGC compliant client system.
       \end{itemize}\nointerlineskip \\
     \midrule
     % row start
@@ -207,12 +205,12 @@ useful in realizing the potential identified in the content analysis:
   \item An OGC client implementation is available, which can interact with the
   Sandbox OGC server or any other OGC service publicly available on the
   internet.
-  \item The GDAL\cite{gdal} command line utilities, particularly gdalinfo and
-  ogr2ogr, are available. There is a way to read either predefined example data
+  \item GDAL\cite{gdal} command line utilities such as gdalinfo, ogrinfo and
+  ogr2ogr are available. There is a way to read either predefined example data
   or read data from the user's system.
-  \item An environment to write and run python scripts which make use of the
-  python geo-ecosystem. A use case would be to provide illustrative examples for
-  the concepts of geometry, topology and spatial statistics.
+  \item An environment is available to write and run python scripts which make
+  use of the python geo-ecosystem. A use case would be to provide illustrative
+  examples for the concepts of geometry, topology and spatial statistics.
 \end{itemize}
 
 % Non-Functional requirements
@@ -233,7 +231,7 @@ useful in realizing the potential identified in the content analysis:
   \item Turning the Sandbox on/off and accessing components should not require
   any programming knowledge.
   \item A partial or total reset of applications and data is possible in case
-  something got messed up.
+  something gets messed up.
   \item Usage is not coupled to the duration of the CAS course or otherwise
   restricted (e.g. via externally controlled credentials).
 \end{itemize}
@@ -247,16 +245,16 @@ useful in realizing the potential identified in the content analysis:
 %-------------
 \subsection{Existing projects}
 Google search engine was used to look for already existing similar projects
-using various combinations of the terms \emph{gis}, \emph{geo}, \emph{Sandbox},
+using various combinations of the terms \emph{gis}, \emph{geo}, \emph{sandbox},
 \emph{workshop}, \emph{playground} and \emph{spatial}. No project was found that
 satisfied the requirements outlined in section \ref{sectionrequirements}, but
 some noteworthy findings are listed below.
 
 \begin{itemize}
-  \item Joeyklee's Geosandbox\cite{project-joeyklee} is a collection of
-  tutorials which seems to focus on JavaScript client side mapping libraries
-  such as Leaflet. It is not suitable for our purpose but mentioned here for the
-  very similar name Geosandbox to avoid confusion.
+  \item Joeyklee's Geosandbox\cite{project-joeyklee} consists of tutorials that
+  focus on JavaScript client side mapping libraries such as Leaflet. It is not
+  suitable for our purpose but mentioned here to avoid confusion due to the very
+  similar name.
   \item IDRE Sandbox\cite{project-idre} does not provide any easy access to
   tools, but seems to be a collection of workshops and tutorials. It is
   mentioned here because the interesting goals and presentation of some
@@ -281,6 +279,23 @@ some noteworthy findings are listed below.
 %-------------
 \subsection{Technology evaluation}
 
+\subsubsection{Container terminology by the example of Docker}
+Container technology has been around for decades but took off in 2013 with the
+release of Docker, which provided the tools that made container technology
+accessible to the broader mass. The basic idea is to package applications, so
+they can be run in isolation from other applications. Compared to virtual
+machines containers are very lightweight and can be started and stopped within
+seconds.
+
+In Docker terminology, the first step towards packaging an application is to
+create a \emph{Dockerfile}, a text file which describes the installation
+procedure and configuration in a standardized way. A Dockerfile is used to
+\emph{build an image}, a lightweight, standalone, executable package of software
+that includes everything needed to run an application: code, runtime, system
+tools, system libraries and settings\cite{dockerimage}. From an image one or
+more \emph{containers} can be created which provide an isolated environment
+within which the containerized application runs.
+
 \subsubsection{High level architectural approaches}
 The research on existing projects and further exploration of potential
 technologies led to three distinct groups of architectural approaches to be
@@ -303,22 +318,14 @@ separation of the Sandbox software from the rest of the user's system. Depending
 on already existing software and specific configurations this approach is at
 best error-prone and at worst capable to permanently alter the user's system.
 Because with this approach only the tools themselves are installed, tutorials
-and data stories would need to be provided in a separate way. On the positive
-side, the installed tools could be used beyond the duration of the CAS course
+and data stories would need to be provided in a separate way. On a positive
+note, the installed tools could be used beyond the duration of the CAS course
 without problems and the decoupling of the distribution of tutorials and data
-stories make it easy to be updated without technical knowledge.
+stories makes it easy to be updated without technical knowledge.
 
 \subsubsection*{Sandbox as local containerized application}
-Container technology has been around for decades but took off in 2013 with the
-release of Docker, which provided the tools that made container technology
-accessible to the broader mass. Containers allow for bundling different software
-components together in a reproducible way (an image) which can be distributed
-and run in an isolated manner from the rest of the hosting computer's system
-(called host). Compared to virtual machines containers are very lightweight and
-can be started and stopped within seconds.
-
 This approach takes the direct installation approach one step further by running
-a spatial database or an OGC data server in containers isolated from the host
+a spatial database and an OGC data server as containers isolated from the host
 system. A difference from the direct installation approach is that QGIS was
 found to be not suitable as containerized application in the context of the
 Sandbox because of extra configuration required on the host system for graphical
@@ -417,7 +424,6 @@ targeted use case to run on a single host. To that end \emph{Docker Compose} was
 chosen as the technology to implement the \emph{Sandbox as local containerized
 application}.
 
-
 % Architecture
 %-------------
 \subsection{Architecture}
@@ -430,6 +436,20 @@ Docker Compose. The architecture is outlined in Figure \ref{fig:sandboxsetup}.
   \caption{Sandbox architecture}
   \label{fig:sandboxsetup}
 \end{figure}
+
+\subsubsection*{Docker Compose terminology}
+
+At the heart of a Docker Compose application is a configuration file, called
+\emph{compose file} which describes the components of the multi-container setup
+and how they interact. Each component is called a \emph{service}, which consists
+of an image that specifies the containerized application at the heart of the
+service and additional configuration about how to interact with other services
+or how to be accessible from the host system. When the Docker Compose
+application is started, the images of each service are used to start containers
+within which the application of interest then runs. A compose file can also
+declare \emph{volumes}, which can be used by services to save data which should
+be persisted across restarts of a service and \emph{network settings}, which
+define how containers can interact with each other and the host network.
 
 \subsubsection*{Containers}
 At its heart the Sandbox consists of six containers, each with a distinct
@@ -507,18 +527,6 @@ local machine.
 This section covers the implementation of the Sandbox using Docker Compose. The
 resulting implementation is provided in this thesis'
 repository\cite{osgeostacksandbox} and is free to use under MIT license.
-
-At the heart of a Docker Compose application is a configuration file, called
-\emph{compose file} which describes the components of the multi-container setup
-and how they interact. Each component is called a \emph{service}, which consists
-of an image that specifies the containerized application at the heart of the
-service and additional configuration about how to interact with other services
-or how to be accessible from the host system. When the Docker Compose
-application is started, the images of each service are used to start containers
-within which the application of interest then runs. A compose file can also
-declare \emph{volumes}, which can be used by services to save data which should
-be persisted across restarts of a service and \emph{network settings}, which
-define how containers can interact with each other and the host network.
 
 In a first step, a search was performed on DockerHub\cite{dockerhub}, an online
 repository for image distribution. For the following components of our
@@ -716,14 +724,14 @@ You plan your work in steps:
 \subsection{Results}
 As a result of this thesis a GIS Sandbox was created and made publicly available
 free to use under MIT license\cite{osgeostacksandbox}. The Sandbox is based on
-Docker Compose and provides access to a spatial database, a OGC data server, and
-GDAL and python scripting capabilities with access to libraries from the
-geo-ecosystem. It requires only minimal setup and requires only a single command
-to be started and stopped respectively.
+Docker Compose and provides access to a spatial database, an OGC data server,
+and GDAL and python scripting capabilities with access to libraries from the
+geo-ecosystem. It requires only minimal setup and only a single command to be
+started and stopped respectively.
 
-Built upon the capabilities of the Sandbox a data story was
-conceptualized and implemented to create a bike suitability map in QGIS from raw
-open data from the city of Zürich.
+Built upon the capabilities of the Sandbox a data story was conceptualized and
+implemented to create a bike suitability map in QGIS from raw open data from the
+city of Zürich.
 
 \subsection{Outlook}
 The functional requirements for the Sandbox were derived by screening the
@@ -743,6 +751,7 @@ existing examples from slides within the Sandbox.
 %-------------
 % REFERENCES
 %-------------
+\newpage
 \printbibliography
 
 \end{document}
