@@ -67,16 +67,9 @@ RUN echo "GDAL==${GDAL_VERSION}" >> /assets/requirements.txt && \
 ENV SHELL=/bin/bash
 
 # Copy readme about file persistence which will be copied to home directory in entrypoint.sh
-# if HOME_IS_PERSISTED is true. Defaults to false for the docker standalone usecase without volume.
-ENV HOME_IS_PERSISTED=false
+# if PERSISTENCE_NOTE_IN_HOME is true. Defaults to false for the docker standalone usecase without volume.
+ENV PERSISTENCE_NOTE_IN_HOME=false
 COPY ./copy_to_image/_README.md /assets/_README.md
-
-# Copy tutorial notebooks to home directory accessible by user.
-# Copy also to backup location in case of home folder is persisted on volume (HOME_IS_PERSISTED=true),
-# in which case entrypoint.sh will overwrite from backup location at each restart. This is to ensure
-# that changes from new image versions are made available to users without them having to remove the volumes.
-COPY ./copy_to_image/tutorial_notebooks /home/tutorial_notebooks
-COPY ./copy_to_image/tutorial_notebooks /assets/tutorial_notebooks_img
 
 # Copy entrypoint and make executable
 COPY ./copy_to_image/entrypoint.sh /assets/entrypoint.sh

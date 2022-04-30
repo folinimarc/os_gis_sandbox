@@ -5,14 +5,14 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'datastories-v*.*.*'
+      - 'content-v*.*.*'
 
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}/datastories
-  BUILD_CONTEXT: ./datastories
+  IMAGE_NAME: ${{ github.repository }}/content
+  BUILD_CONTEXT: ./content
 
 
 jobs:
