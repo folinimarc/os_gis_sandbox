@@ -21,25 +21,73 @@
               </h2>
               <div id="accordion-item-sandbox" class="accordion-collapse collapse" data-bs-parent="#info-accordion">
                 <div class="accordion-body">
-                  TBD
+                  The goal of OS Geostack Sandbox is to provide you with easy
+                  access to a variety of amazing open-source (OS) GIS software
+                  with minimal setup effort.
                 </div>
               </div>
-              <!-- Item Data stories -->
+              <!-- Item good to know -->
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-item-datastories">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-item-gtk">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                  fill="currentColor" class="bi bi-journal-bookmark-fill me-2"
-                  viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M6 1h6v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8V1z"/>
-                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
-                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                  fill="currentColor" class="bi bi-lightbulb-fill me-2" viewBox="0 0
+                  16 16">
+                    <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>
                   </svg>
-                  Data Stories
+                  Good to know
                 </button>
               </h2>
-              <div id="accordion-item-datastories" class="accordion-collapse collapse" data-bs-parent="#info-accordion">
+              <div id="accordion-item-gtk" class="accordion-collapse collapse" data-bs-parent="#info-accordion">
                 <div class="accordion-body">
-                  TBD
+                  <ul>
+                    <li>
+                      If not mentioned otherwise, data
+                      and configurations are persisted across Sandbox
+                      restarts.
+                    </li>
+                    <li>
+                      While each component can be explored on its own, the
+                      Geoscripting Sandbox contains tutorials and data stories (data
+                      driven cross-application tutorials) that provide guidance how
+                      different components might interact to transform raw data
+                      into meaningful real-world results.
+                    </li>
+                    <li>
+                      It is possible to interact with Sandbox components from
+                      external software (such as QGIS) via the component's
+                      HostExternal and PortExternal connection information.
+                    </li>
+                    <li>
+                      Some components such as the Geoscripting Sandbox provide
+                      direct access to the host computer file system. This way
+                      processing scripts can even read and write data
+                      located outside of the Sandbox.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Item technology -->
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-item-technology">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                  fill="currentColor" class="bi bi-cpu-fill me-2" viewBox="0 0 16
+                  16">
+                    <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                    <path d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z"/>
+                  </svg>
+                  Technology background
+                </button>
+              </h2>
+              <div id="accordion-item-technology" class="accordion-collapse collapse" data-bs-parent="#info-accordion">
+                <div class="accordion-body">
+                  Each component of the Sandbox is a containerized application.
+                  Docker Compose manages the container lifecycle, the volumes
+                  used for data storage and the networking between
+                  the containers and towards the host. Content in form of
+                  tutorials and data stories is distributed as part of a data
+                  container, which copies its content to a volume accessible by
+                  other containers upon each start. The modular design makes it
+                  easy to add new components and new content.
                 </div>
               </div>
               <!-- Item contact -->
