@@ -70,7 +70,7 @@ Select a path on your system you want to be accessible through jupyterlab and re
 with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:geoscriptingsandbox-v0.0.7
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:geoscriptingsandbox-v0.0.8
 ```
 
 The first run will take some time because a lot of data is being downloaded, subsequent runs of this command will take
@@ -101,7 +101,7 @@ This is the default way docker compose handles environment variables and more in
 | HOST_MOUNT_FOLDER_NAME            | _host_mount_dir                |                                                                                                                                      |
 | CONTENT_MOUNT_FOLDER_NAME     | _content                   |                                                                                                                                      |
 | CONTENT_VERSION_TAG           | content-v0.0.4             |                                                                                                                                      |
-| GEOSCRIPTINGSANDBOX_VERSION       | geoscriptingsandbox-v0.0.7     |                                                                                                                                      |
+| GEOSCRIPTINGSANDBOX_VERSION       | geoscriptingsandbox-v0.0.8     |                                                                                                                                      |
 | GEOSCRIPTINGSANDBOX_PORT_EXTERNAL | 8004                           |                                                                                                                                      |
 | GEOSERVER_VERSION                 | 2.20.1                         |                                                                                                                                      |
 | GEOSERVER_PORT_EXTERNAL           | 8003                           |                                                                                                                                      |

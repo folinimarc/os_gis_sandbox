@@ -57,8 +57,8 @@ services:
 
     geoscriptingsandbox:
       container_name: geoscriptingsandbox-container
-      #build: ./geoscriptingsandbox/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.7}
+      # build: ./geoscriptingsandbox/
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.8}
       volumes:
         - geoscriptingsandbox-data:/home
         - content-data:/home/${CONTENT_MOUNT_FOLDER_NAME:-_content}
