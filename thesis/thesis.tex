@@ -34,41 +34,42 @@
 % TITLE, ABSTRACT
 %-------------
 \begin{titlepage}
-  \pagenumbering{Roman}
-  \setcounter{page}{1}
-  % create title page
-  \clearpage\maketitle
-  \thispagestyle{empty}
-  % abstract
-  \begin{abstract}
-    It is desirable in GIS workshops to supplement the theoretical concepts with
-    hands-on exercises for participants to become an active part in the learning
-    experience. This requires that participants have access to an environment
-    that provides the necessary software and data - ideally with minimal setup
-    effort, independent of the system they use and easy to uninstall without
-    leaving traces after the workshop. Different approaches were evaluated, and
-    container technology was found to be a good fit to abstract away the hassle
-    of setting up the tools and infrastructure. As a result of this thesis a
-    proof of concept of what will be referred to as \emph{Sandbox} was
-    implemented and made publicly available free to use under MIT license. The
-    Sandbox is based on Docker Compose and provides access to a spatial
-    database, an OGC data server, GDAL and Python scripting capabilities with
-    access to libraries from the geo-ecosystem. It requires only minimal setup
-    and only a single command to be started and stopped respectively.\\
+\pagenumbering{Roman}
+\setcounter{page}{1}
+% create title page
+\clearpage\maketitle
+\thispagestyle{empty}
+% abstract
+\begin{abstract}
+GIS workshops can benefit from supplementing theoretical concepts with hands-on
+exercises for participants to become an active part in the learning experience.
+This requires that participants have access to an environment that provides the
+necessary software and data - ideally with minimal setup effort, independent of
+the system they use and easy to uninstall without leaving traces after the
+workshop. Different approaches were evaluated, and container technology was
+found to be a good fit to abstract away the hassle of setting up the tools and
+infrastructure. As a result of this thesis a proof of concept of what will be
+referred to as \emph{Sandbox} was implemented and made publicly available free
+to use under MIT license. The Sandbox is based on Docker Compose and provides
+access to a spatial database, an OGC data server, GDAL and Python scripting
+capabilities with access to libraries from the geo-ecosystem. It requires only
+minimal setup and only a single command to be started and stopped
+respectively.\\
 
-    Built upon the Sandbox capabilities, the concept of \emph{data stories} was
-    explored. Designed as data-driven cross-application tutorials, they allow
-    participants to fully focus on how different applications interact to
-    transform raw data into meaningful results. This is in contrast to many
-    other tutorials, to which data is secondary to teach the tool-centered
-    functionalities in a narrow scope. Built upon the capabilities of the
-    Sandbox an example data story was conceptualized and implemented to create a
-    bike suitability map from raw open data from the city of Zürich.
-    Participants learn about the GDAL command line tools to inspect datasets and
-    load them into PostGIS, where spatial processing and aggregation is
-    performed. The result is made available as a new dataset to be consumed and
-    styled in QGIS.
-  \end{abstract}
+Built upon the Sandbox capabilities, the concept of \emph{data stories} was
+explored. Designed as data-driven cross-application tutorials, they allow
+participants to fully focus on how different applications interact to transform
+raw data into meaningful results. This is in contrast to many other tutorials,
+to which data is secondary to teach the tool-centered functionalities in a
+narrow scope.
+
+Built upon the capabilities of the Sandbox an example data story was
+conceptualized and implemented to create a bike suitability map from raw open
+data from the city of Zürich. Participants learn about the GDAL command line
+tools to inspect datasets and load them into PostGIS, where spatial processing
+and aggregation is performed. The result is made available as a new dataset to
+be consumed and styled in QGIS.
+\end{abstract}
 \end{titlepage}
 
 %-------------
@@ -92,9 +93,9 @@ Firstly, it is desirable for participants to experience theoretical concepts
 hands-on for themselves. The challenge here lies in providing all participants
 with access to the respective software and data with minimal setup efforts.
 
-Secondly, todays's GIS ecosystem is extensive and fast evolving with multiple
-tools addressing similar use cases with varying overlap in functionality. Many
-tutorials exist, but these are usually centered around a specific tool or
+Secondly, the GIS ecosystem today is extensive and fast evolving with multiple
+technologies addressing similar use cases with varying overlap in functionality.
+Many tutorials exist, but these are usually centered around a specific tool or
 technology, whereby data is of secondary nature to explain the functionalities
 in a narrow scope. Meanwhile, the motivation to employ GIS technology is often
 data-driven, i.e. a company usually wants to gain insights from spatial data or
@@ -105,8 +106,8 @@ might be overwhelming at best and frustrating at worst when trying to develop a
 holistic mental model about what technologies to use in what way to tackle real
 world use cases.
 
-It is hypothesized here that there is a content gap between what people
-new to the field need and what is widely available.
+It is hypothesized here that there is a content gap between what people new to
+the field need and what is widely available.
 
 This thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
 advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. It
@@ -638,6 +639,50 @@ volumes, networks and images, etc.
 % DATA STORY
 %-------------
 \section{Data story}
+Each data story is a data-driven cross-application tutorial
+
+
+% Presentation
+%-------------
+\subsection{Presentation}
+
+Several approaches were evaluated on how to integrate data stories in the
+context of the Sandbox architecture, ranging from complete decoupling via
+external static websites or file transfer to full integration into existing
+containers. It was found that the expressive nature of Jupyter Notebooks was
+well suited for a data story's narrative, offering full support for text styling
+through Markdown language and support for images, GIFs and in-line code
+execution. More so, the creation of new content using Jupyter Notebooks is
+possible without technical background, which is a big plus compared to an
+evaluated alternative that framed data stories as static websites made up of
+HTML and CSS\footnote{HTML (HyperText Markup Language) defines the structure of
+a website, i.e. what is considered a header, a title or a paragraph. CSS
+(Cascading Style Sheets) defines the styling (look) of a website.}.
+
+% Intregration with Sandbox
+%-------------
+\subsection{Integration with Sandbox}
+
+The decision where to store these Jupyter Notebooks and the associated data was
+mainly driven by the requirement to allow for shipping updates and new data
+story content with minimal impact on the users. To that end a separate
+datastories-container was introduced to the sandbox, which contains the data
+story Jupyter Notebooks and associated data. Upon starting the sandbox, the
+container's data gets copied to a volume that is accessible by the
+geoscriptingsandbox. Instead of reinventing the wheel, the geoscriptingsandbox'
+JupyterLab is used as the primary way of interacting with the data stories. This
+pattern has several nice properties:
+\begin{itemize}
+  \item Updating a data story is as simple as updating the Jupyter Notebooks and
+  associated data in the Sandbox repository, followed by a new release of the
+  data stories component.
+  \item From the user perspective, obtaining new versions of data stories at the
+  next Sandbox start is as easy as updating the data stories component version
+  in the compose-file (or downloading the updated compose-file from the
+  repository). Assuming only the data stories component version changed, the
+  update will be very quick because all other components do not need to be
+  downloaded again.
+\end{itemize}
 
 
 % Example data story
@@ -689,66 +734,29 @@ You plan your work in steps:
   \item Visualize the results as a map in QGIS.
 \end{enumerate}
 
-% Intregration with Sandbox
-%-------------
-\subsection{Integration with Sandbox}
-Several possible approaches were evaluated on how to integrate data stories in
-the context of the Sandbox architecture, ranging from complete decoupling via
-external static websites or file transfer to full integration into existing
-containers. It was found that the expressive nature of Jupyter Notebooks was
-well suited for a data story's narrative, offering full support for text styling
-through Markdown language and support for images, GIFs and in-line code
-execution. More so, the creation of new content using Jupyter Notebooks is
-possible without technical background, which is a big plus compared to an
-evaluated alternative that framed data stories as static websites made up of
-HTML and CSS\footnote{HTML (HyperText Markup Language) defines the structure of
-a website, i.e. what is considered a header, a title or a paragraph. CSS
-(Cascading Style Sheets) defines the styling (look) of a website.}.
-
-The decision where to store these Jupyter Notebooks and the associated data was
-mainly driven by the requirement to allow for shipping updates and new data
-story content with minimal impact on the users. To that end a separate
-datastories-container was introduced to the sandbox, which contains the data
-story Jupyter Notebooks and associated data. Upon starting the sandbox, the
-container's data gets copied to a volume that is accessible by the
-geoscriptingsandbox. Instead of reinventing the wheel, the geoscriptingsandbox'
-JupyterLab is used as the primary way of interacting with the data stories. This
-pattern has several nice properties:
-\begin{itemize}
-  \item Updating a data story is as simple as updating the Jupyter Notebooks and
-  associated data in the Sandbox repository, followed by a new release of the
-  data stories component.
-  \item From the user perspective, obtaining new versions of data stories at the
-  next Sandbox start is as easy as updating the data stories component version
-  in the compose-file (or downloading the updated compose-file from the
-  repository). Assuming only the data stories component version changed, the
-  update will be very quick because all other components do not need to be
-  downloaded again.
-\end{itemize}
-
-
 %-------------
 % CONCLUSION
 %-------------
 \section{Conclusion}
 
 \subsection{Results}
-As a result of this thesis a GIS Sandbox was created and made publicly available
-free to use under MIT license\cite{osgeostacksandbox}. The Sandbox is based on
-Docker Compose and provides access to a spatial database, an OGC data server,
-GDAL and Python scripting capabilities with access to libraries from the
-geo-ecosystem. It requires only minimal setup and only a single command to be
-started and stopped respectively.
+During this thesis a GIS Sandbox was created and made publicly available free to
+use under MIT license\cite{osgeostacksandbox}. The Sandbox is based on Docker
+Compose and provides access to a spatial database, an OGC data server, GDAL and
+Python scripting capabilities with access to libraries from the geo-ecosystem.
+It requires only minimal setup and only a single command to be started and
+stopped respectively.
 
 The functional requirements for the Sandbox were derived by screening the
 existing CAS course modules for potential where a Sandbox could be leveraged to
 provide participants with hand-on exercises to become an active part in the
-learning process. With that in mind the data stories concept was implemented in
-a way that is easily extensible with further content.
+learning process. With that in mind the concept of data stories was established
+and implemented in a way that seamlessly integrates with the Sandbox and is
+easily extensible with further content.
 
-Built upon the capabilities of the Sandbox a data story was conceptualized and
-implemented to create a bike suitability map in QGIS from raw open data from the
-city of Zürich.
+Built upon the capabilities of the Sandbox an example data story was
+conceptualized and implemented to create a bike suitability map in QGIS from raw
+open data from the city of Zürich.
 
 \subsection{Outlook}
 The Sandbox facilitation potential identified in table
