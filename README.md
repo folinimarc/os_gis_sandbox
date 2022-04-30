@@ -99,8 +99,8 @@ This is the default way docker compose handles environment variables and more in
 | --------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
 | HOST_SYSTEM_MOUNT_PATH            | ./                             |                                                                                                                                      |
 | HOST_MOUNT_FOLDER_NAME            | _host_mount_dir                |                                                                                                                                      |
-| DATASTORIES_MOUNT_FOLDER_NAME     | _datastories                   |                                                                                                                                      |
-| DATASTORIES_VERSION_TAG           | datastories-v0.0.3             |                                                                                                                                      |
+| CONTENT_MOUNT_FOLDER_NAME     | _content                   |                                                                                                                                      |
+| CONTENT_VERSION_TAG           | content-v0.0.4             |                                                                                                                                      |
 | GEOSCRIPTINGSANDBOX_VERSION       | geoscriptingsandbox-v0.0.7     |                                                                                                                                      |
 | GEOSCRIPTINGSANDBOX_PORT_EXTERNAL | 8004                           |                                                                                                                                      |
 | GEOSERVER_VERSION                 | 2.20.1                         |                                                                                                                                      |
