@@ -2,18 +2,22 @@
 version: '2.4'
 
 volumes:
-   geoserver-data:
-   postgis-data:
-   pgadmin-data:
-   geoscriptingsandbox-data:
-   content-data:
+   geoserver_data:
+   postgis_data:
+   pgadmin_data:
+   geoscriptingsandbox_data:
+   #geoscriptingsandbox_python_environment:
+   geoscriptingsandbox_settings_application:
+   geoscriptingsandbox_settings_user:
+   geoscriptingsandbox_settings_workspace:
+   content_data:
 
 services:
     postgis:
       container_name: postgis-container
       image: postgis/postgis:${POSTGIS_VERSION_TAG:-14-3.2-alpine}
       volumes:
-         - postgis-data:/var/lib/postgresql/data
+         - postgis_data:/var/lib/postgresql/data
       ports:
         - 127.0.0.1:${POSTGIS_PORT_EXTERNAL:-8001}:5432
       environment:
@@ -27,8 +31,8 @@ services:
       container_name: geoserver-container
       image: kartoza/geoserver:${GEOSERVER_VERSION:-2.20.1}
       volumes:
-        - geoserver-data:/opt/geoserver/data_dir
-        - content-data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-_content}
+        - geoserver_data:/opt/geoserver/data_dir
+        - content_data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-_content}
         - ${HOST_SYSTEM_MOUNT_PATH:-./}:/opt/geoserver/data_dir/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
       ports:
         - 127.0.0.1:${GEOSERVER_PORT_EXTERNAL:-8003}:8080
@@ -48,7 +52,7 @@ services:
       container_name: pgadmin-container
       image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG:-6.8}"
       volumes:
-        - pgadmin-data:/var/lib/pgadmin
+        - pgadmin_data:/var/lib/pgadmin
       ports:
         - 127.0.0.1:${PGADMIN_PORT_EXTERNAL:-8002}:80
       environment:
@@ -57,16 +61,20 @@ services:
 
     geoscriptingsandbox:
       container_name: geoscriptingsandbox-container
-      # build: ./geoscriptingsandbox/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.8}
+      build: ./geoscriptingsandbox/
+      # image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.8}
       volumes:
-        - geoscriptingsandbox-data:/home
-        - content-data:/home/${CONTENT_MOUNT_FOLDER_NAME:-_content}
+        - geoscriptingsandbox_data:/home
+        #- geoscriptingsandbox_python_environment:/usr/local/lib/python3.8/dist-packages
+        - geoscriptingsandbox_settings_application:/usr/local/share/jupyter/lab
+        - geoscriptingsandbox_settings_user:/root/.jupyter/lab/user-settings
+        - geoscriptingsandbox_settings_workspace:/root/.jupyter/lab/workspaces
+        - content_data:/home/${CONTENT_MOUNT_FOLDER_NAME:-_content}
         - ${HOST_SYSTEM_MOUNT_PATH:-./}:/home/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
       ports:
         - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL:-8004}:8888
       environment:
-        - "PERSISTENCE_NOTE_IN_HOME=true"
+        - "SHOW_README_IN_HOME=true"
       command: ["jupyter", "lab", "--ip", "0.0.0.0", "--port", "8888", "--allow-root", "--no-browser", "--autoreload", "--LabApp.token=''"]
 
     content:
@@ -74,7 +82,7 @@ services:
       # build: ./content/
       image: ghcr.io/laiskasiili/os_geostack_sandbox/content:${CONTENT_VERSION_TAG:-content-v0.0.4}
       volumes:
-        - content-data:/shared_content
+        - content_data:/shared_content
 
     hub:
       container_name: hub-container
@@ -85,7 +93,7 @@ services:
       command: ["gunicorn" ,"--workers", "2", "--threads", "2", "--bind", "0.0.0.0:5000", "app:app"]
       environment:
         - "CARD_1_TITLE=Geoscripting Sandbox"
-        - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the python geo-ecosystem. Data stories and more content is located in ${CONTENT_MOUNT_FOLDER_NAME:-_content}. Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}."
+        - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the python geo-ecosystem. Data stories and more content is located in directory ${CONTENT_MOUNT_FOLDER_NAME:-_content}. Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}."
         - "CARD_1_HREF=Open,http://localhost:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL:-8004}"
         - "CARD_2_TITLE=pgAdmin"
         - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases."
