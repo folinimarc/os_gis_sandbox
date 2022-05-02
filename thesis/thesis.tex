@@ -43,32 +43,29 @@
 \begin{abstract}
 GIS workshops can benefit from supplementing theoretical concepts with hands-on
 exercises for participants to become an active part in the learning experience.
-This requires that participants have access to an environment that provides the
+This requires participants to have access to an environment that provides the
 necessary software and data - ideally with minimal setup effort, independent of
 the system they use and easy to uninstall without leaving traces after the
 workshop. Different approaches were evaluated, and container technology was
 found to be a good fit to abstract away the hassle of setting up the tools and
-infrastructure. As a result of this thesis a proof of concept of what will be
-referred to as \emph{Sandbox} was implemented and made publicly available free
-to use under MIT license. The Sandbox is based on Docker Compose and provides
-access to a spatial database, an OGC data server, GDAL and Python scripting
-capabilities with access to libraries from the geo-ecosystem. It requires only
-minimal setup and only a single command to be started and stopped
-respectively.\\
+infrastructure. A proof of concept of what will be referred to as \emph{Sandbox}
+was implemented and made publicly available free to use under MIT license. The
+Sandbox is based on Docker Compose and provides access to a spatial database, an
+OGC data server, GDAL and Python scripting capabilities with access to libraries
+from the geo-ecosystem. It requires only minimal setup and only a single command
+to be started and stopped respectively.\\
 
-Built upon the Sandbox capabilities, the concept of \emph{data stories} was
-explored. Designed as data-driven cross-application tutorials, they allow
-participants to fully focus on how different applications interact to transform
-raw data into meaningful results. This is in contrast to many other tutorials,
-to which data is secondary to teach the tool-centered functionalities in a
-narrow scope.
-
-Built upon the capabilities of the Sandbox an example data story was
-conceptualized and implemented to create a bike suitability map from raw open
-data from the city of Zürich. Participants learn about the GDAL command line
-tools to inspect datasets and load them into PostGIS, where spatial processing
-and aggregation is performed. The result is made available as a new dataset to
-be consumed and styled in QGIS.
+In order to help participants to make sense of the Sandbox components and their
+interactions the concept of \emph{data stories} was explored. Designed as
+data-driven cross-application tutorials, they allow participants to fully focus
+on how different applications interact to transform raw data into meaningful
+results. This is in contrast to many other tutorials, to which data is secondary
+to teach the tool-centered functionalities in a narrow scope. Built upon the
+Sandbox capabilities, an example data story was implemented to create a bike
+suitability map from raw open data from the city of Zürich. Participants learn
+about the GDAL command line tools to inspect datasets and load them into
+PostGIS, where spatial processing and aggregation is performed. The result is
+made available as a new dataset to be consumed and styled in QGIS.
 \end{abstract}
 \end{titlepage}
 
@@ -86,28 +83,38 @@ be consumed and styled in QGIS.
 \setcounter{page}{1}
 \section{Introduction}
 
-GIS\footnote{Geographic Information System (GIS).} workshops face a few
-particular challenges, two of which are central to this thesis.
+The GIS\footnote{Geographic Information System (GIS).} ecosystem today is
+extensive and fast evolving with multiple technologies addressing similar use
+cases with varying overlap in functionality. The motivation to employ GIS
+technology is often data-driven, i.e. a company usually wants to gain insights
+from spatial data or process it to be used. This requires an end-to-end
+understanding how different components of the GIS ecosystem interact to
+transform the raw data into the desired product. For somebody new to the field,
+the vast amount of possibilities might be overwhelming at best and frustrating
+at worst when trying to develop a holistic mental model about what technologies
+to use in what way to tackle real world use cases.
 
-Firstly, it is desirable for participants to experience theoretical concepts
-hands-on for themselves. The challenge here lies in providing all participants
-with access to the respective software and data with minimal setup efforts.
-
-Secondly, the GIS ecosystem today is extensive and fast evolving with multiple
-technologies addressing similar use cases with varying overlap in functionality.
 Many tutorials exist, but these are usually centered around a specific tool or
 technology, whereby data is of secondary nature to explain the functionalities
-in a narrow scope. Meanwhile, the motivation to employ GIS technology is often
-data-driven, i.e. a company usually wants to gain insights from spatial data or
-process it to be used. This requires an end-to-end understanding how different
-components of the GIS ecosystem interact to transform the raw data into the
-desired product. For somebody new to the field, the vast amount of possibilities
-might be overwhelming at best and frustrating at worst when trying to develop a
-holistic mental model about what technologies to use in what way to tackle real
-world use cases.
+in a narrow scope. Workshops and lectures are a another common vehicle to
+acquire knowledge about a field, whereby is desirable for participants to
+experience theoretical concepts hands-on for themselves. The challenge here lies
+in providing all participants with access to the respective software and data
+with minimal setup efforts.
+
+
+
 
 It is hypothesized here that there is a content gap between what people new to
 the field need and what is widely available.
+
+
+
+GIS\footnote{Geographic Information System (GIS).} workshops face a few
+particular challenges, two of which are central to this thesis.
+
+
+
 
 This thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
 advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. It
