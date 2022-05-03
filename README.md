@@ -56,12 +56,12 @@ That's it - if you want to start again, run the up command above again and you a
 > want to selectively reset the data, open Docker Desktop and delete the respective volume in the volumes tab. Upon
 > running the next docker-compose up command you have a nice clean reset.
 
-## (optional) How to run Geoscripting Sandbox alone?
-The folder _geoscriptingsandbox_ contains a dockerfile that allows to spin up a jupyterlab instance whose kernel has
+## (optional) How to run JupyterLab-GeoEnv alone?
+The folder _jupyterlabgeoenv_ contains a dockerfile that allows to spin up a jupyterlab instance whose kernel has
 access to many common packages like Fiona, Shapely, Geopandas, Rasterio, etc. which work neatly together. Concentrate on
 the fun part of exploring the tools and processing your data without worrying about setup.
 
-The jupyterlab setup of the geoscripting sandbox is very useful beyond the scope of just being a sandbox. It might be
+JupyterLab-GeoEnv is very useful beyond the scope of just being a sandbox. It might be
 interesting to use it as general environment to perform python geoprocessing. Because of this we provide the image on
 github registry for download so you can download and run it with a single command without cloning the repository or
 worrying about building the image yourself.
@@ -70,7 +70,7 @@ Select a path on your system you want to be accessible through jupyterlab and re
 with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:geoscriptingsandbox-v0.0.9
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v0.0.9
 ```
 
 The first run will take some time because a lot of data is being downloaded, subsequent runs of this command will take
@@ -87,7 +87,7 @@ tab as well as volumes you see in the volume tab. Then uninstall Docker Desktop.
 
 # Sandbox configuration
 Various aspects of the sandbox can be configured, this includes ports, usernames, versions and what path on the host to
-make accessible to the geoscripting sandbox and geoserver data directory. The list below shows the variables with their
+make accessible to JupytewrLab GeoEnv and geoserver data directory. The list below shows the variables with their
 defaults. In order to overwrite these variables, create an environment file named simply .env in the same directory as
 the docker-compose.yml. The environment file should contain one line per variable you wish to overwrite in the form of
 VARIABLE=VALUE, for example: POSTGIS_PORT_EXTERNAL=5433
@@ -101,8 +101,8 @@ This is the default way docker compose handles environment variables and more in
 | HOST_MOUNT_FOLDER_NAME            | _host_mount_dir                |                                                                                                                                      |
 | CONTENT_MOUNT_FOLDER_NAME     | _content                   |                                                                                                                                      |
 | CONTENT_VERSION_TAG           | content-v0.0.4             |                                                                                                                                      |
-| GEOSCRIPTINGSANDBOX_VERSION       | geoscriptingsandbox-v0.0.9     |                                                                                                                                      |
-| GEOSCRIPTINGSANDBOX_PORT_EXTERNAL | 8004                           |                                                                                                                                      |
+| JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v0.0.9     |                                                                                                                                      |
+| JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                      |
 | GEOSERVER_VERSION                 | 2.20.1                         |                                                                                                                                      |
 | GEOSERVER_PORT_EXTERNAL           | 8003                           |                                                                                                                                      |
 | GEOSERVER_ADMIN_PASSWORD          | gis                            |                                                                                                                                      |

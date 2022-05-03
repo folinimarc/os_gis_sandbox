@@ -528,7 +528,7 @@ with a distinct purpose:
   serves solely as a data storage without application. It contains the data
   story related narrative in form of Jupyter Notebooks as well as the sample
   data.
-  \item \textbf{geoscriptingsandbox-container} is a containerized version of
+  \item \textbf{jupyterlabgeoenv-container} is a containerized version of
   JupyterLab, a web-based interactive development environment for Python scripts
   and more. It should come bundled with various pre-installed Python packages
   from the geo-ecosystem and fundamental libraries such as GDAL and
@@ -543,7 +543,7 @@ Some containers make use of virtual volumes as shown in Figure
 include the data stored in PostGIS, the database connections set up in pgAdmin
 or the data and configuration files used by GeoServer. A special case is
 datastories-data, which can be accessed by other containers such as
-geoscriptingsandbox-container to access the data story Jupyter Notebooks.
+jupyterlabgeoenv-container to access the data story Jupyter Notebooks.
 
 \subsubsection*{Networking}
 All containers are part of a virtual network managed by Docker Compose which is
@@ -559,7 +559,7 @@ Even though not indicated in Figure \ref{fig:sandboxsetup}, it is also possible
 to grant containers access to the file system of the host machine. This seems to
 contradict the basic idea of isolation but proves to be useful in certain cases.
 The current Sandbox implementation creates such a link to the host file system
-for the geoscriptingsandbox-container and geoserver-container with the intent to
+for the jupyterlabgeoenv-container and geoserver-container with the intent to
 make it easy for users to let these components make use of data saved on their
 local machine.
 
@@ -692,10 +692,10 @@ mainly driven by the requirement to allow for shipping updates and new data
 story content with minimal impact on the users. To that end a separate
 datastories-container was introduced to the sandbox, which contains the data
 story Jupyter Notebooks and associated data. Upon starting the sandbox, the
-container's data gets copied to a volume that is accessible by the
-geoscriptingsandbox. Instead of reinventing the wheel, the geoscriptingsandbox'
-JupyterLab is used as the primary way of interacting with the data stories. This
-pattern has several nice properties:
+container's data gets copied to a volume that is accessible by
+JupyterLab-GeoEnv. Instead of reinventing the wheel, the Jupyter Notebooks of
+JupyterLab-GeoEnv are used as the primary way of interacting with the data
+stories. This pattern has several nice properties:
 \begin{itemize}
   \item Updating a data story is as simple as updating the Jupyter Notebooks and
   associated data in the Sandbox repository, followed by a new release of the
@@ -721,7 +721,7 @@ processing and aggregation is performed. The result is made available as a new
 dataset to be consumed and styled as an informative map in QGIS. The following
 section demonstrates the data story scenario as presented to the user. The full
 data story can be found under \emph{\_datastories/bike\_suitability\_zurich} in
-the geoscriptingsandbox.
+JupyterLab-GeoEnv.
 
 \subsubsection*{Scenario}
 

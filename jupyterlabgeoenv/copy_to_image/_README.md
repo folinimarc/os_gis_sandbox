@@ -30,7 +30,7 @@ pip install --upgrade -r /home/requirements-override.txt
 > _Good to know:_ If the behavior is not what you expected, you can start the
 > Sandbox using simply `docker compose up` ignoring the
 detached (-d) flag. This will show you the logs of the
-geoscriptingsandbox-container which includes the output from the above command,
+jupyterlabgeoenv-container which includes the output from the above command,
 for example that a package was not found due to a typo.
 
 ## How to activate JupyterLab extensions
