@@ -311,6 +311,23 @@ some noteworthy findings are listed below.
 %-------------
 \subsection{Technology evaluation}
 
+\subsubsection{Container terminology by the example of Docker}
+Container technology has been around for decades but took off in 2013 with the
+release of Docker, which provided the tools that made container technology
+accessible to the broader mass. The basic idea is to package applications, so
+they can be run in isolation from other applications. Compared to virtual
+machines containers are very lightweight and can be started and stopped within
+seconds.
+
+In Docker terminology, the first step towards packaging an application is to
+create a \emph{Dockerfile}, a text file which describes the installation
+procedure and configuration in a standardized way. A Dockerfile is used to
+\emph{build an image}, a lightweight, standalone, executable package of software
+that includes everything needed to run an application: code, runtime, system
+tools, system libraries and settings\cite{dockerimage}. From an image one or
+more \emph{containers} can be created which provide an isolated environment
+within which the containerized application runs.
+
 \subsubsection{High level architectural approaches}
 The research on existing projects and further exploration of potential
 technologies led to three distinct groups of architectural approaches to be
