@@ -23,7 +23,7 @@
 \graphicspath{ {img/} } % path where grahics are stored
 
 % title page parameters
-\title{Open-Source GIS Sandbox \& Data Stories - New tools for interactive workshops}
+\title{Open-Source GIS Sandbox \& Data Stories - New tools for workshops interactivity}
 \author{Marc Folini}
 \date{May 2022}
 
@@ -41,31 +41,31 @@
 \thispagestyle{empty}
 % abstract
 \begin{abstract}
-GIS workshops can benefit from supplementing theoretical concepts with hands-on
-exercises for participants to become an active part in the learning experience.
-This requires participants to have access to an environment that provides the
-necessary software and data - ideally with minimal setup effort, independent of
-the system they use and easy to uninstall without leaving traces after the
-workshop. Different approaches were evaluated, and container technology was
-found to be a good fit to abstract away the hassle of setting up the tools and
-infrastructure. A proof of concept of what will be referred to as \emph{Sandbox}
-was implemented and made publicly available free to use under MIT license. The
-Sandbox is based on Docker Compose and provides access to a spatial database, an
-OGC data server, GDAL and Python scripting capabilities with access to libraries
-from the geo-ecosystem. It requires only minimal setup and only a single command
-to be started and stopped respectively.\\
+GIS workshops benefit from supplementing theoretical concepts with exercises for
+participants to become an active part in the learning experience. This requires
+participants to have access to an environment that provides the necessary
+software and data - ideally with minimal setup effort, independent of the system
+they use and easy to uninstall without leaving traces after the workshop.
+Different approaches were evaluated, and container technology was found to be a
+good fit to abstract away the hassle of setting up the tools and infrastructure.
+A proof of concept of what will be referred to as \emph{Sandbox} was implemented
+and made publicly available free to use under MIT license. The Sandbox is based
+on Docker Compose and provides access to a spatial database, an OGC data server,
+GDAL and Python scripting capabilities with access to libraries from the
+geo-ecosystem. It requires only minimal setup and only a single command to be
+started and stopped respectively.\\
 
 In order to help participants to make sense of the Sandbox components and their
 interactions the concept of \emph{data stories} was explored. Designed as
 data-driven cross-application tutorials, they allow participants to fully focus
 on how different applications interact to transform raw data into meaningful
 results. This is in contrast to many other tutorials, to which data is secondary
-to teach the tool-centered functionalities in a narrow scope. Built upon the
-Sandbox capabilities, an example data story was implemented to create a bike
-suitability map from raw open data from the city of Zürich. Participants learn
-about the GDAL command line tools to inspect datasets and load them into
-PostGIS, where spatial processing and aggregation is performed. The result is
-made available as a new dataset to be consumed and styled in QGIS.
+to teach tool-centered functionalities in a narrow scope. Built upon the Sandbox
+capabilities, an example data story was implemented to create a bike suitability
+map from raw open data from the city of Zürich. Participants learn about the
+GDAL command line tools to inspect datasets and load them into PostGIS, where
+spatial processing and aggregation is performed. The result is made available as
+a new dataset to be consumed and styled in QGIS.
 \end{abstract}
 \end{titlepage}
 
@@ -87,45 +87,33 @@ The GIS\footnote{Geographic Information System (GIS).} ecosystem today is
 extensive and fast evolving with multiple technologies addressing similar use
 cases with varying overlap in functionality. The motivation to employ GIS
 technology is often data-driven, i.e. a company usually wants to gain insights
-from spatial data or process it to be used. This requires an end-to-end
-understanding how different components of the GIS ecosystem interact to
-transform the raw data into the desired product. For somebody new to the field,
-the vast amount of possibilities might be overwhelming at best and frustrating
-at worst when trying to develop a holistic mental model about what technologies
-to use in what way to tackle real world use cases.
+from spatial data or process it to be used downstream in products. This requires
+an end-to-end understanding how different components of the GIS ecosystem
+interact to transform the raw data into the desired product. For somebody new to
+the field, the vast amount of possibilities might be overwhelming at best and
+frustrating at worst when trying to develop a holistic mental model about what
+technologies to use in what way to tackle real world use cases.
 
 Many tutorials exist, but these are usually centered around a specific tool or
 technology, whereby data is of secondary nature to explain the functionalities
-in a narrow scope. Workshops and lectures are a another common vehicle to
-acquire knowledge about a field, whereby is desirable for participants to
-experience theoretical concepts hands-on for themselves. The challenge here lies
-in providing all participants with access to the respective software and data
-with minimal setup efforts.
-
-
-
-
-It is hypothesized here that there is a content gap between what people new to
-the field need and what is widely available.
-
-
-
-GIS\footnote{Geographic Information System (GIS).} workshops face a few
-particular challenges, two of which are central to this thesis.
-
-
-
+in a narrow scope. Workshops and lectures are another common vehicle to acquire
+knowledge about a field, whereby is desirable for participants to experience
+theoretical concepts hands-on for themselves. The challenge lies in providing
+all participants with access to the respective software and data with minimal
+setup efforts. There is a shortcoming of such solutions, particularly when it
+comes to more complex setups with multiple components that need to interact.
 
 This thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
-advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. It
-explored the above-mentioned challenges in the context of the CAS and solutions
-are provided on two different levels:
+advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.}. It was
+hypothesized that there is a gap between what people new to the field and
+organizers of lectures and workshops need and what is widely available. This
+thesis addressed this gap on two levels:
 \begin{enumerate}
   \item \textbf{Infrastructure} In order to provide participants access to a
   variety of components from the GIS ecosystem with minimal setup effort the
-  concept of a \emph{Sandbox environment} was explored. The requirements and
-  components to be implemented were chosen to support the content of this
-  thesis' further education curriculum.
+  concept of a \emph{Sandbox} environment was explored. The requirements and
+  components to be implemented were chosen to support the CAS RIS course
+  curriculum.
   \item \textbf{Content} In order to help participants to make sense of the
   Sandbox components and their interactions, the concept of a \emph{data story}
   was explored. Each data story is a data-driven cross-application tutorial. It
@@ -148,16 +136,16 @@ are provided on two different levels:
 %-------------
 \subsection{Requirement analysis} \label{sectionrequirements}
 
-The content of the CAS RIS was analyzed for potential hands-on exercises. From
-these findings functional and non-functional requirements\footnote{Functional
-requirements specify the tasks an application must be able to perform.
-Non-functional requirements specify additional aspects about the application
-performing the task, for example usability, look and feel or performance. } for
-a Sandbox were then derived.
+The content of the CAS RIS course was analyzed for potential hands-on exercises.
+From these findings functional and non-functional
+requirements\footnote{Functional requirements specify the tasks an application
+must be able to perform. Non-functional requirements specify additional aspects
+about the application performing the task, for example usability, look and feel
+or performance. } for a Sandbox were then derived.
 
 % Content analyis
 %-------------
-\subsubsection{Content analysis}
+\subsubsection{Curriculum analysis}
 At the time of writing the CAS curriculum consisted of four weeks of content
 modules on a wide variety of topics. Each module was screened with a focus on
 where a Sandbox could facilitate hands-on experiences without substantially
@@ -207,12 +195,7 @@ of proprietary software like ArcGIS were ignored. Table
     Internet und GIS I \& II &
       \begin{itemize}[left=0pt,nosep,before={\begin{minipage}[t]{\hsize}},after
       ={\end{minipage}}]
-      \item Load data from OGC web services WMS/WFS/WCS\footnote{The Open
-      Geospatial Consortium (OGC) is a worldwide community to improve the access
-      to geospatial data by various means such as developing standards. Such
-      standards for the web include Web Map Service (WMS), Web Feature Service
-      (WFS) and Web Coverage Service (WCS) to load styled map images, simple
-      geometry features and raster data via HTTP respectively.}.
+      \item Load data from OGC web services WMS/WFS/WCS.
       \item Consume WMS with an OGC compliant client system.
       \end{itemize}\nointerlineskip \\
     \midrule
@@ -232,13 +215,18 @@ of proprietary software like ArcGIS were ignored. Table
 %-------------
 \subsubsection{Functional requirements}
 The following functional requirements were identified for the Sandbox to be
-useful in realizing the potential identified in the content analysis:
+useful in realizing the potential identified in the curriculum analysis:
 \begin{itemize}
   \item A spatial database is available together with utilities to import and
   query data.
-  \item An OGC server implementation is available. There is a way to read
-  predefined example data, read data from the user's system or connect to the
-  Sandbox spatial database.
+  \item An OGC\footnote{The Open Geospatial Consortium (OGC) is a worldwide
+  community to improve the access to geospatial data by various means such as
+  developing standards. Such standards for the web include Web Map Service
+  (WMS), Web Feature Service (WFS) and Web Coverage Service (WCS) to load styled
+  map images, simple geometry features and raster data via HTTP respectively.}
+  server implementation is available. There is a way to read predefined example
+  data, read data from the user's system or connect to the Sandbox spatial
+  database.
   \item An OGC client implementation is available, which can interact with the
   Sandbox OGC server or any other OGC service publicly available on the
   internet.
@@ -269,7 +257,7 @@ useful in realizing the potential identified in the content analysis:
   any programming knowledge.
   \item A partial or total reset of applications and data is possible in case
   something gets messed up.
-  \item Usage is not coupled to the duration of the CAS course or otherwise
+  \item Usage is not coupled to the duration of the CAS RIS course or otherwise
   restricted (e.g. via externally controlled credentials).
 \end{itemize}
 
@@ -351,9 +339,9 @@ on already existing software and specific configurations this approach is at
 best error-prone and at worst capable to permanently alter the user's system.
 Because with this approach only the tools themselves are installed, tutorials
 and data stories would need to be provided in a separate way. On a positive
-note, the installed tools could be used beyond the duration of the CAS course
-without problems and the decoupling of the distribution of tutorials and data
-stories makes it easy to be updated without technical knowledge.
+note, the installed tools could be used beyond the duration of the CAS RIS
+course without problems and the decoupling of the distribution of tutorials and
+data stories makes it easy to be updated without technical knowledge.
 
 \subsubsection*{Sandbox as local containerized application}
 Container technology has been around for decades but took off in 2013 with the
@@ -409,7 +397,7 @@ complexity overhead at the cloud side, because for persisting data across
 sessions some form of authentication must be in place and every cloud session
 uses resources which are billed by the second. Assuming the cloud Sandbox is
 publicly available to fulfill the requirement that the Sandbox' usage should not
-be coupled to the duration of the CAS course, further complexity arises from
+be coupled to the duration of the CAS RIS course, further complexity arises from
 implementing and maintaining security best practices against malicious attacks.
 Data management is another topic which can prove challenging when it comes to
 cloud services in the geospatial domain, because data usually needs to be
@@ -524,10 +512,9 @@ with a distinct purpose:
   \item \textbf{geoserver-container} is a containerized version of GeoServer,
   which is an OGC data server and a reference implementation of the OGC web
   services.
-  \item \textbf{datastories-container} is called a data container because it
-  serves solely as a data storage without application. It contains the data
-  story related narrative in form of Jupyter Notebooks as well as the sample
-  data.
+  \item \textbf{content-container} serves solely as a data storage without any
+  containerized application. It contains the data story related narrative in
+  form of Jupyter Notebooks as well as the sample data.
   \item \textbf{jupyterlabgeoenv-container} is a containerized version of
   JupyterLab, a web-based interactive development environment for Python scripts
   and more. It should come bundled with various pre-installed Python packages
@@ -542,7 +529,7 @@ Some containers make use of virtual volumes as shown in Figure
 \ref{fig:sandboxsetup} to persist data across restarts of the Sandbox. Examples
 include the data stored in PostGIS, the database connections set up in pgAdmin
 or the data and configuration files used by GeoServer. A special case is
-datastories-data, which can be accessed by other containers such as
+content-data, which can be accessed by other containers such as
 jupyterlabgeoenv-container to access the data story Jupyter Notebooks.
 
 \subsubsection*{Networking}
@@ -606,8 +593,11 @@ In order to reflect changes that impact how to connect to a container in the
 Sandbox Hub, its content is almost entirely specified in the compose-file using
 the same variables.
 
+\subsubsection*{Configurable Python environment in JupyterLab-GeoEnv}
+TODO
+
 \subsubsection*{Networking and user experience challenge}
-Containers interacting with each use the Docker Compose network, while all
+Containers interacting with each other use the Docker Compose network, while all
 connections from outside the Sandbox are routed via the host's localhost
 interface. For the user this means that the way to connect to a Sandbox
 container differs based on whether the connection happens from another Sandbox
@@ -616,6 +606,7 @@ container (e.g. Sandbox pgAdmin to Sandbox PostGIS) or from outside the Sandbox
 the user experience without success and in the current implementation the
 Sandbox Hub makes it as explicit as possible which connection information to use
 in which case.
+
 
 % Using the Sandbox
 %-------------
@@ -663,39 +654,38 @@ volumes, networks and images, etc.
 % DATA STORY
 %-------------
 \section{Data story}
-Each data story is a data-driven cross-application tutorial
 
 
 % Presentation
 %-------------
 \subsection{Presentation}
 
-Several approaches were evaluated on how to integrate data stories in the
-context of the Sandbox architecture, ranging from complete decoupling via
-external static websites or file transfer to full integration into existing
-containers. It was found that the expressive nature of Jupyter Notebooks was
-well suited for a data story's narrative, offering full support for text styling
-through Markdown language and support for images, GIFs and in-line code
-execution. More so, the creation of new content using Jupyter Notebooks is
-possible without technical background, which is a big plus compared to an
-evaluated alternative that framed data stories as static websites made up of
-HTML and CSS\footnote{HTML (HyperText Markup Language) defines the structure of
-a website, i.e. what is considered a header, a title or a paragraph. CSS
-(Cascading Style Sheets) defines the styling (look) of a website.}.
+Several approaches were evaluated how to present the narrative of data stories
+to the user, ranging from complete decoupling via external static websites or
+file transfer to full integration into existing containers. It was found that
+the expressive nature of Jupyter Notebooks was well suited for a data story's
+narrative, offering full support for text styling through Markdown language and
+support for images, GIFs and in-line code execution. More so, the creation of
+new content using Jupyter Notebooks is possible without technical background,
+which is a big plus compared to an evaluated alternative that framed data
+stories as static websites made up of HTML and CSS\footnote{HTML (HyperText
+Markup Language) defines the structure of a website, i.e. what is considered a
+header, a title or a paragraph. CSS (Cascading Style Sheets) defines the styling
+(look) of a website.}.
 
 % Intregration with Sandbox
 %-------------
 \subsection{Integration with Sandbox}
 
-The decision where to store these Jupyter Notebooks and the associated data was
-mainly driven by the requirement to allow for shipping updates and new data
-story content with minimal impact on the users. To that end a separate
-datastories-container was introduced to the sandbox, which contains the data
-story Jupyter Notebooks and associated data. Upon starting the sandbox, the
-container's data gets copied to a volume that is accessible by
-JupyterLab-GeoEnv. Instead of reinventing the wheel, the Jupyter Notebooks of
-JupyterLab-GeoEnv are used as the primary way of interacting with the data
-stories. This pattern has several nice properties:
+The decision where to store these Jupyter Notebooks and the associated data in
+the context of the Sandbox architecture was mainly driven by the requirement to
+allow for shipping updates and new data story content with minimal impact on the
+users. To that end a separate content-container was introduced to the Sandbox,
+which contains the data story Jupyter Notebooks and associated data. Upon
+starting the Sandbox, the container's data gets copied to a volume that is
+accessible by JupyterLab-GeoEnv. Instead of reinventing the wheel, the Jupyter
+Notebooks of JupyterLab-GeoEnv are used as the primary way of interacting with
+the data stories. This pattern has several nice properties:
 \begin{itemize}
   \item Updating a data story is as simple as updating the Jupyter Notebooks and
   associated data in the Sandbox repository, followed by a new release of the
@@ -712,16 +702,17 @@ stories. This pattern has several nice properties:
 % Example data story
 %-------------
 \subsection{Example data story - Zürich bike suitability map}
-An example data story was conceptualized based on topics from the CAS curriculum
-and implemented using the capabilities of the Sandbox. Open data from the city
-of Zürich is used to derive a visualization showing what percentage of roads in
-each district are suitable for biking. Participants learn about GDAL's command
-line tools to inspect datasets and load them into PostGIS, where spatial
+An example data story was conceptualized based on topics from the CAS RIS
+curriculum and implemented using the capabilities of the Sandbox. Open data from
+the city of Zürich is used to derive a visualization showing what percentage of
+roads in each district are suitable for biking. Participants learn about GDAL's
+command line tools to inspect datasets and load them into PostGIS, where spatial
 processing and aggregation is performed. The result is made available as a new
 dataset to be consumed and styled as an informative map in QGIS. The following
 section demonstrates the data story scenario as presented to the user. The full
-data story can be found under \emph{\_datastories/bike\_suitability\_zurich} in
-JupyterLab-GeoEnv.
+data story can be found under
+\emph{\_content/datastories/bike\_suitability\_zurich} in the JupyterLab-GeoEnv
+component.
 
 \subsubsection*{Scenario}
 
@@ -772,8 +763,8 @@ It requires only minimal setup and only a single command to be started and
 stopped respectively.
 
 The functional requirements for the Sandbox were derived by screening the
-existing CAS course modules for potential where a Sandbox could be leveraged to
-provide participants with hand-on exercises to become an active part in the
+existing CAS RIS course modules for potential where a Sandbox could be leveraged
+to provide participants with hand-on exercises to become an active part in the
 learning process. With that in mind the concept of data stories was established
 and implemented in a way that seamlessly integrates with the Sandbox and is
 easily extensible with further content.
