@@ -594,7 +594,26 @@ Sandbox Hub, its content is almost entirely specified in the compose-file using
 the same variables.
 
 \subsubsection*{Configurable Python environment in JupyterLab-GeoEnv}
-TODO
+The Python environment in JupyterLab-GeoEnv comes with a broad range of packages
+pre-installed in the image, which results in a fast startup but does not allow
+persisting user changes such as package additions or modifications. Persisting
+the whole Python environment on a volume would allow the user to persist all
+modifications, but with the downside that reproducibility is not necessarily
+given which can lead to problems when moving to a new version of
+JupyterLab-GeoEnv. A compromise solution was implemented, whereby the user can
+specify additional packages in a dedicated standardized requirements
+file\cite{piprequirementsfile}. At each Sandbox startup the user defined
+packages are lost (because the Python environment is not persisted on a volume),
+but the content of the file is re-installed on top of the base environment. The
+package archives are downloaded and persisted on a volume on first installation,
+which allows subsequent installations from these archives even without internet
+connection. One downside with this approach is that each user package increases
+the startup time of JupyterLab-GeoEnv, because it is only available to users
+after the package installation completed. This sequential nature was a
+deliberate design decision, because the alternative where the installation
+happens in the background could easily lead to strange behavior when the user
+tries to run code that requires a user specified package that has not yet been
+installed in the background.
 
 \subsubsection*{Networking and user experience challenge}
 Containers interacting with each other use the Docker Compose network, while all
@@ -655,46 +674,53 @@ volumes, networks and images, etc.
 %-------------
 \section{Data story}
 
-
-% Presentation
+% Narrative medium
 %-------------
-\subsection{Presentation}
+\subsection{Narrative and presentation}
+A data story is a data-driven cross-application tutorial. It has a tangible data
+driven use case and provides guidance on how available technologies and tools
+interact with the data to achieve the desired result. As such a data story needs
+a \emph{narrative} that guides the user and provides a motivating
+\emph{scenario}, and \emph{data} that can be transformed by \emph{applications}
+into the desired result.
 
-Several approaches were evaluated how to present the narrative of data stories
+While it was clear that the applications will be provided by the Sandbox,
+several approaches were evaluated how to present the narrative of data stories
 to the user, ranging from complete decoupling via external static websites or
 file transfer to full integration into existing containers. It was found that
-the expressive nature of Jupyter Notebooks was well suited for a data story's
-narrative, offering full support for text styling through Markdown language and
-support for images, GIFs and in-line code execution. More so, the creation of
-new content using Jupyter Notebooks is possible without technical background,
-which is a big plus compared to an evaluated alternative that framed data
-stories as static websites made up of HTML and CSS\footnote{HTML (HyperText
+the expressive nature of Jupyter Notebooks was a well suited medium for a data
+story's narrative, offering full support for text styling through Markdown
+language and support for images, GIFs and in-line code execution. More so, the
+creation of new content using Jupyter Notebooks is possible without technical
+background, which is a big plus compared to an evaluated alternative that framed
+data stories as static websites made up of HTML and CSS\footnote{HTML (HyperText
 Markup Language) defines the structure of a website, i.e. what is considered a
 header, a title or a paragraph. CSS (Cascading Style Sheets) defines the styling
 (look) of a website.}.
 
-% Intregration with Sandbox
+% Intregration into Sandbox
 %-------------
-\subsection{Integration with Sandbox}
+\subsection{Integration into Sandbox}
 
-The decision where to store these Jupyter Notebooks and the associated data in
-the context of the Sandbox architecture was mainly driven by the requirement to
+The decision where to store the Jupyter Notebooks and the associated data in the
+context of the Sandbox architecture was mainly driven by the requirement to
 allow for shipping updates and new data story content with minimal impact on the
-users. To that end a separate content-container was introduced to the Sandbox,
-which contains the data story Jupyter Notebooks and associated data. Upon
-starting the Sandbox, the container's data gets copied to a volume that is
-accessible by JupyterLab-GeoEnv. Instead of reinventing the wheel, the Jupyter
-Notebooks of JupyterLab-GeoEnv are used as the primary way of interacting with
-the data stories. This pattern has several nice properties:
+users. To that end a separate \emph{content service} was introduced to the
+Sandbox as outlined in Figure \ref{fig:sandboxsetup}, which consists of a data
+container called content-container containing the data story Jupyter Notebooks
+and associated data. Upon starting the Sandbox, the container's data gets copied
+to a volume that is accessible by JupyterLab-GeoEnv. Instead of reinventing the
+wheel, the Jupyter Notebooks of JupyterLab-GeoEnv are used as the primary way of
+interacting with the data stories. This pattern has several nice properties:
 \begin{itemize}
   \item Updating a data story is as simple as updating the Jupyter Notebooks and
   associated data in the Sandbox repository, followed by a new release of the
-  data stories component.
+  content-container component.
   \item From the user perspective, obtaining new versions of data stories at the
-  next Sandbox start is as easy as updating the data stories component version
-  in the compose-file (or downloading the updated compose-file from the
-  repository). Assuming only the data stories component version changed, the
-  update will be very quick because all other components do not need to be
+  next Sandbox start is as easy as updating the content-container component
+  version in the compose-file (or downloading the updated compose-file from the
+  repository). Assuming only the content-container component version changed,
+  the update will be very quick because all other components do not need to be
   downloaded again.
 \end{itemize}
 
