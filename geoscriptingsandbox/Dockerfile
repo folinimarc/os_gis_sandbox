@@ -22,7 +22,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #-----------------
 # GDAL, GEOS, PROJ (via libgdal-dev)
 #-----------------
-
 RUN apt update && \
     apt-get install -y --no-install-recommends \
         tzdata \
@@ -36,7 +35,6 @@ RUN apt update && \
 #-----------------
 # Postgresql 14 client (psql command line)
 #-----------------
-
 # Kudos to https://techviewleo.com/how-to-install-postgresql-database-on-ubuntu/
 RUN apt update && \
     apt-get install -y --no-install-recommends \
@@ -52,7 +50,6 @@ RUN apt update && \
 #-----------------
 # Python & PIP & Packages
 #-----------------
-
 # Copy requirements
 RUN mkdir /assets
 COPY ./copy_to_image/requirements-base.txt /assets/requirements-base.txt
@@ -72,8 +69,8 @@ RUN apt update && \
         python3-pip
 RUN echo "GDAL==${GDAL_VERSION}" >> /assets/requirements-base.txt && \
     echo "--no-binary=shapely,pygeos" >> /assets/requirements-base.txt && \
-    pip install --upgrade pip && \
-    pip install -r /assets/requirements-base.txt
+    pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r /assets/requirements-base.txt
 
 #-----------------
 # Final clean up
@@ -89,7 +86,6 @@ RUN apt purge -y \
 #-----------------
 # Misc setup
 #-----------------
-
 # Make sure jupyter lab terminal uses bash
 ENV SHELL=/bin/bash
 # Deactivate extension manager (extension should only be installed from pypi via
@@ -97,13 +93,15 @@ ENV SHELL=/bin/bash
 RUN jupyter labextension disable @jupyterlab/extensionmanager-extension
 
 # Copy readme about file persistence which will be copied to home directory in entrypoint.sh
-# if SHOW_README_IN_HOME is true. Defaults to false for the docker standalone usecase without volume.
-ENV SHOW_README_IN_HOME=false
+# if HOME_DIR_PERSISTED is true. Defaults to false for the docker standalone usecase without volume.
+ENV HOME_DIR_PERSISTED=false
 COPY ./copy_to_image/_README.md /assets/_README.md
 
-# Copy entrypoint and make executable
+# Copy pip installation and entrypoint scripts and make both executable.
 COPY ./copy_to_image/entrypoint.sh /assets/entrypoint.sh
 RUN chmod 0700 /assets/entrypoint.sh
+COPY ./copy_to_image/pip_download_install.sh /assets/pip_download_install.sh
+RUN chmod 0700 /assets/pip_download_install.sh
 
 WORKDIR /home
 

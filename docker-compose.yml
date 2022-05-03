@@ -2,14 +2,22 @@
 version: '2.4'
 
 volumes:
+  # Persists all geoserver related data and configuration.
    geoserver_data:
+   # Persists database content.
    postgis_data:
+   # Persists database connections and settings.
    pgadmin_data:
+   # Persists home directory with all notebook and user created content.
    geoscriptingsandbox_data:
-   #geoscriptingsandbox_python_environment:
+   # Persists packages downloaded for requirements-override.txt to restore from
+   # in case of no internet connection.
+   geoscriptingsandbox_pip_overwrite_download:
+   # Persists JupyterLab application, user and workspaces settings.
    geoscriptingsandbox_settings_application:
    geoscriptingsandbox_settings_user:
    geoscriptingsandbox_settings_workspace:
+   # Used to share data from content container with other components.
    content_data:
 
 services:
@@ -65,16 +73,16 @@ services:
       # image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.8}
       volumes:
         - geoscriptingsandbox_data:/home
-        #- geoscriptingsandbox_python_environment:/usr/local/lib/python3.8/dist-packages
         - geoscriptingsandbox_settings_application:/usr/local/share/jupyter/lab
         - geoscriptingsandbox_settings_user:/root/.jupyter/lab/user-settings
         - geoscriptingsandbox_settings_workspace:/root/.jupyter/lab/workspaces
+        - geoscriptingsandbox_pip_overwrite_download:/pip_overwrite_requirements_download
         - content_data:/home/${CONTENT_MOUNT_FOLDER_NAME:-_content}
         - ${HOST_SYSTEM_MOUNT_PATH:-./}:/home/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
       ports:
         - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL:-8004}:8888
       environment:
-        - "SHOW_README_IN_HOME=true"
+        - "HOME_DIR_PERSISTED=true"
       command: ["jupyter", "lab", "--ip", "0.0.0.0", "--port", "8888", "--allow-root", "--no-browser", "--autoreload", "--LabApp.token=''"]
 
     content:
