@@ -46,25 +46,25 @@
                 <mxCell id="mdrCvq0ZYz5mqA8l1cCE-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=70;entryDy=100;entryPerimeter=0;fontSize=10;startArrow=none;startFill=0;endArrow=none;endFill=0;" parent="1" source="mdrCvq0ZYz5mqA8l1cCE-30" target="mdrCvq0ZYz5mqA8l1cCE-24" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="mdrCvq0ZYz5mqA8l1cCE-30" value="geoscriptingsandbox-data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5.88232421875;fontSize=10;" parent="1" vertex="1">
+                <mxCell id="mdrCvq0ZYz5mqA8l1cCE-30" value="geoscriptingsandbox_data_home" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5.88232421875;fontSize=10;" parent="1" vertex="1">
                     <mxGeometry x="855" y="415" width="130" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="mdrCvq0ZYz5mqA8l1cCE-72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=70;entryDy=100;entryPerimeter=0;fontSize=10;startArrow=none;startFill=0;endArrow=none;endFill=0;" parent="1" source="mdrCvq0ZYz5mqA8l1cCE-31" target="mdrCvq0ZYz5mqA8l1cCE-21" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="mdrCvq0ZYz5mqA8l1cCE-31" value="geoserver-data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5.88232421875;fontSize=10;" parent="1" vertex="1">
+                <mxCell id="mdrCvq0ZYz5mqA8l1cCE-31" value="geoserver_data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5.88232421875;fontSize=10;" parent="1" vertex="1">
                     <mxGeometry x="537.5" y="415" width="130" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="mdrCvq0ZYz5mqA8l1cCE-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=70;entryDy=100;entryPerimeter=0;fontSize=10;startArrow=none;startFill=0;endArrow=none;endFill=0;" parent="1" source="mdrCvq0ZYz5mqA8l1cCE-32" target="mdrCvq0ZYz5mqA8l1cCE-19" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="mdrCvq0ZYz5mqA8l1cCE-32" value="pgadmin-data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5.88232421875;fontSize=10;" parent="1" vertex="1">
+                <mxCell id="mdrCvq0ZYz5mqA8l1cCE-32" value="pgadmin_data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5.88232421875;fontSize=10;" parent="1" vertex="1">
                     <mxGeometry x="377.5" y="415" width="130" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="mdrCvq0ZYz5mqA8l1cCE-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=71;entryDy=100;entryPerimeter=0;fontSize=10;startArrow=none;startFill=0;endArrow=none;endFill=0;" parent="1" source="mdrCvq0ZYz5mqA8l1cCE-33" target="mdrCvq0ZYz5mqA8l1cCE-18" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="mdrCvq0ZYz5mqA8l1cCE-33" value="postgis-data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5.88232421875;fontSize=10;" parent="1" vertex="1">
+                <mxCell id="mdrCvq0ZYz5mqA8l1cCE-33" value="postgis_data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5.88232421875;fontSize=10;" parent="1" vertex="1">
                     <mxGeometry x="218.5" y="415" width="130" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="mdrCvq0ZYz5mqA8l1cCE-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=60;entryDy=0;entryPerimeter=0;fontSize=10;startArrow=none;startFill=0;endArrow=none;endFill=0;" parent="1" source="mdrCvq0ZYz5mqA8l1cCE-38" target="mdrCvq0ZYz5mqA8l1cCE-24" edge="1">
