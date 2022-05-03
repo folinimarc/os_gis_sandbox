@@ -69,8 +69,8 @@ services:
 
     geoscriptingsandbox:
       container_name: geoscriptingsandbox-container
-      build: ./geoscriptingsandbox/
-      # image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.8}
+      # build: ./geoscriptingsandbox/
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.9}
       volumes:
         - geoscriptingsandbox_data:/home
         - geoscriptingsandbox_settings_application:/usr/local/share/jupyter/lab
@@ -95,13 +95,13 @@ services:
     hub:
       container_name: hub-container
       # build: ./hub/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION:-hub-v0.0.7}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION:-hub-v0.0.8}
       ports:
         - 127.0.0.1:${HUB_PORT_EXTERNAL:-80}:5000
       command: ["gunicorn" ,"--workers", "2", "--threads", "2", "--bind", "0.0.0.0:5000", "app:app"]
       environment:
         - "CARD_1_TITLE=Geoscripting Sandbox"
-        - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the python geo-ecosystem. Data stories and more content is located in directory ${CONTENT_MOUNT_FOLDER_NAME:-_content}. Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}."
+        - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the python geo-ecosystem. Data stories and more content is located in directory ${CONTENT_MOUNT_FOLDER_NAME:-_content}. Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}. Start-up might take some seconds, be patient."
         - "CARD_1_HREF=Open,http://localhost:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL:-8004}"
         - "CARD_2_TITLE=pgAdmin"
         - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases."
