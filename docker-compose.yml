@@ -9,14 +9,14 @@ volumes:
    # Persists database connections and settings.
    pgadmin_data:
    # Persists home directory with all notebook and user created content.
-   geoscriptingsandbox_data:
+   jupyterlabgeoenv_data:
    # Persists packages downloaded for requirements-override.txt to restore from
    # in case of no internet connection.
-   geoscriptingsandbox_pip_overwrite_download:
+   jupyterlabgeoenv_pip_overwrite_download:
    # Persists JupyterLab application, user and workspaces settings.
-   geoscriptingsandbox_settings_application:
-   geoscriptingsandbox_settings_user:
-   geoscriptingsandbox_settings_workspace:
+   jupyterlabgeoenv_settings_application:
+   jupyterlabgeoenv_settings_user:
+   jupyterlabgeoenv_settings_workspace:
    # Used to share data from content container with other components.
    content_data:
 
@@ -67,20 +67,20 @@ services:
         - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-gis@gis.com}"
         - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-gis}"
 
-    geoscriptingsandbox:
-      container_name: geoscriptingsandbox-container
-      # build: ./geoscriptingsandbox/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/geoscriptingsandbox:${GEOSCRIPTINGSANDBOX_VERSION:-geoscriptingsandbox-v0.0.9}
+    jupyterlabgeoenv:
+      container_name: jupyterlabgeoenv-container
+      # build: ./jupyterlabgeoenv/
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v0.0.9}
       volumes:
-        - geoscriptingsandbox_data:/home
-        - geoscriptingsandbox_settings_application:/usr/local/share/jupyter/lab
-        - geoscriptingsandbox_settings_user:/root/.jupyter/lab/user-settings
-        - geoscriptingsandbox_settings_workspace:/root/.jupyter/lab/workspaces
-        - geoscriptingsandbox_pip_overwrite_download:/pip_overwrite_requirements_download
+        - jupyterlabgeoenv_data:/home
+        - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
+        - jupyterlabgeoenv_settings_user:/root/.jupyter/lab/user-settings
+        - jupyterlabgeoenv_settings_workspace:/root/.jupyter/lab/workspaces
+        - jupyterlabgeoenv_pip_overwrite_download:/pip_overwrite_requirements_download
         - content_data:/home/${CONTENT_MOUNT_FOLDER_NAME:-_content}
         - ${HOST_SYSTEM_MOUNT_PATH:-./}:/home/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
       ports:
-        - 127.0.0.1:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL:-8004}:8888
+        - 127.0.0.1:${JUPYTERLABGEOENV_PORT_EXTERNAL:-8004}:8888
       environment:
         - "HOME_DIR_PERSISTED=true"
       command: ["jupyter", "lab", "--ip", "0.0.0.0", "--port", "8888", "--allow-root", "--no-browser", "--autoreload", "--LabApp.token=''"]
@@ -100,15 +100,15 @@ services:
         - 127.0.0.1:${HUB_PORT_EXTERNAL:-80}:5000
       command: ["gunicorn" ,"--workers", "2", "--threads", "2", "--bind", "0.0.0.0:5000", "app:app"]
       environment:
-        - "CARD_1_TITLE=Geoscripting Sandbox"
+        - "CARD_1_TITLE=JupyterLab-GeoEnv"
         - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the python geo-ecosystem. Data stories and more content is located in directory ${CONTENT_MOUNT_FOLDER_NAME:-_content}. Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}. Start-up might take some seconds, be patient."
-        - "CARD_1_HREF=Open,http://localhost:${GEOSCRIPTINGSANDBOX_PORT_EXTERNAL:-8004}"
+        - "CARD_1_HREF=Open,http://localhost:${JUPYTERLABGEOENV_PORT_EXTERNAL:-8004}"
         - "CARD_2_TITLE=pgAdmin"
         - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases."
         - "CARD_2_HREF=Open,http://localhost:${PGADMIN_PORT_EXTERNAL:-8002}"
         - "CARD_2_CONNECTIONINFO=Email,${PGADMIN_DEFAULT_EMAIL:-gis@gis.com};Password,${PGADMIN_DEFAULT_PASSWORD:-gis}"
         - "CARD_3_TITLE=PostGIS"
-        - "CARD_3_DESCRIPTION=PostGIS is an extension for postgreSQL that turns it into a spatial database. To interact use pgAdmin or psql from the geoscripting sandbox' terminal. To connect from outside the sandbox use HostExternal and PortExternal."
+        - "CARD_3_DESCRIPTION=PostGIS is an extension for postgreSQL that turns it into a spatial database. To interact use pgAdmin or psql from the terminal of JupyterLab-GeoEnv. To connect from outside the sandbox use HostExternal and PortExternal."
         - "CARD_3_CONNECTIONINFO=Username,${POSTGRES_USER:-gis};Password,${POSTGRES_PASSWORD:-gis};Database name,${POSTGRES_DB:-gis};Host,postgis-container;Port,5432;HostExternal, localhost;PortExternal,${POSTGIS_PORT_EXTERNAL:-8001}"
         - "CARD_4_TITLE=Geoserver"
         - "CARD_4_DESCRIPTION=Geoserver implements OGC web services like WMS and WFS, similar to alternatives like MapServer or QGISserver. A community extension is activated to provide functionalities of the new OGC API standard.  Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir} in GeoServer's data directory. To connect from outside the sandbox use HostExternal and PortExternal."
