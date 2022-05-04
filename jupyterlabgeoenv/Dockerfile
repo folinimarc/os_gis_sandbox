@@ -5,7 +5,6 @@ LABEL description="Python/JupyterLab instance with various python geoprocessing 
 
 ARG GDAL_VERSION=3.4.0
 ARG POSTGRESQL_CLIENT_VERSION=14
-ARG NODEJS_VERSION=18
 
 # Use default anywhere without requiring intervention
 ARG DEBIAN_FRONTEND=noninteractive

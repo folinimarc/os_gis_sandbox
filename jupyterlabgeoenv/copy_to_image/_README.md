@@ -21,17 +21,15 @@ Every time the Sandbox is started, it is initialized with a default set of
 packages listed in _requirements-base.txt_. If you want to add additional
 packages or change the version of existing ones, add it to
 _requirements-override.txt_, which is a normal PIP requirements file, and then
-restart the Sandbox. This file is used at startup time in the following command
-on top of the existing base environment:
-```
-pip install --upgrade -r /home/requirements-override.txt
-```
+restart the Sandbox. At each startup the added packages will be installed on top
+of the base environments. The more packages you add the longer the startup time
+will become due to this installation procedure, so be patient.
 
 > _Good to know:_ If the behavior is not what you expected, you can start the
-> Sandbox using simply `docker compose up` ignoring the
-detached (-d) flag. This will show you the logs of the
-jupyterlabgeoenv-container which includes the output from the above command,
-for example that a package was not found due to a typo.
+> Sandbox using simply `docker compose up` ignoring the detached (-d) flag. This
+will show you the logs of the jupyterlabgeoenv-container which includes the
+output from the above command, for example that a package was not found due to a
+typo.
 
 ## How to activate JupyterLab extensions
 JupyterLab is a modular environment and hundreds of great extensions exist. Two
