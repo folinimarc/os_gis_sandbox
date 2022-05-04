@@ -58,7 +58,7 @@ window.**
 
 To stop all containers run:
 ```console
-docker compose down
+docker compose -p sandbox down
 ```
 
 That's it - if you want to start again, run the up command above again and you
