@@ -143,7 +143,7 @@ information can be found in the
 | GEOSERVER_SAMPLE_DATA             | true                           |                                                                                                                                      |
 | GEOSERVER_STABLE_EXTENSIONS       |                                | [Stable extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/stable_plugins.txt)       |
 | GEOSERVER_COMMUNITY_EXTENSIONS    | geostyler-plugin,ogcapi-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
-| HUB_VERSION                       | hub-v0.0.8                     |                                                                                                                                      |
+| HUB_VERSION                       | hub-v0.0.9                     |                                                                                                                                      |
 | HUB_PORT_EXTERNAL                 | 80                             |                                                                                                                                      |
 | PGADMIN_VERSION_TAG               | 6.8                            |                                                                                                                                      |
 | PGADMIN_PORT_EXTERNAL             | 8002                           |                                                                                                                                      |
