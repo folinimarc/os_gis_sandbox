@@ -30,15 +30,14 @@ docker --version
 
 ## 2) Start the OS Geostack Sandbox
 You only need the single file docker-compose.yml to run the sandbox. You can
-either clone the repository or [click here to open its raw
-form](https://raw.githubusercontent.com/laiskasiili/os_geostack_sandbox/main/docker-compose.yml)
+either clone the repository or [click here to open its raw form](https://raw.githubusercontent.com/laiskasiili/os_geostack_sandbox/main/docker-compose.yml)
 and then go right-click and save as. Just make sure it is still called
 docker-compose.yml (with .yml extension).
 
 Open a terminal and navigate into the __same folder__ where you placed the
 docker-compose.yml. In the terminal run:
 ```console
-docker compose up -d
+docker compose -p sandbox up -d
 ```
 > Note: The first time it will take some minutes because a lot of data is being
 > downloaded, make sure you are connected to a fast and reliable internet

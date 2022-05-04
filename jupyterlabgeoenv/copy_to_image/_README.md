@@ -26,7 +26,7 @@ of the base environments. The more packages you add the longer the startup time
 will become due to this installation procedure, so be patient.
 
 > _Good to know:_ If the behavior is not what you expected, you can start the
-> Sandbox using simply `docker compose up` ignoring the detached (-d) flag. This
+> Sandbox using simply `docker compose -p sandbox up` ignoring the detached (-d) flag. This
 will show you the logs of the jupyterlabgeoenv-container which includes the
 output from the above command, for example that a package was not found due to a
 typo.
