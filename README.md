@@ -28,7 +28,7 @@ docker --version
 > message mentioning a daemon there is a good chance you first might need to
 > start the docker desktop application (e.g. via search menu).
 
-> Good to know: Make sure that you have at least a healthy 10gb of free disk space
+> _Good to know_: Make sure that you have at least a healthy 10gb of free disk space
 before continuing. No worries, uninstalling is simple and clean as outlined in
 Step 3.
 
@@ -43,12 +43,12 @@ docker-compose.yml. In the terminal run:
 ```console
 docker compose -p sandbox up -d
 ```
-> Good to know: The first time it will take some minutes because a lot of data is being
+> _Good to know_: The first time it will take some minutes because a lot of data is being
 > downloaded, make sure you are connected to a fast and reliable internet
 > connection. This is a one-time thing and subsequent startups will only take
 > seconds.
 
-> Good to know: You can also avoid the -d flag, which will then display the logs of all
+> _Good to know_: You can also avoid the -d flag, which will then display the logs of all
 > containers in the terminal.
 
 Eventually the terminal will display the blinking cursor again and let you type.
