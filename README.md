@@ -29,8 +29,7 @@ docker --version
 > start the docker desktop application (e.g. via search menu).
 
 > _Good to know_: Make sure that you have at least a healthy 10gb of free disk space
-before continuing. No worries, uninstalling is simple and clean as outlined in
-Step 3.
+before continuing. No worries, uninstalling is simple and clean as outlined below.
 
 ## 2) Start the OS Geostack Sandbox
 You only need the single file docker-compose.yml to run the sandbox. You can
