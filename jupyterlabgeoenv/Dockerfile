@@ -1,7 +1,7 @@
 FROM ubuntu:focal-20220404
 
 LABEL description="Python/JupyterLab instance with various python geoprocessing components \
-(geopandas, gdal bindings, rasterio, ...) neatly working together."
+(GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
 
 ARG GDAL_VERSION=3.4.0
 ARG POSTGRESQL_CLIENT_VERSION=14

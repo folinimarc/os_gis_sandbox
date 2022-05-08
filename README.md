@@ -78,7 +78,7 @@ are good to go.
 ## (optional) How to run JupyterLab-GeoEnv alone?
 The folder _jupyterlabgeoenv_ contains a Dockerfile that allows to spin up a
 JupyterLab instance whose kernel has access to many common packages like Fiona,
-Shapely, Geopandas, Rasterio, etc. which work neatly together. Concentrate on
+Shapely, GeoPandas, Rasterio, etc. which work neatly together. Concentrate on
 the fun part of exploring the tools and processing your data without worrying
 about setup.
 
