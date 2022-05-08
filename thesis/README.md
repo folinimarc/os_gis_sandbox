@@ -1,10 +1,12 @@
-# Thesis writing setup using Latex, VS Code, draw.io and GitHub
+# Latex setup used for thesis writing (Latex, VS Code, draw.io and GitHub)
 
 ## What is this about?
-Here I am outlining the setup I used to write the thesis found in this folder
-using Latex, VS Code, draw.io and GitHub. It is a setup that is completely free,
-provides convenience features like real-time compilation of your Latex documents
-to PDF and uses version control, so you never ever lose your work.
+This project was started as part of a further education course which included
+writing a thesis. Here I am outlining the setup I used to write the thesis found
+in this folder using Latex, VS Code, draw.io and GitHub. It is a setup that is
+completely free, provides convenience features like real-time compilation of
+your Latex documents to PDF and uses version control, so you never ever lose
+your work.
 
 ## How it changed my perspective on thesis writing
 This repository was started as part of a GIS further education program which
