@@ -478,11 +478,11 @@ At its heart the Sandbox consists of six services, each defining a container
 with a distinct purpose:
 
 \begin{itemize}
-  \item \textbf{hub-container} runs a simple Python Flask\cite{flask} web
-  application that serves as an entry point and central hub for the Sandbox.
-  Here a user finds links to access other Sandbox components and the relevant
-  connection information. This \emph{Sandbox Hub} is the first thing a user sees
-  when typing \emph{localhost} in the browser after starting the Sandbox.
+  \item \textbf{hub-container} runs a Python Flask\cite{flask} web application
+  that serves as an entry point and central hub for the Sandbox. Here a user
+  finds links to access other Sandbox components and the relevant connection
+  information. This \emph{Sandbox Hub} is the first thing a user sees when
+  typing \emph{localhost} in the browser after starting the Sandbox.
   \item \textbf{postgis-container} is a containerized version of PostGIS, a
   spatial database.
   \item \textbf{pgadmin-container} is a containerized version of pgAdmin4, a
@@ -553,10 +553,17 @@ names with appropriate versions were added to the compose-file:
   include community extensions, plugins and sample data.
 \end{itemize}
 
-For each of the other containerized applications a suitable Dockerfile was
-created describing how to build an image containing the desired application and
-data. GitHub Actions\cite{githubactions} were used to create automated workflows
-to build images from the Dockerfiles and upload them to GitHub Container
+For each of the other containerized applications a Dockerfile was created
+describing how to build an image containing the desired application and data:
+
+\begin{itemize}
+  \item hub-container TODO
+  \item content-container TODO
+  \item jupyterlabgeoenv-container TODO
+\end{itemize}
+
+GitHub Actions\cite{githubactions} were used to create automated workflows to
+build images from the Dockerfiles and upload them to GitHub Container
 Registry\cite{gcr}, GitHub's image distribution platform. The image name with
 appropriate version was then added to the compose-file.
 
@@ -786,13 +793,13 @@ conceptualized and implemented to create a bike suitability map in QGIS from raw
 open data from the city of Zürich.
 
 \subsection{Outlook}
-The Sandbox potential identified in table
-\ref{tab:tContentAnalysis} could be transformed into hands-on learning
-experiences with the new capabilities provided by the Sandbox. This could either
-happen by leveraging the data stories framework, by creating Jupyter Notebooks
-with exercises that are distributed independently and just accessed via the
-Sandbox, or by simply giving participants time to experiment on existing
-examples from slides within the Sandbox.
+The Sandbox potential identified in table \ref{tab:tContentAnalysis} could be
+transformed into hands-on learning experiences with the new capabilities
+provided by the Sandbox. This could either happen by leveraging the data stories
+framework, by creating Jupyter Notebooks with exercises that are distributed
+independently and just accessed via the Sandbox, or by simply giving
+participants time to experiment on existing examples from slides within the
+Sandbox.
 
 %-------------
 % REFERENCES
