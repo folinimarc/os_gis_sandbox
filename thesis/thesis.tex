@@ -478,11 +478,11 @@ At its heart the Sandbox consists of six services, each defining a container
 with a distinct purpose:
 
 \begin{itemize}
-  \item \textbf{hub-container} runs a Python Flask\cite{flask} web application
-  that serves as an entry point and central hub for the Sandbox. Here a user
-  finds links to access other Sandbox components and the relevant connection
-  information. This \emph{Sandbox Hub} is the first thing a user sees when
-  typing \emph{localhost} in the browser after starting the Sandbox.
+  \item \textbf{hub-container} runs a web application that serves as an entry
+  point and central hub for the Sandbox. Here a user finds links to access other
+  Sandbox components and the relevant connection information. This \emph{Sandbox
+  Hub} is the first thing a user sees when typing \emph{localhost} in the
+  browser after starting the Sandbox.
   \item \textbf{postgis-container} is a containerized version of PostGIS, a
   spatial database.
   \item \textbf{pgadmin-container} is a containerized version of pgAdmin4, a
@@ -557,13 +557,41 @@ For each of the other containerized applications a Dockerfile was created
 describing how to build an image containing the desired application and data:
 
 \begin{itemize}
-  \item hub-container TODO
-  \item content-container TODO
-  \item jupyterlabgeoenv-container TODO
+  \item hub-container is based on a slim version of the official Python
+  Image\cite{pythonimage}, which is extended to run a web application using a
+  Python web-framework called Flask\cite{flask}. It serves as an entry point to
+  users linking to other Sandbox components with a short description and
+  connection information. Effort was put into designing the user interface to be
+  minimalistic, functional and responsive to different screen sizes. The Hub was
+  implemented as a static website using HTML and CSS\footnote{HTML (HyperText
+  Markup Language) defines the structure of a website, i.e. what is considered a
+  header, a title or a paragraph. CSS (Cascading Style Sheets) defines the
+  styling (look) of a website.} leveraging Bootstrap 5\cite{bootstrap5} and
+  Masonry\cite{masonry} for look and functionality.
+  \item content-container is based on a minimalistic Linux distribution called
+  Alpine\cite{alpinelinux}. Designed as a data container, it acts solely as a
+  vehicle to distribute data stories and tutorials. Thus, the Dockerfile only
+  copies the data to the image together with a script that runs at container
+  startup to copy the content from the image to a shared volume called
+  content-data.
+  \item jupyterlabgeoenv-container is based on the official Ubuntu Linux
+  distribution\cite{ubuntulinux}, which was primarily chosen to leverage the
+  UbuntuGIS package respoitory\cite{ubuntugisppa} that allows to install GDAL
+  and other GIS related libraries in a straight-forward way. Using this
+  foundation, JupyterLab and a variety of Python packages from the GIS-ecosystem
+  were compiled into a standard Python requirements
+  file\cite{piprequirementsfile} and installed. Lastly, the PostgreSQL command
+  line utility psql was added to allow connecting to and interacting with
+  databases from a JupyterLab terminal.
 \end{itemize}
 
-GitHub Actions\cite{githubactions} were used to create automated workflows to
-build images from the Dockerfiles and upload them to GitHub Container
+Upon completing development milestones, semantic versioning\footnote{A commonly
+used specification whereby a version consists of a major, minor and patch
+number. Increases in major versioning number are not backwards compatible while
+minor number releases are. Patch releases are usually bug fixes.} was used to
+mark new releases for each custom component. GitHub Actions\cite{githubactions}
+were used to create automated workflows that trigger upon each release. These
+workflows build images from the Dockerfiles and upload them to GitHub Container
 Registry\cite{gcr}, GitHub's image distribution platform. The image name with
 appropriate version was then added to the compose-file.
 
@@ -579,27 +607,27 @@ reflect changes that impact how to connect to a container in the Sandbox Hub,
 its content is almost entirely specified in the compose-file using the same
 variables.
 
-\subsubsection*{Configurable Python environment in JupyterLab-GeoEnv}
-The Python environment in JupyterLab-GeoEnv comes with a broad range of packages
-pre-installed in the image, which results in a fast startup but does not allow
-persisting user changes such as package additions or modifications. Persisting
-the whole Python environment on a volume would allow the user to keep all
-modifications, but with the downside that reproducibility is not necessarily
+\subsubsection*{Configurable Python environment in jupyterlabgeoenv-container}
+The Python environment in jupyterlabgeoenv-container comes with a broad range of
+packages pre-installed in the image, which results in a fast startup but does
+not allow persisting user changes such as package additions or modifications.
+Persisting the whole Python environment on a volume would allow the user to keep
+all modifications, but with the downside that reproducibility is not necessarily
 given which can lead to problems when moving to a new version of
-JupyterLab-GeoEnv. A compromise solution was implemented, whereby the user can
-specify additional packages in a dedicated standardized requirements
-file\cite{piprequirementsfile}. At each Sandbox shutdown the user modifications
-are lost because the Python environment is not persisted on a volume. At Sandbox
-startup, packages specified in the user requirements file are re-installed on
-top of the base environment. These user-defined package archives are downloaded
-and persisted on a volume on first installation, which allows subsequent
-installations from these archives even without internet connection. One downside
-with this approach is that each user package increases the startup time of
-JupyterLab-GeoEnv, because it is only available after the package installation
-completed. This sequential design was a deliberate choice, because the
-alternative where the installation happens in the background could easily lead
-to strange behavior when the user tries to run code that requires a user
-specified package that has not yet been installed in the background.
+jupyterlabgeoenv-container. A compromise solution was implemented, whereby the
+user can specify additional packages in a dedicated standardized requirements
+file. At each Sandbox shutdown the user modifications are lost because the
+Python environment is not persisted on a volume. At Sandbox startup, packages
+specified in the user requirements file are re-installed on top of the base
+environment. These user-defined package archives are downloaded and persisted on
+a volume on first installation, which allows subsequent installations from these
+archives even without internet connection. One downside with this approach is
+that each user package increases the startup time of jupyterlabgeoenv-container,
+because it is only available after the package installation completed. This
+sequential design was a deliberate choice, because the alternative where the
+installation happens in the background could easily lead to strange behavior
+when the user tries to run code that requires a user specified package that has
+not yet been installed in the background.
 
 \subsubsection*{Networking and user experience challenge}
 Containers interacting with each other use the Docker Compose network, while all
@@ -650,8 +678,12 @@ To shut down the Sandbox, simply run:
   docker compose -p sandbox down
 \end{lstlisting}
 
-\subsubsection*{Sandbox namespaces}
-TODO
+\subsubsection*{Sandbox project names}
+The -p flag used in the commands above specify the Docker Compose project name,
+which is used as a prefix for many Docker Compose components such as networks
+and volumes. It is therefore possible for multiple instances of the Sandbox with
+separate volumes, and thus separate persisted state, to coexist by choosing
+different project names.
 
 \subsubsection*{Removing the Sandbox from your system}
 If you want to remove all traces of Docker Compose and the Sandbox from your
@@ -682,10 +714,7 @@ narrative, offering full support for text styling through Markdown language and
 support for images, GIFs and in-line code execution. More so, the creation of
 new content using Jupyter Notebooks is possible without technical background,
 which is a big plus compared to an evaluated alternative that framed data
-stories as static websites made up of HTML and CSS\footnote{HTML (HyperText
-Markup Language) defines the structure of a website, i.e. what is considered a
-header, a title or a paragraph. CSS (Cascading Style Sheets) defines the styling
-(look) of a website.}.
+stories as static websites made up of HTML and CSS.
 
 % Intregration into Sandbox
 %-------------
@@ -698,9 +727,9 @@ the users. To that end a separate \emph{content service} was introduced to the
 Sandbox as outlined in Figure \ref{fig:sandboxsetup}, which consists of a data
 container called content-container that holds the data story Jupyter Notebooks
 and associated data. When the Sandbox starts, the container's data gets copied
-to a volume that is accessible by JupyterLab-GeoEnv. Instead of reinventing the
-wheel, JupyterLab-GeoEnv is used as the primary way of interacting with the data
-stories. This pattern has several nice properties:
+to a volume that is accessible by jupyterlabgeoenv-container. Instead of
+reinventing the wheel, jupyterlabgeoenv-container is used as the primary way of
+interacting with the data stories. This pattern has several nice properties:
 \begin{itemize}
   \item Updating a data story is as simple as updating the Jupyter Notebooks and
   associated data in the Sandbox repository, followed by releasing a new version
@@ -726,8 +755,8 @@ processing and aggregation is performed. The result is made available as a new
 dataset to be consumed and styled as an informative map in QGIS. The following
 section demonstrates the data story scenario as presented to the user. The full
 data story can be found under
-\emph{\_content/datastories/bike\_suitability\_zurich} in the JupyterLab-GeoEnv
-component.
+\emph{\_content/datastories/bike\_suitability\_zurich} in
+jupyterlabgeoenv-container.
 
 \subsubsection*{Scenario}
 
@@ -765,8 +794,8 @@ You plan your work in steps:
 \end{enumerate}
 
 Let's get to work! The full data story can be found under
-\emph{\_content/datastories/bike\_suitability\_zurich} in the JupyterLab-GeoEnv
-component.
+\emph{\_content/datastories/bike\_suitability\_zurich} in
+jupyterlabgeoenv-container.
 
 %-------------
 % CONCLUSION
