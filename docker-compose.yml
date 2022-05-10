@@ -70,7 +70,7 @@ services:
     jupyterlabgeoenv:
       container_name: jupyterlabgeoenv-container
       # build: ./jupyterlabgeoenv/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v0.0.9}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.0}
       volumes:
         - jupyterlabgeoenv_data:/home
         - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
@@ -88,14 +88,14 @@ services:
     content:
       container_name: content-container
       # build: ./content/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/content:${CONTENT_VERSION_TAG:-content-v0.0.4}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.0}
       volumes:
         - content_data:/shared_content
 
     hub:
       container_name: hub-container
       # build: ./hub/
-      image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION:-hub-v0.0.9}
+      image: ghcr.io/laiskasiili/os_geostack_sandbox/hub:${HUB_VERSION:-hub-v1.0.0}
       ports:
         - 127.0.0.1:${HUB_PORT_EXTERNAL:-80}:5000
       command: ["gunicorn" ,"--workers", "2", "--threads", "2", "--bind", "0.0.0.0:5000", "app:app"]
