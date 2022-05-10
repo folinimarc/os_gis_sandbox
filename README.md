@@ -24,16 +24,17 @@ docker --version
 ```
 
 > _Good to know:_
-> - When you restart the computer, docker desktop might not be
-> started automatically. If you try to run a docker command and get an error
-> message mentioning a daemon there is a good chance you first might need to
-> start the docker desktop application (e.g. via search menu).
-> - Make sure that you have at least a healthy 10gb of free disk space
-before continuing. No worries, uninstalling is simple and clean as outlined below.
+> - When you restart the computer, docker desktop might not be started
+> automatically. If you try to run a docker command and get an error message
+> mentioning a daemon there is a good chance you first might need to start the
+> docker desktop application (e.g. via search menu).
+> - Make sure that you have at least a healthy 10gb of free disk space before
+continuing. No worries, uninstalling is simple and clean as outlined below.
 
 ## 2) Start the OS Geostack Sandbox
 You only need the single file docker-compose.yml to run the sandbox. You can
-either clone the repository or [click here to open its rawform](https://raw.githubusercontent.com/laiskasiili/os_geostack_sandbox/main/docker-compose.yml)
+either clone the repository or [click here to open its
+rawform](https://raw.githubusercontent.com/laiskasiili/os_geostack_sandbox/main/docker-compose.yml)
 and then go right-click and save as. Just make sure it is still called
 docker-compose.yml (with .yml extension).
 
@@ -49,17 +50,21 @@ This means all is ready.
 window.**
 
 > _Good to know_:
+> - If you receive an error at this stage, it is probably well-known and related
+>   to permissions to create a mount on your computer's file system. An internet
+>   search with the error message and your operating system should provide a
+>   solution.
 > - The first time it will take some minutes because a lot of data is being
-> downloaded, make sure you are connected to a fast and reliable internet
-> connection. This is a one-time thing and subsequent startups will only take
-> seconds.
+>   downloaded, make sure you are connected to a fast and reliable internet
+>   connection. This is a one-time thing and subsequent startups will only take
+>   seconds.
 > - The -p flag used in the commands above specifies the Docker Compose project
 name, which is used as a prefix for many Docker Compose components such as
 networks and volumes. By choosing different project names, it is possible for
 multiple instances of the Sandbox to coexist with separate volumes and hence
 separate persisted state.
 > - You can also avoid the -d flag, which will then display the logs of all
-> containers in the terminal.
+>   containers in the terminal.
 
 ## 3) Stop the OS Geostack Sandbox
 
@@ -72,14 +77,14 @@ That's it - if you want to start again, run the up command above again and you
 are good to go.
 
 > _Good to know:_
-> - All your data and configurations (e.g. pgAdmin database
-> connections) will be preserved.
-> - If you want to reset the data for ALL containers, add -v to
-> the docker compose down command. If you want to selectively reset the data,
-> open Docker Desktop and delete the respective volume in the volumes tab. Upon
-> running the next docker compose up command you have a nice clean reset.
+> - All your data and configurations (e.g. pgAdmin database connections) will be
+> preserved.
+> - If you want to reset the data for ALL containers, add -v to the docker
+> compose down command. If you want to selectively reset the data, open Docker
+> Desktop and delete the respective volume in the volumes tab. Upon running the
+> next docker compose up command you have a nice clean reset.
 
-## (optional) How to run JupyterLab-GeoEnv alone?
+## (optional) How to run JupyterLab-GeoEnv as stand-alone?
 The folder _jupyterlabgeoenv_ contains a Dockerfile that allows to spin up a
 JupyterLab instance whose kernel has access to many common packages like Fiona,
 Shapely, GeoPandas, Rasterio, etc. which work neatly together. Concentrate on
@@ -109,10 +114,10 @@ persisted over time in this folder.
 When you are done, just hit Ctrl + C in the terminal to shut down the container
 and JupyterLab. Run the command above to start a new JupyterLab session.
 
-> _Good to know:_ By default none of your configurations or installed Python
-> packages will be persisted. If you need this, we recommend using the full
-> Sandbox setup which persists your data, settings and changes to the Python
-> environment.
+> _Good to know:_
+> - By default none of your configurations or installed Python packages will be
+> persisted. If you need this, we recommend using the full Sandbox setup which
+> persists your data, settings and changes to the Python environment.
 
 # How to clean up all of this stuff I did above?
 To completely clean up all traces from the steps above, simply uninstall Docker
