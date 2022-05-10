@@ -20,7 +20,7 @@ echo '# NOTE:
 if [ ! -f /home/requirements-override.txt ]; then
 touch /home/requirements-override.txt
 echo '# NOTE:
-# Use this requirements file to add new python packages.
+# Use this requirements file to add new Python packages.
 # This file is processed by pip upon each Sandbox start.
 # The more packages are added here, the longer the startup time.
 # Internet connection is only required the first time after changing this

@@ -3,13 +3,13 @@
 # Pygeos: Newer sibling to shapely with focus on performance. Will be integrated in shapely 2.0.
 # Fiona: Reads and writes everything (uses OGR).
 # Pyproj: Handles projections (uses PROJ).
-# Rtree: Spatial indexing (plays well with geopandas).
-# Openpyxl: Is required by geopandas to write excel files.
-# Matplotlib: Is required by geopandas to visualize geometries.
-# Mapclassify: Utility package for classification schemes for Choropleth Maps. Used by geopandas for GeoDataFrame.explore().
-# Folium: Provides interactive plotting capbilities. Used by geopandas for GeoDataFrame.explore().
-# Geopandas: Extends pandas with geospatial capabilities (uses shapely, pygeos, fiona, pyproj, Rtree, ...)
-# Gdal: Low level gdal python bindings. More a nice-to-have as there are higher level packages like rasterio for interacting with gdal.
+# Rtree: Spatial indexing (plays well with GeoPandas).
+# Openpyxl: Is required by GeoPandas to write excel files.
+# Matplotlib: Is required by GeoPandas to visualize geometries.
+# Mapclassify: Utility package for classification schemes for Choropleth Maps. Used by GeoPandas for GeoDataFrame.explore().
+# Folium: Provides interactive plotting capbilities. Used by GeoPandas for GeoDataFrame.explore().
+# GeoPandas: Extends pandas with geospatial capabilities (uses shapely, pygeos, fiona, pyproj, Rtree, ...)
+# Gdal: Low level GDAL Python bindings. More a nice-to-have as there are higher level packages like rasterio for interacting with GDAL.
 # Rasterio Makes working with rasters fun (uses GDAL).
 # Xarray: Deals with multidimensional data. Ideal to read/writes netCDF files.
 # Xarray-spatial: Extends xarray with powerful spatial processing capabilities without depending on GDAL.
@@ -17,7 +17,7 @@
 # Rioxarray: Extension of xarray to seamlessly interface with rasterio for 2D raster data.
 # Jupyterlab: Allows to write rich scripts (notebooks) and run code interactively in the browser.
 # Pysal: A collection of packages for advanced geospatial statistical modelling and visualization.
-# OWSlib: A python client library to work with OGC OWS services like WMS, WFS, WCS, ...
+# OWSlib: A Python client library to work with OGC OWS services like WMS, WFS, WCS, ...
 # GeoAlchemy2: Library that allows to interact with spatial databases. Based on the SqlAlchemy.
 
 Fiona

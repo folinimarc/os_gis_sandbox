@@ -1,7 +1,7 @@
 FROM ubuntu:focal-20220404
 
-LABEL description="Python/JupyterLab instance with various python geoprocessing components \
-(geopandas, gdal bindings, rasterio, ...) neatly working together."
+LABEL description="Python/JupyterLab instance with various Python geoprocessing components \
+(GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
 
 ARG GDAL_VERSION=3.4.0
 ARG POSTGRESQL_CLIENT_VERSION=14
@@ -53,7 +53,7 @@ RUN apt update && \
 RUN mkdir /assets
 COPY ./copy_to_image/requirements-base.txt /assets/requirements-base.txt
 
-# According to "install GDAL for python section"
+# According to "install GDAL for Python section"
 # https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html
 ARG CPLUS_INCLUDE_PATH=/usr/include/gdal
 ARG C_INCLUDE_PATH=/usr/include/gdal
