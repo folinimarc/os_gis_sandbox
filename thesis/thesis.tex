@@ -138,16 +138,16 @@ From these findings functional and non-functional
 requirements\footnote{Functional requirements specify the tasks an application
 must be able to perform. Non-functional requirements specify additional aspects
 about the application performing the task, for example usability, look and feel
-or performance. } for a Sandbox were then derived.
+or performance. } for a Sandbox were derived.
 
 % Content analyis
 %-------------
 \subsubsection{Content analysis of CAS RIS curriculum}
-At the time of writing the CAS RIS curriculum consisted of four weeks of content
-modules on a wide variety of topics. Each module was screened with a focus on
-where a Sandbox could facilitate hands-on experiences without substantially
-altering the module structure or material. Modules focusing primarily on usage
-of proprietary software like ArcGIS were ignored. Table
+At the time of writing the CAS RIS course curriculum consisted of four weeks of
+content modules on a wide variety of topics. Each module was screened with a
+focus on where a Sandbox could facilitate hands-on experiences without
+substantially altering the module structure or material. Modules focusing
+primarily on usage of proprietary software like ArcGIS were ignored. Table
 \ref{tab:tContentAnalysis} shows the results of the analysis.
 
 \begin{table}[!htbp]
@@ -207,6 +207,7 @@ of proprietary software like ArcGIS were ignored. Table
     \bottomrule
   \end{tabularx}%
 \end{table}%
+
 
 % Functional requirements
 %-------------
@@ -678,24 +679,23 @@ To shut down the Sandbox, simply run:
   docker compose -p sandbox down
 \end{lstlisting}
 
-\subsubsection*{Sandbox project names}
-The -p flag used in the commands above specify the Docker Compose project name,
-which is used as a prefix for many Docker Compose components such as networks
-and volumes. It is therefore possible for multiple instances of the Sandbox with
-separate volumes, and thus separate persisted state, to coexist by choosing
-different project names.
+The -p flag used in the commands above specifies the Docker Compose project
+name, which is used as a prefix for many Docker Compose components such as
+networks and volumes. By choosing different project names, it is possible for
+multiple instances of the Sandbox to coexist with separate volumes and hence
+separate persisted state.
 
 \subsubsection*{Removing the Sandbox from your system}
-If you want to remove all traces of Docker Compose and the Sandbox from your
-system, simply uninstall Docker Desktop. This will remove all containers,
-volumes, networks and images, etc.
+To completely clean up all traces from the steps above, simply uninstall Docker
+Desktop, which will remove all images and volumes. To selectively remove images
+or volumes, open Docker Desktop and use the Images and Volumes tab.
 
 %-------------
 % DATA STORY
 %-------------
 \section{Data story}
 
-% Narrative medium
+% Narrative presentation
 %-------------
 \subsection{Narrative and presentation}
 A data story is a data-driven cross-application tutorial. It has a tangible data
@@ -829,6 +829,19 @@ framework, by creating Jupyter Notebooks with exercises that are distributed
 independently and just accessed via the Sandbox, or by simply giving
 participants time to experiment on existing examples from slides within the
 Sandbox.
+
+Over time, new content will be added to the Sandbox in the form of tutorials or
+data stories.
+
+The project will be presented to the community to adopt or modify it for their
+own purposes. An example could include a lightning talk at a GIS conference.
+
+Finally, it is the hope of the author that the easy access to a range of
+powerful open-source software could be an inspiration and foundation for a
+dedicated course module on the importance, challenges and current state of the
+GIS open-source ecosystem. Such a module could provide insights into the nature
+of open-source beyond treating it as free-but-hardly-usable alternatives to
+commercial products as it is the case in some of today's GIS university courses.
 
 %-------------
 % REFERENCES

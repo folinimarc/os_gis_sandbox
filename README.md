@@ -23,12 +23,12 @@ error :pray:
 docker --version
 ```
 
-> _Good to know:_ When you restart the computer, docker desktop might not be
+> _Good to know:_
+> - When you restart the computer, docker desktop might not be
 > started automatically. If you try to run a docker command and get an error
 > message mentioning a daemon there is a good chance you first might need to
 > start the docker desktop application (e.g. via search menu).
-
-> _Good to know_: Make sure that you have at least a healthy 10gb of free disk space
+> - Make sure that you have at least a healthy 10gb of free disk space
 before continuing. No worries, uninstalling is simple and clean as outlined below.
 
 ## 2) Start the OS Geostack Sandbox
@@ -42,20 +42,24 @@ docker-compose.yml. In the terminal run:
 ```console
 docker compose -p sandbox up -d
 ```
-> _Good to know_: The first time it will take some minutes because a lot of data is being
-> downloaded, make sure you are connected to a fast and reliable internet
-> connection. This is a one-time thing and subsequent startups will only take
-> seconds.
-
-> _Good to know_: You can also avoid the -d flag, which will then display the logs of all
-> containers in the terminal.
-
 Eventually the terminal will display the blinking cursor again and let you type.
 This means all is ready.
 
 **You can now access the Sandbox hub by typing _localhost_ in your browser
 window.**
 
+> _Good to know_:
+> - The first time it will take some minutes because a lot of data is being
+> downloaded, make sure you are connected to a fast and reliable internet
+> connection. This is a one-time thing and subsequent startups will only take
+> seconds.
+> - The -p flag used in the commands above specifies the Docker Compose project
+name, which is used as a prefix for many Docker Compose components such as
+networks and volumes. By choosing different project names, it is possible for
+multiple instances of the Sandbox to coexist with separate volumes and hence
+separate persisted state.
+> - You can also avoid the -d flag, which will then display the logs of all
+> containers in the terminal.
 
 ## 3) Stop the OS Geostack Sandbox
 
@@ -67,10 +71,10 @@ docker compose -p sandbox down
 That's it - if you want to start again, run the up command above again and you
 are good to go.
 
-> _Good to know:_ All your data and configurations (e.g. pgAdmin database
+> _Good to know:_
+> - All your data and configurations (e.g. pgAdmin database
 > connections) will be preserved.
-
-> _Good to know:_ If you want to reset the data for ALL containers, add -v to
+> - If you want to reset the data for ALL containers, add -v to
 > the docker compose down command. If you want to selectively reset the data,
 > open Docker Desktop and delete the respective volume in the volumes tab. Upon
 > running the next docker compose up command you have a nice clean reset.
@@ -111,9 +115,9 @@ and JupyterLab. Run the command above to start a new JupyterLab session.
 > environment.
 
 # How to clean up all of this stuff I did above?
-To completely clean up all traces from the steps above, open Docker Desktop and
-remove the images you see in the images tab as well as volumes you see in the
-volume tab. Then uninstall Docker Desktop.
+To completely clean up all traces from the steps above, simply uninstall Docker
+Desktop, which will remove all images and volumes. To selectively remove images
+or volumes, open Docker Desktop and use the Images and Volumes tab.
 
 # Sandbox configuration
 Various aspects of the sandbox can be configured, this includes ports,
