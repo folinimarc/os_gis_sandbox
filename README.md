@@ -2,7 +2,7 @@
 ## What is this about?
 The goal is to make it easy and fun to experiment with the amazing geospatial
 open source (OS) tools. Examples include PostGIS to store and process spatial
-data, GeoServer to make it available via OGC standardized services and python's
+data, GeoServer to make it available via OGC standardized services and Python's
 extensive geo-ecosystem. All of this should be possible without worrying about
 the sometimes tedious installation of dependencies (yes, I am looking at you
 GDAL and GeoPandas) and configuring services to work together properly.
