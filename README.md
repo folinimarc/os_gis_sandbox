@@ -1,4 +1,4 @@
-# OS Geostack Sandbox
+# OS GIS Sandbox
 ## What is this about?
 The goal is to make it easy and fun to experiment with the amazing geospatial
 open source (OS) tools. Examples include PostGIS to store and process spatial
@@ -31,10 +31,10 @@ docker --version
 > - Make sure that you have at least a healthy 10gb of free disk space before
 continuing. No worries, uninstalling is simple and clean as outlined below.
 
-## 2) Start the OS Geostack Sandbox
+## 2) Start the Sandbox
 You only need the single file docker-compose.yml to run the sandbox. You can
 either clone the repository or [click here to open its
-rawform](https://raw.githubusercontent.com/laiskasiili/os_geostack_sandbox/main/docker-compose.yml)
+rawform](https://raw.githubusercontent.com/laiskasiili/os_gis_sandbox/main/docker-compose.yml)
 and then go right-click and save as. Just make sure it is still called
 docker-compose.yml (with .yml extension).
 
@@ -66,7 +66,7 @@ separate persisted state.
 > - You can also avoid the -d flag, which will then display the logs of all
 >   containers in the terminal.
 
-## 3) Stop the OS Geostack Sandbox
+## 3) Stop the Sandbox
 
 To stop all containers run:
 ```console
@@ -101,7 +101,7 @@ Select a path on your system you want to be accessible through JupyterLab and
 replace $MOUNT_PATH in the command below with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_geostack_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.0
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.1
 ```
 
 The first run will take some time because a lot of data is being downloaded,
@@ -143,8 +143,8 @@ information can be found in the
 | HOST_SYSTEM_MOUNT_PATH            | ./                             |                                                                                                                                      |
 | HOST_MOUNT_FOLDER_NAME            | _host_mount_dir                |                                                                                                                                      |
 | CONTENT_MOUNT_FOLDER_NAME     | _content                   |                                                                                                                                      |
-| CONTENT_VERSION_TAG           | content-v1.0.0             |                                                                                                                                      |
-| JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.0     |                                                                                                                                      |
+| CONTENT_VERSION_TAG           | content-v1.0.1             |                                                                                                                                      |
+| JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.1     |                                                                                                                                      |
 | JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                      |
 | GEOSERVER_VERSION                 | 2.20.1                         |                                                                                                                                      |
 | GEOSERVER_PORT_EXTERNAL           | 8003                           |                                                                                                                                      |
@@ -154,7 +154,7 @@ information can be found in the
 | GEOSERVER_SAMPLE_DATA             | true                           |                                                                                                                                      |
 | GEOSERVER_STABLE_EXTENSIONS       |                                | [Stable extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/stable_plugins.txt)       |
 | GEOSERVER_COMMUNITY_EXTENSIONS    | geostyler-plugin,ogcapi-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
-| HUB_VERSION                       | hub-v1.0.0                     |                                                                                                                                      |
+| HUB_VERSION                       | hub-v1.0.1                     |                                                                                                                                      |
 | HUB_PORT_EXTERNAL                 | 80                             |                                                                                                                                      |
 | PGADMIN_VERSION_TAG               | 6.8                            |                                                                                                                                      |
 | PGADMIN_PORT_EXTERNAL             | 8002                           |                                                                                                                                      |
