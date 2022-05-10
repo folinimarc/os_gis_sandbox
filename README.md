@@ -34,7 +34,7 @@ continuing. No worries, uninstalling is simple and clean as outlined below.
 ## 2) Start the Sandbox
 You only need the single file docker-compose.yml to run the sandbox. You can
 either clone the repository or [click here to open its
-rawform](https://raw.githubusercontent.com/laiskasiili/os_gis_sandbox/main/docker-compose.yml)
+raw form](https://raw.githubusercontent.com/laiskasiili/os_geostack_sandbox/main/docker-compose.yml)
 and then go right-click and save as. Just make sure it is still called
 docker-compose.yml (with .yml extension).
 
@@ -73,7 +73,7 @@ To stop all containers run:
 docker compose -p sandbox down
 ```
 
-That's it - if you want to start again, run the up command above again and you
+That's it - if you want to start again, run the up command above again, and you
 are good to go.
 
 > _Good to know:_
@@ -94,7 +94,7 @@ about setup.
 JupyterLab-GeoEnv is very useful beyond the scope of just being a sandbox. It
 might be interesting to use it as general environment to perform Python
 geoprocessing. Because of this we provide the image on GitHub registry for
-download so you can download and run it with a single command without cloning
+download, so you can download and run it with a single command without cloning
 the repository or worrying about building the image yourself.
 
 Select a path on your system you want to be accessible through JupyterLab and
