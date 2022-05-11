@@ -41,19 +41,18 @@
 \thispagestyle{empty}
 % abstract
 \begin{abstract}
-GIS workshops benefit from supplementing theoretical concepts with exercises for
+GIS courses benefit from supplementing theoretical concepts with exercises for
 participants to become an active part in the learning experience. This requires
 participants to have access to an environment that provides the necessary
 software and data - ideally with minimal setup effort, independent of the system
 they use and easy to uninstall without leaving traces after the workshop.
 Different approaches were evaluated, and container technology was found to be a
-good fit to abstract away the hassle of setting up the tools and infrastructure.
-A proof of concept of what will be referred to as \emph{Sandbox} was implemented
-and made publicly available free to use under MIT license. The Sandbox is based
-on Docker Compose and provides access to a spatial database, an OGC data server,
-GDAL and Python scripting capabilities with access to libraries from the
-geo-ecosystem. It requires only minimal setup and only a single command to be
-started and stopped respectively.\\
+good fit to abstract away the setup hassle. A proof of concept of what will be
+referred to as \emph{Sandbox} was implemented and made publicly available free
+to use under MIT license. The Sandbox is based on Docker Compose and includes a
+spatial database, an OGC data server, GDAL, and Python scripting capabilities
+with access to libraries from the geo-ecosystem. It requires only minimal setup
+and a single command to be started and stopped respectively.\\
 
 In order to help participants making sense of the Sandbox components and their
 interactions the concept of \emph{data stories} was explored. Designed as
@@ -100,14 +99,14 @@ in a narrow scope. Workshops and lectures are another common vehicle to acquire
 knowledge about a field, whereby it is desirable for participants to experience
 theoretical concepts hands-on for themselves. The challenge lies in providing
 all participants with access to the necessary software and data with minimal
-setup efforts. There is a shortcoming of such solutions, particularly when it
-comes to more complex setups with multiple components that need to interact.
+setup efforts. This is exacerbated when it comes to more complex setups with
+multiple components that need to interact.
 
-It was hypothesized that there is a gap between what people new to the field,
+It is hypothesized that there is a gap between what people new to the field,
 lecturers and workshops organizers need and what is widely available. This
 thesis was written as part of the CAS RIS 2021/22\footnote{Certificate of
 advanced studies (CAS) in GIS (in German RIS) offered by ETH Zurich.} course and
-aimed to address this gap on two levels:
+aims to address this gap on two levels:
 \begin{enumerate}
   \item \textbf{Infrastructure} In order to provide participants access to a
   variety of components from the GIS ecosystem with minimal setup effort the
@@ -148,7 +147,7 @@ content modules on a wide variety of topics. Each module was screened with a
 focus on where a Sandbox could facilitate hands-on experiences without
 substantially altering the module structure or material. Modules focusing
 primarily on usage of proprietary software like ArcGIS were ignored. Table
-\ref{tab:tContentAnalysis} shows the results of the analysis.
+\ref{tab:tContentAnalysis} summarizes the findings.
 
 \begin{table}[!htbp]
   \centering
@@ -220,11 +219,11 @@ useful in realizing the potential identified in the curriculum analysis:
   \item An OGC\footnote{The Open Geospatial Consortium (OGC) is a worldwide
   community to improve the access to geospatial data by various means such as
   developing standards. Such standards for the web include Web Map Service
-  (WMS), Web Feature Service (WFS) and Web Coverage Service (WCS) to load styled
-  map images, simple geometry features and raster data via HTTP respectively.}
-  server implementation is available. There is a way to read predefined example
-  data, read data from the user's system or connect to the Sandbox spatial
-  database.
+  (WMS), Web Feature Service (WFS) and Web Coverage Service (WCS) to request
+  styled map images, simple geometry features and raster data via HTTP
+  respectively.} server implementation is available. There is a way to read
+  predefined example data, read data from the user's system or connect to the
+  Sandbox spatial database.
   \item An OGC client implementation is available, which can interact with the
   Sandbox OGC server or any other OGC service publicly available on the
   internet.
@@ -280,9 +279,9 @@ some noteworthy findings are listed below.
   \item Digital Earth Australia (DEA) Sandbox\cite{project-dea} was a wonderful
   discovery. After creating a free account a cloud hosted
   JupyterLab\cite{jupyterlab} platform with extensive Python Jupyter Notebooks
-  provide an interactive engaging experience to learn about the analysis of
+  provides an interactive engaging experience to learn about the analysis of
   satellite imagery and much more. The DEA Sandbox was a major inspiration to
-  investigate the capabilities of Jupyter Lab more closely.
+  investigate the capabilities of JupyterLab more closely.
   \item Geopython Workshop Repository\cite{project-geopython} is an extensive
   knowledge hub about a broad range of geospatial topics. The workshop is built
   on Python Jupyter Notebooks using a containerized JupyterLab environment with
@@ -322,12 +321,12 @@ has produced installers for all major operating systems, which makes the
 installation relatively straight-forward.
 
 When it comes to non-functional requirements this approach falls short. A major
-shortcoming is the lengthy and intrusive setup stemming from the lack of
-separation of the Sandbox software from the rest of the user's system. Depending
-on already existing software and specific configurations this approach is at
-best error-prone and at worst capable to permanently alter the user's system.
-Because only the tools themselves are installed, tutorials and data stories
-would need to be provided in a separate way.
+shortcoming is the intrusive setup stemming from the lack of separation of the
+Sandbox software from the rest of the user's system. Depending on already
+existing software and specific configurations this approach is at best
+error-prone and at worst capable to permanently alter the user's system. Because
+only the tools themselves are installed, tutorials and data stories would need
+to be provided in a separate way.
 
 \subsubsection*{Sandbox as local containerized application}
 Container technology has been around for decades but took off in 2013 with the
@@ -344,21 +343,20 @@ not suitable because of extra configuration required for graphical output on the
 computer the containerized applications run on, hereafter called \emph{host
 system}. On a positive note, complex installation procedures for containerized
 applications can be fully abstracted away from the user during the packaging
-process. This would allow for example to fulfill the functional requirements
-without QGIS by setting up JupyterLab environment with system dependencies like
-GDAL in order to have access to a wide variety of Python packages from Python's
-geo-ecosystem and GDAL terminal commands. Containers can also contain data which
-optionally can be persisted on the host on virtual volumes. Example scripts and
-data stories can be distributed as part of the container and by using volumes
-they can be persisted across Sandbox restarts or selectively reset.
+process. This allows to fulfill the functional requirements without QGIS by
+setting up a JupyterLab environment with system dependencies like GDAL in order
+to have access to GDAL terminal commands and a wide variety of Python packages
+from Python's geo-ecosystem. Example scripts and data stories can be distributed
+as part of the container and by using virtual volumes they can be persisted
+across Sandbox restarts or selectively reset.
 
 An initial setup complexity is the installation of a container runtime, here
 Docker\footnote{Any other software that provides a container runtime will do to
 run containerized applications. Up to this day Docker remains one of the most
 popular tools for that purpose to the point where it is often used synonymously
 for everything to do with containers. Docker is chosen for its maturity and
-excellent documentation.}, on the user's computer, which is an easy and mature
-process for all major operating systems at this point.
+excellent documentation.}, on the user's computer. However, this is an easy and
+mature process for all major operating systems at this point.
 
 \subsubsection*{Sandbox as cloud service}
 The advances of container technology went hand in hand with the maturation of
@@ -387,8 +385,8 @@ implementing and maintaining security best practices against malicious attacks.
 Data management is another topic which can prove challenging when it comes to
 cloud services in the geospatial domain. Data usually needs to be uploaded
 before being accessible and spatial data can quickly become rather large for
-standard internet connection upload speeds leading to disruptions and waiting
-times.
+standard internet connection upload speeds leading to waiting times and
+connection timeouts.
 
 \subsubsection*{Conclusion: Sandbox as local containerized application}
 All three approaches satisfy the functional requirements, so the non-functional
@@ -432,10 +430,9 @@ All three technologies were evaluated on a two container setup of a spatial
 database (PostGIS) and an associated administrator application (pgAdmin). While
 all three technologies provided extensive documentation that allowed for
 successful testing, Docker Compose was found to be the simplest solution in
-terms of initial setup and ease of use, due to its single configuration file and
-the targeted use case to run on a single host. To that end \emph{Docker Compose}
-was chosen as the technology to implement the \emph{Sandbox as local
-containerized application}.
+terms of initial setup and ease of use, due to its single configuration file. To
+that end \emph{Docker Compose} was chosen as the technology to implement the
+\emph{Sandbox as local containerized application}.
 
 % Architecture
 %-------------
@@ -563,26 +560,25 @@ For each of the other containerized applications a Dockerfile was created
 describing how to build an image containing the desired application and data:
 
 \begin{itemize}
-  \item hub-container is based on a slim version of the official Python
-  Image\cite{pythonimage}, which is extended to run a web application using a
-  Python web-framework called Flask\cite{flask}. It serves as an entry point to
+  \item hub-container was based on a slim version of the official Python
+  Image\cite{pythonimage}. It was extended to run a web application using a
+  Python web-framework called Flask\cite{flask} to serve as an entry point to
   users linking to other Sandbox components with a short description and
   connection information. Effort was put into designing the user interface to be
-  minimalistic, functional and responsive to different screen sizes. The Hub was
-  implemented as a static website using HTML and CSS\footnote{HTML (HyperText
-  Markup Language) defines the structure of a website, i.e. what is considered a
-  header, a title or a paragraph. CSS (Cascading Style Sheets) defines the
-  styling (look) of a website.} leveraging Bootstrap 5\cite{bootstrap5} and
-  Masonry\cite{masonry} for look and functionality.
-  \item content-container is based on a minimalistic Linux distribution called
+  minimalistic, functional and responsive to different screen sizes. The Sandbox
+  Hub was implemented as a static website using HTML and CSS\footnote{HTML
+  (HyperText Markup Language) defines the structure of a website, i.e. what is
+  considered a header, a title or a paragraph. CSS (Cascading Style Sheets)
+  defines the styling (look) of a website.} leveraging Bootstrap
+  5\cite{bootstrap5} and Masonry\cite{masonry} for look and functionality.
+  \item content-container was based on a minimalistic Linux distribution called
   Alpine\cite{alpinelinux}. Designed as a data container, it acts solely as a
-  vehicle to distribute data stories and tutorials. Thus, the Dockerfile only
-  copies the data to the image together with a script that runs at container
-  startup to copy the content from the image to a shared volume called
-  content-data.
-  \item jupyterlabgeoenv-container is based on the official Ubuntu Linux
-  distribution\cite{ubuntulinux}, which was primarily chosen to leverage the
-  UbuntuGIS package respoitory\cite{ubuntugisppa} that allows to install GDAL
+  vehicle to distribute data stories and tutorials. The Dockerfile only copies
+  the data to the image together with a script that runs at container startup to
+  copy the content from the image to a shared volume called content-data.
+  \item jupyterlabgeoenv-container was based on the official Ubuntu Linux
+  distribution\cite{ubuntulinux}. It was primarily chosen to leverage the
+  UbuntuGIS package respoitory\cite{ubuntugisppa} that allowed to install GDAL
   and other GIS related libraries in a straight-forward way. Using this
   foundation, JupyterLab and a variety of Python packages from the GIS-ecosystem
   were compiled into a standard Python requirements
@@ -618,22 +614,22 @@ The Python environment in jupyterlabgeoenv-container comes with a broad range of
 packages pre-installed in the image, which results in a fast startup but does
 not allow persisting user changes such as package additions or modifications.
 Persisting the whole Python environment on a volume would allow the user to keep
-all modifications, but with the downside that reproducibility is not necessarily
-given which can lead to problems when moving to a new version of
-jupyterlabgeoenv-container. A compromise solution was implemented, whereby the
-user can specify additional packages in a dedicated standardized requirements
-file. At each Sandbox shutdown the user modifications are lost because the
-Python environment is not persisted on a volume. At Sandbox startup, packages
-specified in the user requirements file are re-installed on top of the base
-environment. These user-defined package archives are downloaded and persisted on
-a volume on first installation, which allows subsequent installations from these
-archives even without internet connection. One downside with this approach is
-that each user package increases the startup time of jupyterlabgeoenv-container,
-because it is only available after the package installation completed. This
-sequential design was a deliberate choice, because the alternative where the
-installation happens in the background could easily lead to strange behavior
-when the user tries to run code that requires a user specified package that has
-not yet been installed in the background.
+all modifications when restarting the Sandbox, but with the downside of loosing
+them when moving to a new version of jupyterlabgeoenv-container with updated
+base environment. A compromise solution was implemented, whereby the user can
+specify additional packages in a dedicated user override requirements file. At
+each Sandbox shutdown the user modifications are lost because the Python
+environment is not persisted on a volume. Then at Sandbox startup, packages
+specified in the user override requirements file are installed on top of the
+base environment. These user-defined package archives are downloaded and
+persisted on a volume on first installation, which allows subsequent
+installations from these archives even without internet connection. One downside
+with this approach is that each user package increases the startup time of
+jupyterlabgeoenv-container, because it is only available after the package
+installation completed. This sequential design was a deliberate choice, because
+the alternative where the installation happens in the background could easily
+lead to strange behavior when the user tries to run code that requires a user
+specified package that has not yet been installed in the background.
 
 \subsubsection*{Networking and user experience challenge}
 Containers interacting with each other use the Docker Compose network, while all
@@ -657,29 +653,27 @@ repository\cite{osgissandbox}.
 \subsubsection*{Initial setup}
 The only prerequisite to use the Sandbox is a working installation of Docker,
 which has become a straight-forward task across all common operating systems in
-recent years by the maturation of Docker Desktop\cite{dockerdesktop}.
+recent years with the maturation of Docker Desktop\cite{dockerdesktop}.
 
 \subsubsection*{Starting and stopping the Sandbox}
 With Docker Desktop running in the background, only the
 compose-file\cite{sandboxcomposefile} needs to be available on the host system.
-Then open a terminal and navigate to the same folder the compose-file resides in
-and run this command\footnote{At startup, Docker Compose checks the availability
-of the images on the host machine and downloads them from DockerHub or other
-provided image repositories if necessary. These initial downloads will take some
-time, so make sure to be connected to a fast and reliable internet connection.
-Further startups use the downloaded images and will only take seconds and work
-even without internet connection.}:
+The Sandbox can then be started by running the following command in a terminal
+in same folder as the compose-file\footnote{At startup, Docker Compose checks
+the availability of the images on the host machine and downloads them from
+DockerHub or other provided image repositories if necessary. These initial
+downloads will take some time, so make sure to be connected to a fast and
+reliable internet connection. Further startups use the downloaded images and
+will only take seconds and work even without internet connection.}:
 \begin{lstlisting}
   docker compose -p sandbox up -d
 \end{lstlisting}
 
-By default, Docker Compose looks for the compose-file in the same directory
-where the above command was executed, which is why you should first navigate to
-the location of the compose-file. Once the Sandbox started, open your favorite
-web browser and navigate to \emph{localhost}, which should display the Sandbox
-Hub.
+Once the Sandbox started, the Sandbox Hub is available by typing
+\emph{localhost} in a web browser.
 
-To shut down the Sandbox, simply run:
+The Sandbox can be shut down by running the following command in a terminal in
+same folder as the compose-file:
 \begin{lstlisting}
   docker compose -p sandbox down
 \end{lstlisting}
@@ -692,8 +686,8 @@ separate persisted state.
 
 \subsubsection*{Removing the Sandbox from your system}
 To completely clean up all traces from the steps above, simply uninstall Docker
-Desktop, which will remove all images and volumes. To selectively remove images
-or volumes, open Docker Desktop and use the Images and Volumes tab.
+Desktop, which will remove all images and volumes. Selective resets of images or
+volumes are possible from Docker Desktop's Images and Volumes tabs.
 
 %-------------
 % DATA STORY
@@ -809,11 +803,10 @@ jupyterlabgeoenv-container.
 
 \subsection{Results}
 During this thesis a GIS Sandbox was created and made publicly available free to
-use under MIT license\cite{osgissandbox}. The Sandbox is based on Docker
-Compose and provides access to a spatial database, an OGC data server, GDAL and
-Python scripting capabilities with access to libraries from the geo-ecosystem.
-It requires only minimal setup and only a single command to be started and
-stopped respectively.
+use under MIT license\cite{osgissandbox}. The Sandbox is based on Docker Compose
+and includes a spatial database, an OGC data server, GDAL and Python scripting
+capabilities with access to libraries from the geo-ecosystem. It requires only
+minimal setup and a single command to be started and stopped respectively.
 
 The functional requirements for the Sandbox were derived by screening the
 existing CAS RIS course modules for potential where a Sandbox could be leveraged
@@ -835,7 +828,7 @@ independently and just accessed via the Sandbox, or by simply giving
 participants time to experiment on existing examples from slides within the
 Sandbox.
 
-The project will be presented to the community to adopt or modify it for their
+The project could be presented to the community to adopt or modify it for their
 own purposes. A potential next step could include a lightning talk at a GIS
 conference.
 
