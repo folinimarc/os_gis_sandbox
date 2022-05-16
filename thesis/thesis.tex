@@ -17,13 +17,14 @@
 \usepackage[style=numeric,backend=biber,sorting=none]{biblatex} % For citing
 \usepackage{listings} % For code snippets
 \usepackage{rotating} % To turn images 90 degrees
+\usepackage{pdfpages} % To add PDF of declaration of originality at the end
 
 \addbibresource{thesis.bib}
 
 \graphicspath{ {img/} } % path where grahics are stored
 
 % title page parameters
-\title{Open-Source GIS Sandbox \& Data Stories - New tools for workshop interactivity}
+\title{Open-source GIS Sandbox \& Data Stories - New possibilities for GIS course interactivity}
 \author{Marc Folini}
 \date{May 2022}
 
@@ -598,7 +599,7 @@ Registry\cite{gcr}, GitHub's image distribution platform. The image name with
 appropriate version was then added to the compose-file.
 
 \subsubsection*{Configurable compose-file}
-It was deemed important to let users easily configure parts of the Sandbox. For
+Users should be able to easily configure parts of the Sandbox. For
 example, the default ports exposed by the Sandbox for external connections might
 clash with those of other software installed on the host. The Sandbox implements
 a standard Docker Compose pattern, whereby variables with default values are
@@ -844,5 +845,11 @@ is the case in some of today's GIS courses.
 %-------------
 \newpage
 \printbibliography
+
+%-------------
+% Declaration of Originality
+%-------------
+\includepdf{./img/declarationoforiginality.pdf}
+
 
 \end{document}
