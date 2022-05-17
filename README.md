@@ -1,4 +1,4 @@
-# OS GIS Sandbox
+# Open-source GIS Sandbox
 ## What is this about?
 The goal is to make it easy and fun to experiment with the amazing geospatial
 open source (OS) tools. Examples include PostGIS to store and process spatial
