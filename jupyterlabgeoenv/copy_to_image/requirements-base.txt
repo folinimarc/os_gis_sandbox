@@ -24,7 +24,8 @@
 
 Fiona
 folium
-GeoAlchemy2
+# Pin GeoAlchemy2 to 10.2 until this bug is fixed: https://github.com/geopandas/geopandas/issues/2375
+GeoAlchemy2==0.10.2
 geopandas
 ipyleaflet
 jupyterlab
