@@ -1,9 +1,9 @@
 FROM ubuntu:focal-20220404
 
 LABEL description="Python/JupyterLab instance with various Python geoprocessing components \
-(GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
+    (GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
 
-ARG GDAL_VERSION=3.4.0
+ARG GDAL_VERSION=3.4.3
 ARG POSTGRESQL_CLIENT_VERSION=14
 
 # Use default anywhere without requiring intervention
@@ -23,13 +23,13 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #-----------------
 RUN apt update && \
     apt-get install -y --no-install-recommends \
-        tzdata \
-        software-properties-common && \
+    tzdata \
+    software-properties-common && \
     add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 RUN apt update && \
     apt-get install -y --no-install-recommends \
-        gdal-bin=${GDAL_VERSION}* \
-        libgdal-dev=${GDAL_VERSION}*
+    gdal-bin=${GDAL_VERSION}* \
+    libgdal-dev=${GDAL_VERSION}*
 
 #-----------------
 # Postgresql 14 client (psql command line)
@@ -37,14 +37,14 @@ RUN apt update && \
 # Kudos to https://techviewleo.com/how-to-install-postgresql-database-on-ubuntu/
 RUN apt update && \
     apt-get install -y --no-install-recommends \
-        gnupg2 \
-        wget \
-        lsb-release && \
+    gnupg2 \
+    wget \
+    lsb-release && \
     sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update && \
     apt-get install -y --no-install-recommends \
-        postgresql-client=${POSTGRESQL_CLIENT_VERSION}*
+    postgresql-client=${POSTGRESQL_CLIENT_VERSION}*
 
 #-----------------
 # Python & PIP & Packages
@@ -63,9 +63,9 @@ ARG C_INCLUDE_PATH=/usr/include/gdal
 # Add directive for shapely and pygeos to use existing library (requires build-essentials).
 RUN apt update && \
     apt-get install -y --no-install-recommends \
-        build-essential \
-        python3-dev \
-        python3-pip
+    build-essential \
+    python3-dev \
+    python3-pip
 RUN echo "GDAL==${GDAL_VERSION}" >> /assets/requirements-base.txt && \
     echo "--no-binary=shapely,pygeos" >> /assets/requirements-base.txt && \
     pip install --no-cache-dir --upgrade pip && \
@@ -75,10 +75,10 @@ RUN echo "GDAL==${GDAL_VERSION}" >> /assets/requirements-base.txt && \
 # Final clean up
 #-----------------
 RUN apt purge -y \
-        software-properties-common \
-        gnupg2 \
-        wget \
-        lsb-release && \
+    software-properties-common \
+    gnupg2 \
+    wget \
+    lsb-release && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
