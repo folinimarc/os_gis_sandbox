@@ -171,7 +171,7 @@ information can be found in the
 | GEOSERVER_COMMUNITY_EXTENSIONS | geostyler-plugin,ogcapi-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
 | HUB_VERSION                    | hub-v1.0.1                     |                                                                                                                                        |
 | HUB_PORT_EXTERNAL              | 80                             |                                                                                                                                        |
-| PGADMIN_VERSION_TAG            | 6.8                            |                                                                                                                                        |
+| PGADMIN_VERSION_TAG            | 6.10                            |                                                                                                                                        |
 | PGADMIN_PORT_EXTERNAL          | 8002                           |                                                                                                                                        |
 | PGADMIN_DEFAULT_EMAIL          | gis@gis.com                    |                                                                                                                                        |
 | PGADMIN_DEFAULT_PASSWORD       | gis                            |                                                                                                                                        |
