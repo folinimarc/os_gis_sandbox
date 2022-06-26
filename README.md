@@ -158,7 +158,7 @@ information can be found in the
 | HOST_SYSTEM_MOUNT_PATH         | ./                             |                                                                                                                                        |
 | HOST_MOUNT_FOLDER_NAME         | \_host_mount_dir               |                                                                                                                                        |
 | CONTENT_MOUNT_FOLDER_NAME      | \_content                      |                                                                                                                                        |
-| CONTENT_VERSION_TAG            | content-v1.0.2                 |                                                                                                                                        |
+| CONTENT_VERSION_TAG            | content-v1.0.3                 |                                                                                                                                        |
 | JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.4        |                                                                                                                                        |
 | JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                        |
 | GEOSERVER_VERSION              | 2.20.1                         |                                                                                                                                        |
