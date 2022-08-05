@@ -58,7 +58,7 @@ services:
 
   pgadmin:
     container_name: pgadmin-container
-    image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG:-6.10}"
+    image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG:-6.12}"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:
