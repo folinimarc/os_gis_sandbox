@@ -21,6 +21,7 @@
 # Pysal: A collection of packages for advanced geospatial statistical modelling and visualization.
 # OWSlib: A Python client library to work with OGC OWS services like WMS, WFS, WCS, ...
 # GeoAlchemy2: Library that allows to interact with spatial databases. Based on the SqlAlchemy.
+# Psycopg2: Allows to interact with Postgres databases.
 
 Fiona
 folium
@@ -33,7 +34,7 @@ mapclassify
 matplotlib
 openpyxl
 OWSLib
-psycopg2
+psycopg2-binary
 pygeos
 pyproj
 pysal

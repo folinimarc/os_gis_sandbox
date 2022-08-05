@@ -70,7 +70,7 @@ services:
   jupyterlabgeoenv:
     container_name: jupyterlabgeoenv-container
     # build: ./jupyterlabgeoenv/
-    image: ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.4}
+    image: ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.5}
     volumes:
       - jupyterlabgeoenv_data:/home
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab

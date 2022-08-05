@@ -1,40 +1,15 @@
-FROM ubuntu:focal-20220404
+ARG GDAL_VERSION=3.5.1
+ARG POSTGRESQL_CLIENT_VERSION=14
+
+FROM osgeo/gdal:ubuntu-small-${GDAL_VERSION}
 
 LABEL description="Python/JupyterLab instance with various Python geoprocessing components \
     (GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
 
-ARG GDAL_VERSION=3.4.3
-ARG POSTGRESQL_CLIENT_VERSION=14
-
-# Use default anywhere without requiring intervention
-ARG DEBIAN_FRONTEND=noninteractive
-
-#-----------------
-# Timezone config
-#-----------------
-# To avoid interactive configuration prompt when installing tzdata later, set TZ
-# variable here.
-# Kudos to https://rtfm.co.ua/en/docker-configure-tzdata-and-timezone-during-build/
-ENV TZ=Europe/Zurich
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-#-----------------
-# GDAL, GEOS, PROJ (via libgdal-dev)
-#-----------------
-RUN apt update && \
-    apt-get install -y --no-install-recommends \
-    tzdata \
-    software-properties-common && \
-    add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
-RUN apt update && \
-    apt-get install -y --no-install-recommends \
-    gdal-bin=${GDAL_VERSION}* \
-    libgdal-dev=${GDAL_VERSION}*
-
-#-----------------
-# Postgresql 14 client (psql command line)
-#-----------------
-# Kudos to https://techviewleo.com/how-to-install-postgresql-database-on-ubuntu/
+# #-----------------
+# # Postgresql 14 client (psql command line)
+# #-----------------
+# # Kudos to https://techviewleo.com/how-to-install-postgresql-database-on-ubuntu/
 RUN apt update && \
     apt-get install -y --no-install-recommends \
     gnupg2 \
@@ -53,21 +28,16 @@ RUN apt update && \
 RUN mkdir /assets
 COPY ./copy_to_image/requirements-base.txt /assets/requirements-base.txt
 
-# According to "install GDAL for Python section"
-# https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html
-ARG CPLUS_INCLUDE_PATH=/usr/include/gdal
-ARG C_INCLUDE_PATH=/usr/include/gdal
-
-# Install python-dev (required for gdal bindings it seems).
-# Append GDAL with correct version to requirements-base.txt.
-# Add directive for shapely and pygeos to use existing library (requires build-essentials).
+# Install python packages.
+# Add directive for shapely and pygeos to use existing
+# library (requires python3-dev and build-essentials).
 RUN apt update && \
     apt-get install -y --no-install-recommends \
     build-essential \
     python3-dev \
-    python3-pip
-RUN echo "GDAL==${GDAL_VERSION}" >> /assets/requirements-base.txt && \
-    echo "--no-binary=shapely,pygeos" >> /assets/requirements-base.txt && \
+    python3-pip \
+    libgeos-dev
+RUN echo "--no-binary=shapely,pygeos" >> /assets/requirements-base.txt && \
     pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r /assets/requirements-base.txt
 
@@ -75,7 +45,6 @@ RUN echo "GDAL==${GDAL_VERSION}" >> /assets/requirements-base.txt && \
 # Final clean up
 #-----------------
 RUN apt purge -y \
-    software-properties-common \
     gnupg2 \
     wget \
     lsb-release && \
