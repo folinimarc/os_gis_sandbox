@@ -18,11 +18,13 @@
 # Xarray[io]: Various io plugins to read/write data in xarray, e.g. netCDF, GRIB,...
 # Rioxarray: Extension of xarray to seamlessly interface with rasterio for 2D raster data.
 # Jupyterlab: Allows to write rich scripts (notebooks) and run code interactively in the browser.
+# Pyarrow & Fastparquet: Packages used to read/write (geo)parquet files.
 # Pysal: A collection of packages for advanced geospatial statistical modelling and visualization.
 # OWSlib: A Python client library to work with OGC OWS services like WMS, WFS, WCS, ...
 # GeoAlchemy2: Library that allows to interact with spatial databases. Based on the SqlAlchemy.
 # Psycopg2: Allows to interact with Postgres databases.
 
+fastparquet
 Fiona
 folium
 # Pin GeoAlchemy2 to 10.2 until this bug is fixed: https://github.com/geopandas/geopandas/issues/2375
@@ -34,6 +36,7 @@ mapclassify
 matplotlib
 openpyxl
 OWSLib
+pyarrow
 psycopg2-binary
 pygeos
 pyproj
