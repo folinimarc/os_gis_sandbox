@@ -10,3 +10,5 @@ thesis/*
 !thesis/*.pdf
 !thesis/*.md
 !thesis/img/
+
+**/.DS_Store
