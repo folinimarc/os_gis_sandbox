@@ -1,7 +1,7 @@
-ARG GDAL_VERSION=3.5.1
-ARG POSTGRESQL_CLIENT_VERSION=14
+ARG GDAL_VERSION=3.6.4
+ARG POSTGRESQL_CLIENT_VERSION=15.2
 
-FROM osgeo/gdal:ubuntu-small-${GDAL_VERSION}
+FROM ghcr.io/osgeo/gdal:ubuntu-small-${GDAL_VERSION}
 
 LABEL description="Python/JupyterLab instance with various Python geoprocessing components \
     (GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
