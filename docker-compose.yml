@@ -23,7 +23,7 @@ volumes:
 services:
   postgis:
     container_name: postgis-container
-    image: postgis/postgis:${POSTGIS_VERSION_TAG:-14-3.2-alpine}
+    image: postgis/postgis:${POSTGIS_VERSION_TAG:-15-3.3-alpine}
     volumes:
       - postgis_data:/var/lib/postgresql/data
     ports:
@@ -37,7 +37,7 @@ services:
 
   geoserver:
     container_name: geoserver-container
-    image: kartoza/geoserver:${GEOSERVER_VERSION:-2.20.1}
+    image: kartoza/geoserver:${GEOSERVER_VERSION:-2.23.0}
     volumes:
       - geoserver_data:/opt/geoserver/data_dir
       - content_data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-_content}
@@ -58,7 +58,7 @@ services:
 
   pgadmin:
     container_name: pgadmin-container
-    image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG:-6.12}"
+    image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG:-7.0}"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:
@@ -70,7 +70,7 @@ services:
   jupyterlabgeoenv:
     container_name: jupyterlabgeoenv-container
     # build: ./jupyterlabgeoenv/
-    image: ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.6}
+    image: ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.7}
     volumes:
       - jupyterlabgeoenv_data:/home
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
@@ -109,7 +109,7 @@ services:
     # build: ./hub/
     image: ghcr.io/laiskasiili/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.2}
     ports:
-      - 127.0.0.1:${HUB_PORT_EXTERNAL:-80}:5000
+      - 127.0.0.1:${HUB_PORT_EXTERNAL:-8000}:5000
     command:
       [
         "gunicorn",
