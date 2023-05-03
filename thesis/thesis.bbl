@@ -1,0 +1,611 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{gdal}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{GDAL}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://gdal.org/
+      \endverb
+      \verb{url}
+      \verb https://gdal.org/
+      \endverb
+    \endentry
+    \entry{project-joeyklee}{online}{}
+      \name{author}{1}{}{%
+        {{hash=83d042057d25e23b875fa702f5d42294}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Joey},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{83d042057d25e23b875fa702f5d42294}
+      \strng{fullhash}{83d042057d25e23b875fa702f5d42294}
+      \strng{bibnamehash}{83d042057d25e23b875fa702f5d42294}
+      \strng{authorbibnamehash}{83d042057d25e23b875fa702f5d42294}
+      \strng{authornamehash}{83d042057d25e23b875fa702f5d42294}
+      \strng{authorfullhash}{83d042057d25e23b875fa702f5d42294}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Geosandbox}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://joeyklee.github.io/geosandbox/
+      \endverb
+      \verb{url}
+      \verb https://joeyklee.github.io/geosandbox/
+      \endverb
+    \endentry
+    \entry{project-idre}{online}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{IDRE sandbox}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://sandbox.idre.ucla.edu/sandbox/category/projects/
+      \endverb
+      \verb{url}
+      \verb https://sandbox.idre.ucla.edu/sandbox/category/projects/
+      \endverb
+    \endentry
+    \entry{project-dea}{online}{}
+      \name{author}{1}{}{%
+        {{hash=b407563dcce5c49b37163d6fd557a487}{%
+           family={Australia},
+           familyi={A\bibinitperiod},
+           given={Geoscience},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{b407563dcce5c49b37163d6fd557a487}
+      \strng{fullhash}{b407563dcce5c49b37163d6fd557a487}
+      \strng{bibnamehash}{b407563dcce5c49b37163d6fd557a487}
+      \strng{authorbibnamehash}{b407563dcce5c49b37163d6fd557a487}
+      \strng{authornamehash}{b407563dcce5c49b37163d6fd557a487}
+      \strng{authorfullhash}{b407563dcce5c49b37163d6fd557a487}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Digital Earth Australia (DEA) sandbox}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://www.dea.ga.gov.au/developers/sandbox
+      \endverb
+      \verb{url}
+      \verb https://www.dea.ga.gov.au/developers/sandbox
+      \endverb
+    \endentry
+    \entry{jupyterlab}{online}{}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{JupyterLab}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://jupyterlab.readthedocs.io/en/stable/
+      \endverb
+      \verb{url}
+      \verb https://jupyterlab.readthedocs.io/en/stable/
+      \endverb
+    \endentry
+    \entry{project-geopython}{online}{}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Geopython workshop}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/geopython/geopython-workshop/
+      \endverb
+      \verb{url}
+      \verb https://github.com/geopython/geopython-workshop/
+      \endverb
+    \endentry
+    \entry{dockercompose}{online}{}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Docker Compose}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.docker.com/compose/
+      \endverb
+      \verb{url}
+      \verb https://docs.docker.com/compose/
+      \endverb
+    \endentry
+    \entry{project-geostack}{online}{}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labeltitlesource}{title}
+      \field{day}{10}
+      \field{month}{5}
+      \field{title}{The GeoStack Project}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://the-geostack-project.github.io/
+      \endverb
+      \verb{url}
+      \verb https://the-geostack-project.github.io/
+      \endverb
+    \endentry
+    \entry{qgis}{online}{}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{QGIS}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://qgis.org/de/site/
+      \endverb
+      \verb{url}
+      \verb https://qgis.org/de/site/
+      \endverb
+    \endentry
+    \entry{postgis}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{PostGIS}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://postgis.net/
+      \endverb
+      \verb{url}
+      \verb https://postgis.net/
+      \endverb
+    \endentry
+    \entry{pgadmin}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{pgAdmin}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://www.pgadmin.org/
+      \endverb
+      \verb{url}
+      \verb https://www.pgadmin.org/
+      \endverb
+    \endentry
+    \entry{geoserver}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{GeoServer}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://geoserver.org/
+      \endverb
+      \verb{url}
+      \verb https://geoserver.org/
+      \endverb
+    \endentry
+    \entry{dockerswarm}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Docker Swarm}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.docker.com/engine/swarm/
+      \endverb
+      \verb{url}
+      \verb https://docs.docker.com/engine/swarm/
+      \endverb
+    \endentry
+    \entry{minikube}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Minikube}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://minikube.sigs.k8s.io/docs/
+      \endverb
+      \verb{url}
+      \verb https://minikube.sigs.k8s.io/docs/
+      \endverb
+    \endentry
+    \entry{dockerimage}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{month}{4}
+      \field{title}{Docker Image definition}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://www.docker.com/resources/what-container/
+      \endverb
+      \verb{url}
+      \verb https://www.docker.com/resources/what-container/
+      \endverb
+    \endentry
+    \entry{geos}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{GEOS}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://libgeos.org/
+      \endverb
+      \verb{url}
+      \verb https://libgeos.org/
+      \endverb
+    \endentry
+    \entry{osgissandbox}{online}{}
+      \name{author}{1}{}{%
+        {{hash=691bb8848cac6f228c3fe3866c83abaa}{%
+           family={Folini},
+           familyi={F\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{691bb8848cac6f228c3fe3866c83abaa}
+      \strng{fullhash}{691bb8848cac6f228c3fe3866c83abaa}
+      \strng{bibnamehash}{691bb8848cac6f228c3fe3866c83abaa}
+      \strng{authorbibnamehash}{691bb8848cac6f228c3fe3866c83abaa}
+      \strng{authornamehash}{691bb8848cac6f228c3fe3866c83abaa}
+      \strng{authorfullhash}{691bb8848cac6f228c3fe3866c83abaa}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{OS GIS Sandbox}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/laiskasiili/os_gis_sandbox/
+      \endverb
+      \verb{url}
+      \verb https://github.com/laiskasiili/os_gis_sandbox/
+      \endverb
+    \endentry
+    \entry{dockerhub}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Docker Hub}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://hub.docker.com/
+      \endverb
+      \verb{url}
+      \verb https://hub.docker.com/
+      \endverb
+    \endentry
+    \entry{postgis-container}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Official postgis/postgis image}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://registry.hub.docker.com/r/postgis/postgis/
+      \endverb
+      \verb{url}
+      \verb https://registry.hub.docker.com/r/postgis/postgis/
+      \endverb
+    \endentry
+    \entry{pgadmin-container}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Official dpage/pgadmin4 image}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://hub.docker.com/r/dpage/pgadmin4/
+      \endverb
+      \verb{url}
+      \verb https://hub.docker.com/r/dpage/pgadmin4/
+      \endverb
+    \endentry
+    \entry{geoserver-container}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{4}
+      \field{title}{Kartoza Geoserver Docker Image}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://hub.docker.com/r/kartoza/geoserver/
+      \endverb
+      \verb{url}
+      \verb https://hub.docker.com/r/kartoza/geoserver/
+      \endverb
+    \endentry
+    \entry{pythonimage}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{9}
+      \field{month}{5}
+      \field{title}{Official Python Image}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://hub.docker.com/_/python/
+      \endverb
+      \verb{url}
+      \verb https://hub.docker.com/_/python/
+      \endverb
+    \endentry
+    \entry{flask}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{26}
+      \field{month}{4}
+      \field{title}{Python Flask}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://flask.palletsprojects.com/en/2.1.x/
+      \endverb
+      \verb{url}
+      \verb https://flask.palletsprojects.com/en/2.1.x/
+      \endverb
+    \endentry
+    \entry{bootstrap5}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{9}
+      \field{month}{5}
+      \field{title}{Bootstrap 5}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://getbootstrap.com/docs/5.0/getting-started/introduction/
+      \endverb
+      \verb{url}
+      \verb https://getbootstrap.com/docs/5.0/getting-started/introduction/
+      \endverb
+    \endentry
+    \entry{masonry}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{9}
+      \field{month}{5}
+      \field{title}{Masonry}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://masonry.desandro.com/
+      \endverb
+      \verb{url}
+      \verb https://masonry.desandro.com/
+      \endverb
+    \endentry
+    \entry{alpinelinux}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{9}
+      \field{month}{5}
+      \field{title}{Official Alpine Linux Image}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://hub.docker.com/_/alpine/
+      \endverb
+      \verb{url}
+      \verb https://hub.docker.com/_/alpine/
+      \endverb
+    \endentry
+    \entry{ubuntulinux}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{9}
+      \field{month}{5}
+      \field{title}{Official Ubuntu Linux Image}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://hub.docker.com/_/ubuntu/
+      \endverb
+      \verb{url}
+      \verb https://hub.docker.com/_/ubuntu/
+      \endverb
+    \endentry
+    \entry{ubuntugisppa}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{9}
+      \field{month}{5}
+      \field{title}{UbuntuGIS PPA}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://launchpad.net/~ubuntugis/+archive/ubuntu/ppa/
+      \endverb
+      \verb{url}
+      \verb https://launchpad.net/~ubuntugis/+archive/ubuntu/ppa/
+      \endverb
+    \endentry
+    \entry{piprequirementsfile}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{day}{4}
+      \field{month}{5}
+      \field{title}{PIP requirements file}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://pip.pypa.io/en/stable/reference/requirements-file-format/
+      \endverb
+      \verb{url}
+      \verb https://pip.pypa.io/en/stable/reference/requirements-file-format/
+      \endverb
+    \endentry
+    \entry{githubactions}{online}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{day}{23}
+      \field{month}{4}
+      \field{title}{Github Actions}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.github.com/en/actions/learn-github-actions/
+      \endverb
+      \verb{url}
+      \verb https://docs.github.com/en/actions/learn-github-actions/
+      \endverb
+    \endentry
+    \entry{gcr}{online}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{day}{23}
+      \field{month}{4}
+      \field{title}{Github Container Registry (GCR)}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry/
+      \endverb
+      \verb{url}
+      \verb https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry/
+      \endverb
+    \endentry
+    \entry{composeenvfile}{online}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{day}{26}
+      \field{month}{4}
+      \field{title}{Docker Compose Env file}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.docker.com/compose/env-file/
+      \endverb
+      \verb{url}
+      \verb https://docs.docker.com/compose/env-file/
+      \endverb
+    \endentry
+    \entry{dockerdesktop}{online}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{day}{23}
+      \field{month}{4}
+      \field{title}{Docker Desktop}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://www.docker.com/products/docker-desktop/
+      \endverb
+      \verb{url}
+      \verb https://www.docker.com/products/docker-desktop/
+      \endverb
+    \endentry
+    \entry{sandboxcomposefile}{online}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{day}{23}
+      \field{month}{4}
+      \field{title}{OS GIS Sandbox Docker Compose File}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://raw.githubusercontent.com/laiskasiili/os_gis_sandbox/main/docker-compose.yml/
+      \endverb
+      \verb{url}
+      \verb https://raw.githubusercontent.com/laiskasiili/os_gis_sandbox/main/docker-compose.yml/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -1,14 +1,7 @@
 .vscode/
 
-gitignored/
 **/*_checkpoints/
 **/*-checkpoint.ipynb
 **/python_geoprocessing/
-thesis/*
-!thesis/*.tex
-!thesis/*.bib
-!thesis/*.pdf
-!thesis/*.md
-!thesis/img/
 
 **/.DS_Store

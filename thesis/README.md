@@ -27,6 +27,7 @@ To that end I want to share my setup here in the hope to enable somebody to have
 a similar experience.
 
 ## Setup
+
 1. Download and install a basic TeX/LaTeX engine on your machine. [TeX
    Live](https://www.tug.org/texlive/) is recommended. An alternative is
    [MiKTeX](https://miktex.org/download) which requires you to install Perl as
@@ -53,6 +54,10 @@ a similar experience.
    Whenever you are done writing a section, stage your changes, push them to
    your GitHub repository and enjoy the feeling that your computer could explode
    right now and all your work is saved in GitHub's version control cloud.
+   
+   Note: Document compilation generates several auxiliary files. You can clean them manually by running the command `LaTeX Workshop: Clean up auxiliary files` or by adding `"latex-workshop.latex.autoClean.run": "onBuilt"` to your settings to clean up automatically after building the document.
+
+> Note: If you are familiar with VSCode's development container framework, there is also a devcontainer.json with the dependencies and extensions preconfigured.
 
 ## Why not Overleaf?
 To be fair, I did not give [Overleaf](https://www.overleaf.com/) more than a few
