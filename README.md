@@ -113,7 +113,7 @@ Select a path on your system you want to be accessible through JupyterLab and
 replace $MOUNT_PATH in the command below with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.6
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.7
 ```
 
 The first run will take some time because a lot of data is being downloaded,
