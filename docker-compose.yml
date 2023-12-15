@@ -108,7 +108,7 @@ services:
   hub:
     container_name: hub-container
     # build: ./hub/
-    image: ghcr.io/folinimarc/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.3}
+    image: ghcr.io/folinimarc/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.4}
     ports:
       - 127.0.0.1:${HUB_PORT_EXTERNAL:-8000}:5000
     command:

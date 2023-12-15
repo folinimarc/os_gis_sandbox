@@ -169,7 +169,7 @@ information can be found in the
 | GEOSERVER_SAMPLE_DATA          | true                           |                                                                                                                                        |
 | GEOSERVER_STABLE_EXTENSIONS    |                                | [Stable extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/stable_plugins.txt)       |
 | GEOSERVER_COMMUNITY_EXTENSIONS | geostyler-plugin,ogcapi-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
-| HUB_VERSION                    | hub-v1.0.3                     |                                                                                                                                        |
+| HUB_VERSION                    | hub-v1.0.4                     |                                                                                                                                        |
 | HUB_PORT_EXTERNAL              | 8000                             |                                                                                                                                        |
 | PGADMIN_VERSION_TAG            | 8.1                            |                                                                                                                                        |
 | PGADMIN_PORT_EXTERNAL          | 8002                           |                                                                                                                                        |

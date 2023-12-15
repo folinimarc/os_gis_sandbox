@@ -1,7 +1,7 @@
 FROM python:3.9.10-slim
 
 RUN pip install --upgrade pip \
-    && pip install flask==2.0.2 gunicorn==20.1.0
+    && pip install flask==2.* gunicorn==20.1.0
 
 COPY ./flask_app /home/flask_app
 
