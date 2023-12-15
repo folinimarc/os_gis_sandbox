@@ -40,7 +40,7 @@ docker --version
 
 You only need the single file docker-compose.yml to run the sandbox. You can
 either clone the repository or [click here to open its
-raw form](https://raw.githubusercontent.com/laiskasiili/os_geostack_sandbox/main/docker-compose.yml)
+raw form](https://raw.githubusercontent.com/folinimarc/os_geostack_sandbox/main/docker-compose.yml)
 and then go right-click and save as. Just make sure it is still called
 docker-compose.yml (with .yml extension).
 
@@ -113,7 +113,7 @@ Select a path on your system you want to be accessible through JupyterLab and
 replace $MOUNT_PATH in the command below with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.7
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.7
 ```
 
 The first run will take some time because a lot of data is being downloaded,
@@ -161,7 +161,7 @@ information can be found in the
 | CONTENT_VERSION_TAG            | content-v1.0.4                 |                                                                                                                                        |
 | JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.7        |                                                                                                                                        |
 | JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                        |
-| GEOSERVER_VERSION              | 2.23.0                         |                                                                                                                                        |
+| GEOSERVER_VERSION              | 2.24.1                         |                                                                                                                                        |
 | GEOSERVER_PORT_EXTERNAL        | 8003                           |                                                                                                                                        |
 | GEOSERVER_ADMIN_PASSWORD       | gis                            |                                                                                                                                        |
 | GEOSERVER_ADMIN_USER           | gis                            |                                                                                                                                        |
@@ -171,12 +171,25 @@ information can be found in the
 | GEOSERVER_COMMUNITY_EXTENSIONS | geostyler-plugin,ogcapi-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
 | HUB_VERSION                    | hub-v1.0.2                     |                                                                                                                                        |
 | HUB_PORT_EXTERNAL              | 8000                             |                                                                                                                                        |
-| PGADMIN_VERSION_TAG            | 6.7.0                            |                                                                                                                                        |
+| PGADMIN_VERSION_TAG            | 8.1                            |                                                                                                                                        |
 | PGADMIN_PORT_EXTERNAL          | 8002                           |                                                                                                                                        |
 | PGADMIN_DEFAULT_EMAIL          | gis@gis.com                    |                                                                                                                                        |
 | PGADMIN_DEFAULT_PASSWORD       | gis                            |                                                                                                                                        |
-| POSTGIS_VERSION_TAG            | 15-3.3-alpine                  |                                                                                                                                        |
+| POSTGIS_VERSION_TAG            | 16-3.4-alpine                  |                                                                                                                                        |
 | POSTGIS_PORT_EXTERNAL          | 8001                           |                                                                                                                                        |
 | POSTGRES_USER                  | gis                            |                                                                                                                                        |
 | POSTGRES_DB                    | gis                            |                                                                                                                                        |
 | POSTGRES_PASSWORD              | gis                            |                                                                                                                                        |
+
+
+# Trouble Shooting
+
+## I am on MacOS and Geoserver does not start...
+Run the docker compose up command without the `-d` flag to see all the output in the terminal. If you see multiple lines starting with `chown: changing ownership`, this is related to a [known MacOS related filesystem permission pain](https://stackoverflow.com/questions/43097341/docker-on-macosx-does-not-translate-file-ownership-correctly-in-volumes). Unfortunately, to my knowledge there exists no good solution as of now. The hacky workaround for these permission issues is to point `HOST_SYSTEM_MOUNT_PATH` at a directory where all users have full permissions. Be cautious and only use this for personal setups! This directory will then be where jupyterlabgeoenv and geoserver read and write data to the host machine's filesystem.
+1. Create a new directory that should serve as the data directory.
+2. Grant all users full permission. In terminal you can run this command `sudo chmod 777 <folder path>`
+3. Create a file `.env` in the same directory where your `docker-compose.yml` resides with the following content:
+    ```
+    HOST_SYSTEM_MOUNT_PATH=<folder path>
+    ```
+4. Run your docker compose up command normally. Because of its name and location, the content of `.env` will be picked up automatically.

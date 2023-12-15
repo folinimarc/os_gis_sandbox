@@ -1,5 +1,5 @@
-ARG GDAL_VERSION=3.6.4
-ARG POSTGRESQL_CLIENT_VERSION=15.2
+ARG GDAL_VERSION=3.8.1
+ARG POSTGRESQL_CLIENT_VERSION=16.1
 
 FROM ghcr.io/osgeo/gdal:ubuntu-small-${GDAL_VERSION}
 
@@ -37,8 +37,7 @@ RUN apt update && \
     python3-dev \
     python3-pip \
     libgeos-dev
-RUN echo "--no-binary=shapely,pygeos" >> /assets/requirements-base.txt && \
-    pip install --no-cache-dir --upgrade pip && \
+RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r /assets/requirements-base.txt
 
 #-----------------
