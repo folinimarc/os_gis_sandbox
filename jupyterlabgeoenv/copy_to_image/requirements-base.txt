@@ -1,53 +1,35 @@
-# ------------------------------------------------------
-# Shapely: Does planar geometric processing (uses GEOS).
-# Pygeos: Newer sibling to shapely with focus on performance. Will be integrated in shapely 2.0.
-# Fiona: Reads and writes everything (uses OGR).
-# Pyproj: Handles projections (uses PROJ).
-# Rtree: Spatial indexing (plays well with GeoPandas).
-# Openpyxl: Is required by GeoPandas to write excel files.
-# Matplotlib: Is required by GeoPandas to visualize geometries.
-# Mapclassify: Utility package for classification schemes for Choropleth Maps. Used by GeoPandas for GeoDataFrame.explore().
-# Folium: Provides interactive plotting capbilities. Used by GeoPandas for GeoDataFrame.explore().
-# GeoPandas: Extends pandas with geospatial capabilities (uses shapely, pygeos,
-# Xlrd, xlsxwriter: Required by (Geo)Pandas to read/write excel files.
-# fiona, pyproj, Rtree, ...)
-# Gdal: Low level GDAL Python bindings. More a nice-to-have as there are higher level packages like rasterio for interacting with GDAL.
-# Rasterio Makes working with rasters fun (uses GDAL).
-# Xarray: Deals with multidimensional data. Ideal to read/writes netCDF files.
-# Xarray-spatial: Extends xarray with powerful spatial processing capabilities without depending on GDAL.
-# Xarray[io]: Various io plugins to read/write data in xarray, e.g. netCDF, GRIB,...
-# Rioxarray: Extension of xarray to seamlessly interface with rasterio for 2D raster data.
-# Jupyterlab: Allows to write rich scripts (notebooks) and run code interactively in the browser.
-# Pyarrow & Fastparquet: Packages used to read/write (geo)parquet files.
-# Pysal: A collection of packages for advanced geospatial statistical modelling and visualization.
-# OWSlib: A Python client library to work with OGC OWS services like WMS, WFS, WCS, ...
-# GeoAlchemy2: Library that allows to interact with spatial databases. Based on the SqlAlchemy.
-# Psycopg2: Allows to interact with Postgres databases.
-
-fastparquet
-Fiona
-folium
-# Pin GeoAlchemy2 to 10.2 until this bug is fixed: https://github.com/geopandas/geopandas/issues/2375
-GeoAlchemy2==0.10.2
+# VECTOR (geopandas & dependencies)
+#-------------
+fiona # reads and writes everything (uses OGR)
+pyogrio # vectorized vector IO (uses OGR)
+shapely # does planar geometric processing (uses GEOS)
+pyproj # handles projections (uses PROJ)
+pyarrow # required by GeoPandas to read/write parquet files
+rtree # spatial indexing (plays well with GeoPandas)
+matplotlib # plotting (used by GeoPandas for GeoDataFrame.plot())
+mapclassify # plotting (used by GeoPandas for GeoDataFrame.explore())
+folium # plotting (used by GeoPandas for GeoDataFrame.explore())
+openpyxl # engine for (Geo)Pandas to read/write excel files
+xlsxwriter # engine for (Geo)Pandas to write excel files
+xlrd # engine for (Geo)Pandas to read excel files
+numpy
+pandas
 geopandas
-ipyleaflet
-jupyterlab
-mapclassify
-matplotlib
-openpyxl
-OWSLib
-pyarrow
-psycopg2-binary
-pygeos
-pyproj
-pysal
+
+# RASTER
+#-------------
 rasterio
-rioxarray
-Rtree
-Shapely
 xarray
-xarray-spatial
-xarray[io]
-xlsxwriter
-xlrd
-numpy>=1.21.0
+
+# SPATIAL ANALYSIS
+#-------------
+pysal
+
+# WEB SERVICES
+#-------------
+OWSLib
+
+# MISC
+#-------------
+jupyterlab # allows to write rich scripts (notebooks) and run code interactively in the browser
+ipyleaflet # interactive maps in jupyterlab

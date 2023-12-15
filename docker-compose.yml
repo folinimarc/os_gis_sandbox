@@ -23,7 +23,7 @@ volumes:
 services:
   postgis:
     container_name: postgis-container
-    image: postgis/postgis:${POSTGIS_VERSION_TAG:-15-3.3-alpine}
+    image: postgis/postgis:${POSTGIS_VERSION_TAG:-16-3.4-alpine}
     volumes:
       - postgis_data:/var/lib/postgresql/data
     ports:
@@ -37,7 +37,7 @@ services:
 
   geoserver:
     container_name: geoserver-container
-    image: kartoza/geoserver:${GEOSERVER_VERSION:-2.23.0}
+    image: kartoza/geoserver:${GEOSERVER_VERSION:-2.24.1}
     volumes:
       - geoserver_data:/opt/geoserver/data_dir
       - content_data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-_content}
@@ -55,10 +55,11 @@ services:
       - "COMMUNITY_EXTENSIONS=${GEOSERVER_COMMUNITY_EXTENSIONS:-geostyler-plugin,ogcapi-plugin}"
       - "TOMCAT_EXTRAS=false"
       - "ROOT_WEBAPP_REDIRECT=true"
+      - "RECREATE_DATADIR=false"
 
   pgadmin:
     container_name: pgadmin-container
-    image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG:-7.0}"
+    image: "dpage/pgadmin4:${PGADMIN_VERSION_TAG:-8.1}"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:
@@ -69,8 +70,8 @@ services:
 
   jupyterlabgeoenv:
     container_name: jupyterlabgeoenv-container
-    # build: ./jupyterlabgeoenv/
-    image: ghcr.io/laiskasiili/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.7}
+    build: ./jupyterlabgeoenv/
+    # image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.7}
     volumes:
       - jupyterlabgeoenv_data:/home
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
@@ -100,14 +101,14 @@ services:
   content:
     container_name: content-container
     # build: ./content/
-    image: ghcr.io/laiskasiili/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.4}
+    image: ghcr.io/folinimarc/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.4}
     volumes:
       - content_data:/shared_content
 
   hub:
     container_name: hub-container
     # build: ./hub/
-    image: ghcr.io/laiskasiili/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.2}
+    image: ghcr.io/folinimarc/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.2}
     ports:
       - 127.0.0.1:${HUB_PORT_EXTERNAL:-8000}:5000
     command:

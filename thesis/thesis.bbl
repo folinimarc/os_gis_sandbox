@@ -327,10 +327,10 @@
       \field{year}{2022}
       \field{dateera}{ce}
       \verb{urlraw}
-      \verb https://github.com/laiskasiili/os_gis_sandbox/
+      \verb https://github.com/folinimarc/os_gis_sandbox/
       \endverb
       \verb{url}
-      \verb https://github.com/laiskasiili/os_gis_sandbox/
+      \verb https://github.com/folinimarc/os_gis_sandbox/
       \endverb
     \endentry
     \entry{dockerhub}{online}{}
@@ -599,10 +599,10 @@
       \field{year}{2022}
       \field{dateera}{ce}
       \verb{urlraw}
-      \verb https://raw.githubusercontent.com/laiskasiili/os_gis_sandbox/main/docker-compose.yml/
+      \verb https://raw.githubusercontent.com/folinimarc/os_gis_sandbox/main/docker-compose.yml/
       \endverb
       \verb{url}
-      \verb https://raw.githubusercontent.com/laiskasiili/os_gis_sandbox/main/docker-compose.yml/
+      \verb https://raw.githubusercontent.com/folinimarc/os_gis_sandbox/main/docker-compose.yml/
       \endverb
     \endentry
   \enddatalist
