@@ -113,7 +113,7 @@ Select a path on your system you want to be accessible through JupyterLab and
 replace $MOUNT_PATH in the command below with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.7
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.8
 ```
 
 The first run will take some time because a lot of data is being downloaded,
@@ -158,8 +158,8 @@ information can be found in the
 | HOST_SYSTEM_MOUNT_PATH         | ./                             |                                                                                                                                        |
 | HOST_MOUNT_FOLDER_NAME         | \_host_mount_dir               |                                                                                                                                        |
 | CONTENT_MOUNT_FOLDER_NAME      | \_content                      |                                                                                                                                        |
-| CONTENT_VERSION_TAG            | content-v1.0.4                 |                                                                                                                                        |
-| JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.7        |                                                                                                                                        |
+| CONTENT_VERSION_TAG            | content-v1.0.5                 |                                                                                                                                        |
+| JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.8        |                                                                                                                                        |
 | JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                        |
 | GEOSERVER_VERSION              | 2.24.1                         |                                                                                                                                        |
 | GEOSERVER_PORT_EXTERNAL        | 8003                           |                                                                                                                                        |
@@ -169,7 +169,7 @@ information can be found in the
 | GEOSERVER_SAMPLE_DATA          | true                           |                                                                                                                                        |
 | GEOSERVER_STABLE_EXTENSIONS    |                                | [Stable extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/stable_plugins.txt)       |
 | GEOSERVER_COMMUNITY_EXTENSIONS | geostyler-plugin,ogcapi-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
-| HUB_VERSION                    | hub-v1.0.2                     |                                                                                                                                        |
+| HUB_VERSION                    | hub-v1.0.3                     |                                                                                                                                        |
 | HUB_PORT_EXTERNAL              | 8000                             |                                                                                                                                        |
 | PGADMIN_VERSION_TAG            | 8.1                            |                                                                                                                                        |
 | PGADMIN_PORT_EXTERNAL          | 8002                           |                                                                                                                                        |

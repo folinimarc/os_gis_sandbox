@@ -70,8 +70,8 @@ services:
 
   jupyterlabgeoenv:
     container_name: jupyterlabgeoenv-container
-    build: ./jupyterlabgeoenv/
-    # image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.7}
+    # build: ./jupyterlabgeoenv/
+    image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.8}
     volumes:
       - jupyterlabgeoenv_data:/home
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
@@ -101,14 +101,14 @@ services:
   content:
     container_name: content-container
     # build: ./content/
-    image: ghcr.io/folinimarc/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.4}
+    image: ghcr.io/folinimarc/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.5}
     volumes:
       - content_data:/shared_content
 
   hub:
     container_name: hub-container
     # build: ./hub/
-    image: ghcr.io/folinimarc/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.2}
+    image: ghcr.io/folinimarc/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.3}
     ports:
       - 127.0.0.1:${HUB_PORT_EXTERNAL:-8000}:5000
     command:
