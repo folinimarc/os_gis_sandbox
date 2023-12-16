@@ -3,7 +3,10 @@
 {
 	"name": "TexLive",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "texlive/texlive:TL2022-historic",
+	// "image": "texlive/texlive:latest",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -23,7 +26,8 @@
 				"valentjn.vscode-ltex"
 			],
 			"settings": {
-				"latex-workshop.latex.autoClean.run": "onBuilt"
+				"latex-workshop.latex.autoClean.run": "onBuilt",
+				"latex-workshop.latex.recipe.default": "latexmk (xelatex)"
 			}
 		}
 	}

@@ -3,10 +3,11 @@
 % -- PREABLE
 
 % global settings
+\special{pdf:minorversion 7}
 \renewcommand\labelitemi{-}
 
 % packages
-\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
 \usepackage{graphicx} % to embed figures
 \usepackage{float} % use [H] to place fig exactly where specified in code
 \usepackage{tabularx} % table with columns that fill width of page using X
@@ -19,9 +20,18 @@
 \usepackage{rotating} % To turn images 90 degrees
 \usepackage{pdfpages} % To add PDF of declaration of originality at the end
 
-\addbibresource{thesis.bib}
+% Set main font to a custom font
+\setmainfont{EBGaramond}[
+    Path = ./fonts/EBGaramond/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Italic,
+    BoldItalicFont = *-BoldItalic
+]
 
-\graphicspath{ {img/} } % path where grahics are stored
+\addbibresource{thesis.bib}
+\graphicspath{ {img} } % path where grahics are stored
 
 % title page parameters
 \title{Open-source GIS Sandbox \& Data Stories - New possibilities for GIS course interactivity}
@@ -446,7 +456,7 @@ and will be explained in the following sections. \\
   \centering
   \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{composeSetup}
+    \includegraphics[width=1\textwidth]{composeSetup.pdf}
     \caption{Sandbox Docker Compose architecture}
     \label{fig:sandboxsetup}
   \end{figure}
