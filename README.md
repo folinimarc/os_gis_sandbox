@@ -40,7 +40,7 @@ docker --version
 
 You only need the single file docker-compose.yml to run the sandbox. You can
 either clone the repository or [click here to open its
-raw form](https://raw.githubusercontent.com/folinimarc/os_geostack_sandbox/main/docker-compose.yml)
+raw form](https://raw.githubusercontent.com/folinimarc/os_gis_sandbox/main/docker-compose.yml)
 and then go right-click and save as. Just make sure it is still called
 docker-compose.yml (with .yml extension).
 
