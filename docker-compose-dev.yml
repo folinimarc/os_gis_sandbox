@@ -1,0 +1,16 @@
+# Start dev setup (building images locally):
+# docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
+
+services:
+  jupyterlabgeoenv:
+    build: ./jupyterlabgeoenv/
+    image: !reset null
+   
+  content:
+    build: ./content/
+    image: !reset null
+
+  hub:
+    build: ./hub/
+    image: !reset null
+    
