@@ -161,7 +161,7 @@ information can be found in the
 | CONTENT_VERSION_TAG            | content-v1.0.5                 |                                                                                                                                        |
 | JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.8        |                                                                                                                                        |
 | JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                        |
-| GEOSERVER_VERSION              | 2.24.1                         |                                                                                                                                        |
+| GEOSERVER_VERSION              | 2.26.1                         |                                                                                                                                        |
 | GEOSERVER_PORT_EXTERNAL        | 8003                           |                                                                                                                                        |
 | GEOSERVER_ADMIN_PASSWORD       | gis                            |                                                                                                                                        |
 | GEOSERVER_ADMIN_USER           | gis                            |                                                                                                                                        |
@@ -171,11 +171,11 @@ information can be found in the
 | GEOSERVER_COMMUNITY_EXTENSIONS | geostyler-plugin,ogcapi-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
 | HUB_VERSION                    | hub-v1.0.4                     |                                                                                                                                        |
 | HUB_PORT_EXTERNAL              | 8000                             |                                                                                                                                        |
-| PGADMIN_VERSION_TAG            | 8.1                            |                                                                                                                                        |
+| PGADMIN_VERSION_TAG            | 8.13                            |                                                                                                                                        |
 | PGADMIN_PORT_EXTERNAL          | 8002                           |                                                                                                                                        |
 | PGADMIN_DEFAULT_EMAIL          | gis@gis.com                    |                                                                                                                                        |
 | PGADMIN_DEFAULT_PASSWORD       | gis                            |                                                                                                                                        |
-| POSTGIS_VERSION_TAG            | 16-3.4-alpine                  |                                                                                                                                        |
+| POSTGIS_VERSION_TAG            | 17-3.5-alpine                  |                                                                                                                                        |
 | POSTGIS_PORT_EXTERNAL          | 8001                           |                                                                                                                                        |
 | POSTGRES_USER                  | gis                            |                                                                                                                                        |
 | POSTGRES_DB                    | gis                            |                                                                                                                                        |
