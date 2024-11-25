@@ -67,7 +67,7 @@ services:
 
   jupyterlabgeoenv:
     container_name: jupyterlabgeoenv-container
-    image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.8}
+    image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.9}
     volumes:
       - jupyterlabgeoenv_data:/home
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
@@ -96,7 +96,7 @@ services:
 
   content:
     container_name: content-container
-    image: ghcr.io/folinimarc/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.5}
+    image: ghcr.io/folinimarc/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.6}
     volumes:
       - content_data:/shared_content
 

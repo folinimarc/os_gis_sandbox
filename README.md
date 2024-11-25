@@ -113,7 +113,7 @@ Select a path on your system you want to be accessible through JupyterLab and
 replace $MOUNT_PATH in the command below with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.8
+docker run -it --rm -p 8888:8888 --volume="$MOUNT_PATH":"/home/host_mount_dir" ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.9
 ```
 
 The first run will take some time because a lot of data is being downloaded,
@@ -158,8 +158,8 @@ information can be found in the
 | HOST_SYSTEM_MOUNT_PATH         | ./                             |                                                                                                                                        |
 | HOST_MOUNT_FOLDER_NAME         | \_host_mount_dir               |                                                                                                                                        |
 | CONTENT_MOUNT_FOLDER_NAME      | \_content                      |                                                                                                                                        |
-| CONTENT_VERSION_TAG            | content-v1.0.5                 |                                                                                                                                        |
-| JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.8        |                                                                                                                                        |
+| CONTENT_VERSION_TAG            | content-v1.0.6                 |                                                                                                                                        |
+| JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.9        |                                                                                                                                        |
 | JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                        |
 | GEOSERVER_VERSION              | 2.25.3                         |                                                                                                                                        |
 | GEOSERVER_PORT_EXTERNAL        | 8003                           |                                                                                                                                        |
