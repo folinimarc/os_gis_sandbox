@@ -61,9 +61,6 @@ RUN apt purge -y \
 #-----------------
 # Make sure jupyter lab terminal uses bash
 ENV SHELL=/bin/bash
-# Deactivate extension manager (extension should only be installed from pypi via
-# requirements-override.txt)
-RUN jupyter labextension disable @jupyterlab/extensionmanager-extension
 
 # Copy readme about file persistence which will be copied to home directory in entrypoint.sh
 # if HOME_DIR_PERSISTED is true. Defaults to false for the docker standalone usecase without volume.

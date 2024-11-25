@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 if $HOME_DIR_PERSISTED
@@ -6,6 +6,13 @@ then
     # Copy readme explaining persistence and overwrite procedure.
     cp /assets/_README.md /home/_README.md
 fi
+
+# Activate the python virtual environment
+source /opt/venv/bin/activate
+
+# Deactivate extension manager (extension should only be installed from pypi via
+# requirements-override.txt)
+jupyter labextension disable @jupyterlab/extensionmanager-extension
 
 # Copy base requirements for visibility to user what is installed by default in
 # image and add warning header.
