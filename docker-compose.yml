@@ -1,6 +1,3 @@
-# Explicitly using v2 because this stack is NOT intended to be run in any decentralized manner.
-version: "2.4"
-
 volumes:
   # Persists all geoserver related data and configuration.
   geoserver_data:
