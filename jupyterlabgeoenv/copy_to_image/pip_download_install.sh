@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Given a requirements file and a download destination, downloads packages to
 # destination and installs them from there. Only requires internet connection for
@@ -13,8 +13,8 @@
 
 # Make sure a directory exists to download pip packages from
 # requirements-override.txt. In case of no internet they can be restored from there.
-if [ ! -d $2 ]; then
-    mkdir $2
+if [ ! -d "$2" ]; then
+    mkdir "$2"
 fi
 # Path and name of file to use to persist pip version.
 FILE_PIP_VERSION=$2/pip.version
@@ -26,10 +26,10 @@ if [ -f "$FILE_PIP_VERSION" ]; then
 fi
 # If the two versions do not match, remove all wheels from download folder.
 if [ "$CURRENT_PIP_VERSION" != "$PREVIOUS_PIP_VERSION" ]; then
-    rm -rf $2/.*.whl
+    rm -rf "$2/.*.whl"
 fi
 # Save current pip version to file future checks.
 echo "$CURRENT_PIP_VERSION" > "$FILE_PIP_VERSION"
 # Finally download and install the packages
-pip download -r $1 -d $2
-pip install --no-index -r $1 -f $2
+pip download -r "$1" -d "$2"
+pip install --no-index -r "$1" -f "$2"

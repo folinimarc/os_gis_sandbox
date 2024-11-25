@@ -34,7 +34,7 @@ services:
 
   geoserver:
     container_name: geoserver-container
-    image: kartoza/geoserver:${GEOSERVER_VERSION:-2.26.1}
+    image: kartoza/geoserver:${GEOSERVER_VERSION:-2.25.3}
     volumes:
       - geoserver_data:/opt/geoserver/data_dir
       - content_data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-_content}
@@ -49,7 +49,7 @@ services:
       - "MAXIMUM_MEMORY=${GEOSERVER_MAXIMUM_MEMORY:-6G}"
       - "SAMPLE_DATA=${GEOSERVER_SAMPLE_DATA:-true}"
       - "STABLE_EXTENSIONS=${GEOSERVER_STABLE_EXTENSIONS:-}"
-      - "COMMUNITY_EXTENSIONS=${GEOSERVER_COMMUNITY_EXTENSIONS:-geostyler-plugin,ogcapi-plugin}"
+      - "COMMUNITY_EXTENSIONS=${GEOSERVER_COMMUNITY_EXTENSIONS:-ogcapi-features-plugin,cog-http-plugin}"
       - "TOMCAT_EXTRAS=false"
       - "ROOT_WEBAPP_REDIRECT=true"
       - "RECREATE_DATADIR=false"
@@ -67,7 +67,6 @@ services:
 
   jupyterlabgeoenv:
     container_name: jupyterlabgeoenv-container
-    # build: ./jupyterlabgeoenv/
     image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.8}
     volumes:
       - jupyterlabgeoenv_data:/home
@@ -97,14 +96,12 @@ services:
 
   content:
     container_name: content-container
-    # build: ./content/
     image: ghcr.io/folinimarc/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.5}
     volumes:
       - content_data:/shared_content
 
   hub:
     container_name: hub-container
-    # build: ./hub/
     image: ghcr.io/folinimarc/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.4}
     ports:
       - 127.0.0.1:${HUB_PORT_EXTERNAL:-8000}:5000
@@ -136,4 +133,4 @@ services:
       - "CARD_4_CONNECTIONINFO=Username,${GEOSERVER_ADMIN_USER:-gis};Password,${GEOSERVER_ADMIN_PASSWORD:-gis};Host,geoserver-container;Port,8080;HostExternal, localhost;PortExternal,${GEOSERVER_PORT_EXTERNAL:-8003}"
       - "CARD_5_TITLE=Openlayers"
       - "CARD_5_DESCRIPTION=Openlayers is a javascript library for interactive maps in the browser, similar to alternatives like Leaflet. It can be used to consume OGC web services such as WMS. We refer to codesandbox.io, an awesome online code editor that takes care of the nitty gritty details of modern web development."
-      - "CARD_5_HREF=Open,https://codesandbox.io/s/sharp-thunder-1xbl0?file=/map.js"
+      - "CARD_5_HREF=Open,https://codesandbox.io/p/sandbox/sharp-thunder-1xbl0?file=%2Fmap.js"

@@ -1,5 +1,5 @@
-ARG GDAL_VERSION=3.8.1
-ARG POSTGRESQL_CLIENT_VERSION=16.1
+ARG GDAL_VERSION=3.9.3
+ARG POSTGRESQL_CLIENT_VERSION=17
 
 FROM ghcr.io/osgeo/gdal:ubuntu-small-${GDAL_VERSION}
 
@@ -7,7 +7,7 @@ LABEL description="Python/JupyterLab instance with various Python geoprocessing 
     (GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
 
 # #-----------------
-# # Postgresql 14 client (psql command line)
+# # Postgresql client (psql command line)
 # #-----------------
 # # Kudos to https://techviewleo.com/how-to-install-postgresql-database-on-ubuntu/
 RUN apt update && \
@@ -17,6 +17,7 @@ RUN apt update && \
     lsb-release && \
     sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
 RUN apt update && \
     apt-get install -y --no-install-recommends \
     postgresql-client=${POSTGRESQL_CLIENT_VERSION}*
@@ -28,15 +29,20 @@ RUN apt update && \
 RUN mkdir /assets
 COPY ./copy_to_image/requirements-base.txt /assets/requirements-base.txt
 
-# Install python packages.
-# Add directive for shapely and pygeos to use existing
-# library (requires python3-dev and build-essentials).
+# Install dependencies and create a Python virtual environment
 RUN apt update && \
     apt-get install -y --no-install-recommends \
     build-essential \
     python3-dev \
     python3-pip \
-    libgeos-dev
+    python3-venv \
+    libgeos-dev && \
+    python3 -m venv /opt/venv
+
+# Update PATH to use the virtual environment by default
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install Python packages
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r /assets/requirements-base.txt
 
