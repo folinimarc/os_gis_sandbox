@@ -1,17 +1,19 @@
 # VECTOR (geopandas & dependencies)
 #-------------
-fiona # reads and writes everything (uses OGR)
-pyogrio # vectorized vector IO (uses OGR)
-shapely # does planar geometric processing (uses GEOS)
-pyproj # handles projections (uses PROJ)
-pyarrow # required by GeoPandas to read/write parquet files
-rtree # spatial indexing (plays well with GeoPandas)
-matplotlib # plotting (used by GeoPandas for GeoDataFrame.plot())
-mapclassify # plotting (used by GeoPandas for GeoDataFrame.explore())
-folium # plotting (used by GeoPandas for GeoDataFrame.explore())
-openpyxl # engine for (Geo)Pandas to read/write excel files
-xlsxwriter # engine for (Geo)Pandas to write excel files
-xlrd # engine for (Geo)Pandas to read excel files
+fiona           # reads and writes everything (uses OGR)
+pyogrio         # vectorized vector IO (uses OGR)
+shapely         # does planar geometric processing (uses GEOS)
+pyproj          # handles projections (uses PROJ)
+pyarrow         # required by GeoPandas to read/write parquet files
+rtree           # spatial indexing (plays well with GeoPandas)
+matplotlib      # plotting (used by GeoPandas for GeoDataFrame.plot())
+mapclassify     # plotting (used by GeoPandas for GeoDataFrame.explore())
+folium          # plotting (used by GeoPandas for GeoDataFrame.explore())
+openpyxl        # engine for (Geo)Pandas to read/write excel files
+xlsxwriter      # engine for (Geo)Pandas to write excel files
+xlrd            # engine for (Geo)Pandas to read excel files
+geoalchemy2     # engine for (Geo)Pandas to read/write SQL databases
+psycopg2-binary # engine for (Geo)Pandas to read/write PostgreSQL databases
 numpy
 pandas
 geopandas
@@ -31,5 +33,7 @@ OWSLib
 
 # MISC
 #-------------
-jupyterlab # allows to write rich scripts (notebooks) and run code interactively in the browser
-ipyleaflet # interactive maps in jupyterlab
+jupyterlab              # allows to write rich scripts (notebooks) and run code interactively in the browser
+jupyter-lsp             # language server protocol for jupyterlab
+python-lsp-server[all]  # language server protocol for jupyterlab
+ipyleaflet              # interactive maps in jupyterlab
