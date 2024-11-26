@@ -39,7 +39,10 @@ docker --version
 
 You only need the single file `docker-compose.yml` to run the sandbox. You can
 either clone the repository or [right-click this link and choose save-as](https://raw.githubusercontent.com/folinimarc/os_gis_sandbox/main/docker-compose.yml). 
-Just make sure it is still called `docker-compose.yml` (with .yml extension).
+Make sure that:
+- The file is called `docker-compose.yml` (with .yml extension).
+- You save the file into a folder where you have read/write permissions.
+- You save the file into a folder that is on your machine. Continously snyced folders, such as OneDrive, should be avoided.
 
 Open a terminal and navigate into the **same folder** where you placed the
 `docker-compose.yml`. In the terminal run:
