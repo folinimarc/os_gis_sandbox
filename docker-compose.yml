@@ -67,7 +67,7 @@ services:
 
   jupyterlabgeoenv:
     container_name: jupyterlabgeoenv-container
-    image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.9}
+    image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.10}
     volumes:
       - jupyterlabgeoenv_data:/sandbox
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
