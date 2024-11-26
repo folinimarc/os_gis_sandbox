@@ -173,6 +173,13 @@ information can be found in the
 
 # Trouble Shooting
 
+## I get "Error response from daemon: Conflict. The container name ... is already in use..."
+This might happen when a new version of some sandbox components should be used, but the old containers are still there. Either remove all sandbox containers by using the Docker Desktop UI or move to the directory where your `docker-compose.yml`is located and run the following command to remove sandbox containers:
+```
+docker compose -p sandbox down
+```
+Afterwards, start the sandbox as usual.
+
 ## I am on Linux and I do not have the permission to run Docker...
 As a non-root user you either have to use `sudo` for the start and stop commands, if you have a sudo password. Alternatively, you can create a docker group and add your user to it, but this step also requires at least temporary root privileges. Check out the official [documentation on that topic](https://docs.docker.com/engine/install/linux-postinstall/).
 
