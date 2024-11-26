@@ -69,13 +69,13 @@ services:
     container_name: jupyterlabgeoenv-container
     image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${JUPYTERLABGEOENV_VERSION:-jupyterlabgeoenv-v1.0.9}
     volumes:
-      - jupyterlabgeoenv_data:/home
+      - jupyterlabgeoenv_data:/sandbox
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
       - jupyterlabgeoenv_settings_user:/root/.jupyter/lab/user-settings
       - jupyterlabgeoenv_settings_workspace:/root/.jupyter/lab/workspaces
       - jupyterlabgeoenv_pip_overwrite_download:/pip_overwrite_requirements_download
-      - content_data:/home/${CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}
-      - ${HOST_SYSTEM_MOUNT_PATH:-./}:/home/${HOST_MOUNT_FOLDER_NAME:-your_computer}
+      - content_data:/sandbox/${CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}
+      - ${HOST_SYSTEM_MOUNT_PATH:-./}:/sandbox/${HOST_MOUNT_FOLDER_NAME:-your_computer}
     ports:
       - 127.0.0.1:${JUPYTERLABGEOENV_PORT_EXTERNAL:-8004}:8888
     environment:

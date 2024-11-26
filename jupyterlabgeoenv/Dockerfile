@@ -73,7 +73,8 @@ RUN chmod 0700 /assets/entrypoint.sh
 COPY ./copy_to_image/pip_download_install.sh /assets/pip_download_install.sh
 RUN chmod 0700 /assets/pip_download_install.sh
 
-WORKDIR /home
+RUN mkdir /sandbox
+WORKDIR /sandbox
 
 ENTRYPOINT ["/assets/entrypoint.sh"]
 CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]
