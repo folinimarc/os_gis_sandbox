@@ -37,8 +37,8 @@ services:
     image: kartoza/geoserver:${GEOSERVER_VERSION:-2.25.3}
     volumes:
       - geoserver_data:/opt/geoserver/data_dir
-      - content_data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-_content}
-      - ${HOST_SYSTEM_MOUNT_PATH:-./}:/opt/geoserver/data_dir/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
+      - content_data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}
+      - ${HOST_SYSTEM_MOUNT_PATH:-./}:/opt/geoserver/data_dir/${HOST_MOUNT_FOLDER_NAME:-your_computer}
     ports:
       - 127.0.0.1:${GEOSERVER_PORT_EXTERNAL:-8003}:8080
     environment:
@@ -74,8 +74,8 @@ services:
       - jupyterlabgeoenv_settings_user:/root/.jupyter/lab/user-settings
       - jupyterlabgeoenv_settings_workspace:/root/.jupyter/lab/workspaces
       - jupyterlabgeoenv_pip_overwrite_download:/pip_overwrite_requirements_download
-      - content_data:/home/${CONTENT_MOUNT_FOLDER_NAME:-_content}
-      - ${HOST_SYSTEM_MOUNT_PATH:-./}:/home/${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}
+      - content_data:/home/${CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}
+      - ${HOST_SYSTEM_MOUNT_PATH:-./}:/home/${HOST_MOUNT_FOLDER_NAME:-your_computer}
     ports:
       - 127.0.0.1:${JUPYTERLABGEOENV_PORT_EXTERNAL:-8004}:8888
     environment:
@@ -118,7 +118,7 @@ services:
       ]
     environment:
       - "CARD_1_TITLE=JupyterLab-GeoEnv"
-      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Data stories and more content is located in directory ${CONTENT_MOUNT_FOLDER_NAME:-_content}. Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir}. Start-up might take some seconds, be patient."
+      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Data stories and more content is located in directory ${CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}. Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-your_computer}. Start-up might take some seconds, be patient."
       - "CARD_1_HREF=Open,http://localhost:${JUPYTERLABGEOENV_PORT_EXTERNAL:-8004}"
       - "CARD_2_TITLE=pgAdmin"
       - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases."
@@ -128,7 +128,7 @@ services:
       - "CARD_3_DESCRIPTION=PostGIS is an extension for postgreSQL that turns it into a spatial database. To interact use pgAdmin or psql from the terminal of JupyterLab-GeoEnv. To connect from outside the sandbox use HostExternal and PortExternal."
       - "CARD_3_CONNECTIONINFO=Username,${POSTGRES_USER:-gis};Password,${POSTGRES_PASSWORD:-gis};Database name,${POSTGRES_DB:-gis};Host,postgis-container;Port,5432;HostExternal, localhost;PortExternal,${POSTGIS_PORT_EXTERNAL:-8001}"
       - "CARD_4_TITLE=Geoserver"
-      - "CARD_4_DESCRIPTION=Geoserver implements OGC web services like WMS and WFS, similar to alternatives like MapServer or QGISserver. A community extension is activated to provide functionalities of the new OGC API standard.  Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-_host_mount_dir} in GeoServer's data directory. To connect from outside the sandbox use HostExternal and PortExternal."
+      - "CARD_4_DESCRIPTION=Geoserver implements OGC web services like WMS and WFS, similar to alternatives like MapServer or QGISserver. A community extension is activated to provide functionalities of the new OGC API standard.  Access to host file system is possible through ${HOST_MOUNT_FOLDER_NAME:-your_computer} in GeoServer's data directory. To connect from outside the sandbox use HostExternal and PortExternal."
       - "CARD_4_HREF=Open,http://localhost:${GEOSERVER_PORT_EXTERNAL:-8003}/geoserver/web"
       - "CARD_4_CONNECTIONINFO=Username,${GEOSERVER_ADMIN_USER:-gis};Password,${GEOSERVER_ADMIN_PASSWORD:-gis};Host,geoserver-container;Port,8080;HostExternal, localhost;PortExternal,${GEOSERVER_PORT_EXTERNAL:-8003}"
       - "CARD_5_TITLE=Openlayers"

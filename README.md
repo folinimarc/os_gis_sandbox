@@ -156,8 +156,8 @@ information can be found in the
 | Variable                       | Default                        | Notes                                                                                                                                  |
 | ------------------------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
 | HOST_SYSTEM_MOUNT_PATH         | ./                             |                                                                                                                                        |
-| HOST_MOUNT_FOLDER_NAME         | \_host_mount_dir               |                                                                                                                                        |
-| CONTENT_MOUNT_FOLDER_NAME      | \_content                      |                                                                                                                                        |
+| HOST_MOUNT_FOLDER_NAME         | \your_computer               |                                                                                                                                        |
+| CONTENT_MOUNT_FOLDER_NAME      | \sandbox_content                      |                                                                                                                                        |
 | CONTENT_VERSION_TAG            | content-v1.0.6                 |                                                                                                                                        |
 | JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.9        |                                                                                                                                        |
 | JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                        |
