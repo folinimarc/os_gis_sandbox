@@ -24,7 +24,7 @@ services:
     volumes:
       - postgis_data:/var/lib/postgresql/data
     ports:
-      - 127.0.0.1:${POSTGIS_PORT_EXTERNAL:-8001}:5432
+      - ${POSTGIS_PORT_EXTERNAL:-8001}:5432
     environment:
       - "PGUSER=${POSTGRES_USER:-gis}"
       - "POSTGRES_USER=${POSTGRES_USER:-gis}"
@@ -40,7 +40,7 @@ services:
       - content_data:/opt/geoserver/data_dir/${CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}
       - ${HOST_SYSTEM_MOUNT_PATH:-./}:/opt/geoserver/data_dir/${HOST_MOUNT_FOLDER_NAME:-your_computer}
     ports:
-      - 127.0.0.1:${GEOSERVER_PORT_EXTERNAL:-8003}:8080
+      - ${GEOSERVER_PORT_EXTERNAL:-8003}:8080
     environment:
       - "GEOSERVER_DATA_DIR=/opt/geoserver/data_dir"
       - "GEOWEBCACHE_CACHE_DIR=/opt/geoserver/data_dir/gwc"
@@ -60,7 +60,7 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:
-      - 127.0.0.1:${PGADMIN_PORT_EXTERNAL:-8002}:80
+      - ${PGADMIN_PORT_EXTERNAL:-8002}:80
     environment:
       - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-gis@gis.com}"
       - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-gis}"
@@ -77,7 +77,7 @@ services:
       - content_data:/sandbox/${CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}
       - ${HOST_SYSTEM_MOUNT_PATH:-./}:/sandbox/${HOST_MOUNT_FOLDER_NAME:-your_computer}
     ports:
-      - 127.0.0.1:${JUPYTERLABGEOENV_PORT_EXTERNAL:-8004}:8888
+      - ${JUPYTERLABGEOENV_PORT_EXTERNAL:-8004}:8888
     environment:
       - "HOME_DIR_PERSISTED=true"
     command:
@@ -104,7 +104,7 @@ services:
     container_name: hub-container
     image: ghcr.io/folinimarc/os_gis_sandbox/hub:${HUB_VERSION:-hub-v1.0.4}
     ports:
-      - 127.0.0.1:${HUB_PORT_EXTERNAL:-8000}:5000
+      - ${HUB_PORT_EXTERNAL:-8000}:5000
     command:
       [
         "gunicorn",
