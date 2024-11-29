@@ -57,14 +57,14 @@ A wall of text will appear in the terminal. Don't worry, these are just the logs
 
 > _Good to know_:
 >
-> - If you receive an error at this stage, it is probably well-known and related
->   to permissions to create a mount on your computer's file system. 
->   Check the [Trouble Shooting section](#trouble-shooting) or search the internet 
->   with the error message and your operating system.
 > - The first time it will take some minutes because a lot of data is being
 >   downloaded, make sure you are connected to a fast and reliable internet
 >   connection. This is a one-time thing and subsequent startups will only take
 >   seconds.
+> - If you receive an error at this stage, it is probably well-known and related
+>   to permissions to create a mount on your computer's file system. 
+>   Check the [Trouble Shooting section](#trouble-shooting) or search the internet 
+>   with the error message and your operating system.
 > - The -p flag used in the commands above specifies the Docker Compose project
 >   name, which is used as a prefix for many Docker Compose components such as
 >   networks and volumes. By choosing different project names, it is possible for
