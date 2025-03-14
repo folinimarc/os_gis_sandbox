@@ -139,39 +139,11 @@ variables with their defaults. In order to overwrite these variables, create an
 environment file named simply `.env` in the same directory as the
 `docker-compose.yml`. The environment file should contain one line per variable
 you wish to overwrite in the form of VARIABLE=VALUE, for example:
-POSTGIS_PORT_EXTERNAL=5433
+OSGS_POSTGIS_PORT=5433
 
 This is the default way docker compose handles environment variables and more
 information can be found in the
 [documentation](https://docs.docker.com/compose/environment-variables/).
-
-| Variable                       | Default                        | Notes                                                                                                                                  |
-| ------------------------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| HOST_SYSTEM_MOUNT_PATH         | ./                             |                                                                                                                                        |
-| HOST_MOUNT_FOLDER_NAME         | \your_computer               |                                                                                                                                        |
-| CONTENT_MOUNT_FOLDER_NAME      | \sandbox_content                      |                                                                                                                                        |
-| CONTENT_VERSION_TAG            | content-v1.0.6                 |                                                                                                                                        |
-| JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.10        |                                                                                                                                        |
-| JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                        |
-| GEOSERVER_VERSION              | 2.25.3                         |                                                                                                                                        |
-| GEOSERVER_PORT_EXTERNAL        | 8003                           |                                                                                                                                        |
-| GEOSERVER_ADMIN_PASSWORD       | gis                            |                                                                                                                                        |
-| GEOSERVER_ADMIN_USER           | gis                            |                                                                                                                                        |
-| GEOSERVER_MAXIMUM_MEMORY       | 6G                             |                                                                                                                                        |
-| GEOSERVER_SAMPLE_DATA          | true                           |                                                                                                                                        |
-| GEOSERVER_STABLE_EXTENSIONS    |                                | [Stable extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/stable_plugins.txt), Note: [These extensions are always active](https://github.com/kartoza/docker-geoserver/blob/develop/build_data/required_plugins.txt)       |
-| GEOSERVER_COMMUNITY_EXTENSIONS | ogcapi-features-plugin,cog-http-plugin | [Community extensions that can be activated](https://github.com/kartoza/docker-geoserver/blob/master/build_data/community_plugins.txt) |
-| HUB_VERSION                    | hub-v1.0.4                     |                                                                                                                                        |
-| HUB_PORT_EXTERNAL              | 8000                             |                                                                                                                                        |
-| PGADMIN_VERSION_TAG            | 8.13                            |                                                                                                                                        |
-| PGADMIN_PORT_EXTERNAL          | 8002                           |                                                                                                                                        |
-| PGADMIN_DEFAULT_EMAIL          | gis@gis.com                    |                                                                                                                                        |
-| PGADMIN_DEFAULT_PASSWORD       | gis                            |                                                                                                                                        |
-| POSTGIS_VERSION_TAG            | 17-3.5-alpine                  |                                                                                                                                        |
-| POSTGIS_PORT_EXTERNAL          | 8001                           |                                                                                                                                        |
-| POSTGRES_USER                  | gis                            |                                                                                                                                        |
-| POSTGRES_DB                    | gis                            |                                                                                                                                        |
-| POSTGRES_PASSWORD              | gis                            |                                                                                                                                        |
 
 
 # Trouble Shooting

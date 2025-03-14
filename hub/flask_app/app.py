@@ -27,7 +27,7 @@ def home():
     for k, v in os.environ.items():
         matched = REG.search(k)
         if matched is not None:
-            # Extract card number and part (TITLE, DESCRIPTION, HREF; CONNECTIONINFO)
+            # Extract card number and part (TITLE, DESCRIPTION, HREF, CONNECTIONINFO)
             card_nr = matched[1]
             if card_nr not in cards:
                 cards[card_nr] = {}

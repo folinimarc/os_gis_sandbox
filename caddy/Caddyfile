@@ -1,0 +1,49 @@
+{
+    auto_https off
+}
+
+{$OSGS_HOSTNAME}:80 {
+
+    route {
+        handle /pgadmin/* {
+            basic_auth {
+                admin $2a$14$G/OnaaM6zvHJX6KP8qjKgu.Ube2qLNM9cMOaqr1x5LvNYRx6UbwSC
+            }
+            reverse_proxy pgadmin:80 {
+                header_up X-Script-Name /pgadmin
+                header_up Host {host}
+                header_up X-Real-IP {remote_host}
+            }
+        }
+
+        handle /jupyterlab/* {
+            basic_auth {
+                admin $2a$14$G/OnaaM6zvHJX6KP8qjKgu.Ube2qLNM9cMOaqr1x5LvNYRx6UbwSC
+            }
+            reverse_proxy jupyterlab:8888 {
+                header_up X-Script-Name /jupyterlab
+                header_up Host {host}
+                header_up X-Real-IP {remote_host}
+            }
+        }
+
+        handle /geoserver/* {
+            reverse_proxy geoserver:8080 {
+                header_up X-Script-Name /geoserver
+                header_up Host {host}
+                header_up X-Real-IP {remote_host}
+                header_up X-Forwarded-For {remote_host}
+            }
+        }
+
+        handle {
+            basic_auth {
+                admin $2a$14$G/OnaaM6zvHJX6KP8qjKgu.Ube2qLNM9cMOaqr1x5LvNYRx6UbwSC
+            }
+            reverse_proxy hub:5000 {
+                header_up Host {host}
+                header_up X-Real-IP {remote_host}
+            }
+        }
+    }
+}
