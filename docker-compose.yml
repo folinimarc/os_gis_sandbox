@@ -141,7 +141,7 @@ services:
       ]
     environment:
       - "CARD_1_TITLE=JupyterLab-GeoEnv"
-      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Data stories and more content is located in directory ${OSGS_CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}. Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME}. Start-up might take some seconds, be patient."
+      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Data stories and more content is located in directory ${OSGS_CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}. Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME}."
       - "CARD_1_HREF=Open,/jupyterlab/"
       - "CARD_2_TITLE=pgAdmin"
       - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases."
@@ -152,7 +152,7 @@ services:
       - "CARD_4_TITLE=Geoserver"
       - "CARD_4_DESCRIPTION=Geoserver implements OGC web services like WMS and WFS, similar to alternatives like MapServer or QGISserver. A community extension is activated to provide functionalities of the new OGC API standard.  Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME:-your_computer} in GeoServer's data directory. To connect from outside the sandbox use HostExternal and PortExternal."
       - "CARD_4_HREF=Open,/geoserver/web/"
-      - "CARD_4_CONNECTIONINFO=Username,${GEOSERVER_ADMIN_USER:-gis};Password,${GEOSERVER_ADMIN_PASSWORD:-gis};Host,geoserver-container;Port,8080;HostExternal, localhost;PortExternal,${GEOSERVER_PORT_EXTERNAL:-8003}"
+      - "CARD_4_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Host,geoserver-container;Port,8080;HostExternal, localhost"
       - "CARD_5_TITLE=Openlayers"
       - "CARD_5_DESCRIPTION=Openlayers is a javascript library for interactive maps in the browser, similar Leaflet, Mapblibre or Mapbox GL JS. Why not try to expose your data as WMS in Geoserver and display it here? Use HostExternal and PortExternal, because this jsfiddle is hosted outside of the sandbox."
       - "CARD_5_HREF=Open,${OSGS_JSFIDDLE_URL}"
