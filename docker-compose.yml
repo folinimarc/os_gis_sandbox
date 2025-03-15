@@ -28,6 +28,10 @@ services:
       - ./caddy:/etc/caddy:ro
     environment:
       OSGS_HOSTNAME: ${OSGS_HOSTNAME}
+      OSGS_USERNAME: ${OSGS_USERNAME}
+    command: >
+      sh -c "export OSGS_ADHOC_HASHED_PASSWORD=$(caddy hash-password --plaintext ${OSGS_PASSWORD}) && 
+             caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
 
 
   postgis:
@@ -119,7 +123,7 @@ services:
 
   hub:
     container_name: hub
-    image: ghcr.io/folinimarc/os_gis_sandbox/hub:${HUB_VERSION}
+    image: ghcr.io/folinimarc/os_gis_sandbox/hub:${OSGS_HUB_VERSION}
     expose:
       - "5000"
     command:

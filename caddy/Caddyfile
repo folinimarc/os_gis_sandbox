@@ -7,7 +7,7 @@
     route {
         handle /pgadmin/* {
             basic_auth {
-                admin $2a$14$G/OnaaM6zvHJX6KP8qjKgu.Ube2qLNM9cMOaqr1x5LvNYRx6UbwSC
+                {$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
             }
             reverse_proxy pgadmin:80 {
                 header_up X-Script-Name /pgadmin
@@ -18,7 +18,7 @@
 
         handle /jupyterlab/* {
             basic_auth {
-                admin $2a$14$G/OnaaM6zvHJX6KP8qjKgu.Ube2qLNM9cMOaqr1x5LvNYRx6UbwSC
+                {$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
             }
             reverse_proxy jupyterlab:8888 {
                 header_up X-Script-Name /jupyterlab
@@ -38,7 +38,7 @@
 
         handle {
             basic_auth {
-                admin $2a$14$G/OnaaM6zvHJX6KP8qjKgu.Ube2qLNM9cMOaqr1x5LvNYRx6UbwSC
+                {$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
             }
             reverse_proxy hub:5000 {
                 header_up Host {host}
