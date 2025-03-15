@@ -42,9 +42,9 @@ services:
     ports:
       - ${OSGS_POSTGIS_PORT}:5432
     environment:
+      - "POSTGRES_DB=${OSGS_DB_NAME}"
       - "PGUSER=${OSGS_USERNAME}"
       - "POSTGRES_USER=${OSGS_USERNAME}"
-      - "OSGS_DB_NAME=${OSGS_DB_NAME}"
       - "POSTGRES_PASSWORD=${OSGS_PASSWORD}"
     shm_size: 256MB
 
