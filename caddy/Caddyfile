@@ -1,49 +1,48 @@
 {
-    auto_https off
+	admin off
+	debug
 }
 
-{$OSGS_HOSTNAME}:80 {
+http://127.0.0.1 {$OSGS_HOSTNAME} {
+	route {
+		handle /pgadmin/* {
+			basic_auth {
+				{$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
+			}
+			reverse_proxy pgadmin:80 {
+				header_up X-Script-Name /pgadmin
+				header_up Host {host}
+				header_up X-Real-IP {remote_host}
+			}
+		}
 
-    route {
-        handle /pgadmin/* {
-            basic_auth {
-                {$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
-            }
-            reverse_proxy pgadmin:80 {
-                header_up X-Script-Name /pgadmin
-                header_up Host {host}
-                header_up X-Real-IP {remote_host}
-            }
-        }
+		handle /jupyterlab/* {
+			basic_auth {
+				{$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
+			}
+			reverse_proxy jupyterlab:8888 {
+				header_up X-Script-Name /jupyterlab
+				header_up Host {host}
+				header_up X-Real-IP {remote_host}
+			}
+		}
 
-        handle /jupyterlab/* {
-            basic_auth {
-                {$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
-            }
-            reverse_proxy jupyterlab:8888 {
-                header_up X-Script-Name /jupyterlab
-                header_up Host {host}
-                header_up X-Real-IP {remote_host}
-            }
-        }
+		handle /geoserver/* {
+			reverse_proxy geoserver:8080 {
+				header_up X-Script-Name /geoserver
+				header_up Host {host}
+				header_up X-Real-IP {remote_host}
+			}
+		}
 
-        handle /geoserver/* {
-            reverse_proxy geoserver:8080 {
-                header_up X-Script-Name /geoserver
-                header_up Host {host}
-                header_up X-Real-IP {remote_host}
-                header_up X-Forwarded-For {remote_host}
-            }
-        }
-
-        handle {
-            basic_auth {
-                {$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
-            }
-            reverse_proxy hub:5000 {
-                header_up Host {host}
-                header_up X-Real-IP {remote_host}
-            }
-        }
-    }
+		handle {
+			basic_auth {
+				{$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
+			}
+			reverse_proxy hub:5000 {
+				header_up Host {host}
+				header_up X-Real-IP {remote_host}
+			}
+		}
+	}
 }
