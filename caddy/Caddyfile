@@ -1,6 +1,5 @@
 {
 	admin off
-	debug
 }
 
 http://127.0.0.1 {$OSGS_HOSTNAME} {
