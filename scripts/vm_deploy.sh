@@ -1,8 +1,11 @@
 #!/bin/bash
 
 # This script sets up a server with a configured firewall, installs Docker,
-# clones a specific Git repository, updates a .env file with user-provided inputs,
-# and starts a Docker-based application.
+# updates a .env file with user-provided inputs, and starts a Docker-based application.
+# Make sure you have the git repository cloned, e.g. 
+
+# git clone -b test/reverse_proxy https://github.com/folinimarc/os_gis_sandbox.git
+# cd os_gis_sandbox
 
 # Exit when any command fails, unset variables are referenced, and capture errors in pipelines
 set -euo pipefail
@@ -55,10 +58,6 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-# Clone Sandbox Repository
-git clone -b test/reverse_proxy https://github.com/folinimarc/os_gis_sandbox.git
-cd os_gis_sandbox
 
 # Create .env file and replace crucial parameters
 cp .env.template .env
