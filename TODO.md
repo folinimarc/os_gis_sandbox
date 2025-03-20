@@ -1,0 +1,10 @@
+- [ ] Better way to configure resource limits.
+- [ ] Distinguish between local and deployed mode. Top priority is to keep local mode as simple as possible!
+- [ ] Create deploy procedures (e.g. digitalocean supereasy) and default?
+- [ ] Mount host directory to pgadmin.
+- [ ] Persist pgadmin settings
+- [ ] Persist jupyterlab settings
+- [ ] Simplify jupyterlab package installation
+- [ ] Fix container name conflicts when using different project names
+- [ ] Geoserver HTTPS setting for login form
+- [ ] Change default configuration for pgadmin, e.g. no upload limit size
