@@ -14,6 +14,10 @@ services:
       sh -c "export OSGS_ADHOC_HASHED_PASSWORD=$(caddy hash-password --plaintext ${OSGS_PASSWORD}) && 
              caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
 
+  postgis:
+    ports:
+      - "${OSGS_POSTGIS_PORT}:5432"
+
   geoserver:
     ports: !reset []
     expose:
