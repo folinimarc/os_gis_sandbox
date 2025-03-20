@@ -7,9 +7,6 @@ volumes:
   pgadmin_data:
   # Persists home directory with all notebook and user created content.
   jupyterlabgeoenv_data:
-  # Persists packages downloaded for requirements-override.txt to restore from
-  # in case of no internet connection.
-  jupyterlabgeoenv_pip_overwrite_download:
   # Persists JupyterLab application, user and workspaces settings.
   jupyterlabgeoenv_settings_application:
   jupyterlabgeoenv_settings_user:
@@ -32,7 +29,6 @@ services:
     command: >
       sh -c "export OSGS_ADHOC_HASHED_PASSWORD=$(caddy hash-password --plaintext ${OSGS_PASSWORD}) && 
              caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
-
 
   postgis:
     container_name: postgis
@@ -93,13 +89,10 @@ services:
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
       - jupyterlabgeoenv_settings_user:/root/.jupyter/lab/user-settings
       - jupyterlabgeoenv_settings_workspace:/root/.jupyter/lab/workspaces
-      - jupyterlabgeoenv_pip_overwrite_download:/pip_overwrite_requirements_download
       - content_data:/sandbox/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
       - ${OSGS_HOST_MOUNT_PATH}:/sandbox/${OSGS_HOST_MOUNT_FOLDER_NAME}
     expose:
       - "8888"
-    environment:
-      - "HOME_DIR_PERSISTED=true"
     command:
       [
         "jupyter",

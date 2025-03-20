@@ -6,6 +6,10 @@ FROM ghcr.io/osgeo/gdal:ubuntu-small-${GDAL_VERSION}
 LABEL description="Python/JupyterLab instance with various Python geoprocessing components \
     (GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
 
+# Create sandbox directory and copy readme in there
+RUN mkdir /sandbox
+COPY ./copy_to_image/_README.md /sandbox/README.md
+
 # #-----------------
 # # Postgresql client (psql command line)
 # #-----------------
@@ -26,8 +30,8 @@ RUN apt update && \
 # Python & PIP & Packages
 #-----------------
 # Copy requirements
-RUN mkdir /assets
-COPY ./copy_to_image/requirements-base.txt /assets/requirements-base.txt
+COPY ./copy_to_image/requirements-preinstalled.txt /sandbox/requirements-preinstalled.txt
+
 
 # Install dependencies and create a Python virtual environment
 RUN apt update && \
@@ -44,7 +48,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Install Python packages
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r /assets/requirements-base.txt
+    pip install --no-cache-dir -r /assets/requirements-preinstalled.txt
 
 #-----------------
 # Final clean up
@@ -62,19 +66,6 @@ RUN apt purge -y \
 # Make sure jupyter lab terminal uses bash
 ENV SHELL=/bin/bash
 
-# Copy readme about file persistence which will be copied to home directory in entrypoint.sh
-# if HOME_DIR_PERSISTED is true. Defaults to false for the docker standalone usecase without volume.
-ENV HOME_DIR_PERSISTED=false
-COPY ./copy_to_image/_README.md /assets/_README.md
-
-# Copy pip installation and entrypoint scripts and make both executable.
-COPY ./copy_to_image/entrypoint.sh /assets/entrypoint.sh
-RUN chmod 0700 /assets/entrypoint.sh
-COPY ./copy_to_image/pip_download_install.sh /assets/pip_download_install.sh
-RUN chmod 0700 /assets/pip_download_install.sh
-
-RUN mkdir /sandbox
 WORKDIR /sandbox
 
-ENTRYPOINT ["/assets/entrypoint.sh"]
 CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]
