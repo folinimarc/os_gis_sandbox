@@ -1,6 +1,6 @@
 services:
   caddy:
-    container_name: caddy
+    container_name: ${OSGS_NAMESPACE}-caddy
     image: caddy:${OSGS_CADDY_VERSION}
     ports:
       - "80:80"
