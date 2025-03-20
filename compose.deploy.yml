@@ -37,6 +37,6 @@ services:
     environment:
       - "CARD_1_HREF=Open,/jupyterlab/"
       - "CARD_2_HREF=Open,/pgadmin/"
-      - "CARD_3_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Database name,${OSGS_DB_NAME};Host,postgis-container;Port,5432;HostExternal, localhost;PortExternal,${OSGS_POSTGIS_PORT}"
+      - "CARD_3_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Database name,${OSGS_DB_NAME};Host,${OSGS_HOSTNAME};Port,5432;"
       - "CARD_4_HREF=Open,/geoserver/web/"
-      - "CARD_4_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Host,geoserver-container;Port,8080;HostExternal, localhost"
+      - "CARD_4_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Host,${OSGS_HOSTNAME}/geoserver/;"

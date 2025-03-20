@@ -60,10 +60,9 @@ git clone -b test/reverse_proxy https://github.com/folinimarc/os_gis_sandbox.git
 cd os_gis_sandbox
 
 # Create .env file and replace crucial parameters
-cp .env.template .env
-sed -i "s/OSGS_HOSTNAME=localhost/OSGS_HOSTNAME=${HOSTNAME}/" .env
-sed -i "s/OSGS_USERNAME=os_gis_sandbox/OSGS_USERNAME=${USERNAME}/" .env
-sed -i "s/OSGS_PASSWORD=you_should_change_this/OSGS_PASSWORD=${PASSWORD}/" .env
+sed -i "s/OSGS_HOSTNAME=localhost/OSGS_HOSTNAME=${HOSTNAME}/" sandbox.deploy.conf
+sed -i "s/OSGS_USERNAME=os_gis_sandbox/OSGS_USERNAME=${USERNAME}/" sandbox.conf
+sed -i "s/OSGS_PASSWORD=you_should_change_this/OSGS_PASSWORD=${PASSWORD}/" sandbox.conf
 
 # Start Sandbox
-docker compose -p sandbox up -d
+docker compose -f compose.yml -f compose.deploy.yml --env-file sandbox.conf --env-file sandbox.deploy.conf up -d
