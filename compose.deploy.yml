@@ -15,7 +15,7 @@ services:
              caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
 
   postgis:
-    ports:
+    ports: !override
       - "${OSGS_POSTGIS_PORT}:5432"
 
   geoserver:
