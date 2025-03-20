@@ -1,3 +1,6 @@
+name:
+  ${OSGS_NAMESPACE}
+
 volumes:
   # Persists all geoserver related data and configuration.
   geoserver_data:
@@ -15,28 +18,14 @@ volumes:
   content_data:
 
 services:
-  caddy:
-    container_name: caddy
-    image: caddy:${OSGS_CADDY_VERSION}
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./caddy:/etc/caddy:ro
-    environment:
-      OSGS_HOSTNAME: ${OSGS_HOSTNAME}
-      OSGS_USERNAME: ${OSGS_USERNAME}
-    command: >
-      sh -c "export OSGS_ADHOC_HASHED_PASSWORD=$(caddy hash-password --plaintext ${OSGS_PASSWORD}) && 
-             caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
 
   postgis:
-    container_name: postgis
+    container_name: ${OSGS_NAMESPACE}-postgis
     image: postgis/postgis:${OSGS_POSTGIS_VERSION}
     volumes:
       - postgis_data:/var/lib/postgresql/data
     ports:
-      - ${OSGS_POSTGIS_PORT}:5432
+      - "127.0.0.1:${OSGS_POSTGIS_PORT}:5432"
     environment:
       - "POSTGRES_DB=${OSGS_DB_NAME}"
       - "PGUSER=${OSGS_USERNAME}"
@@ -45,14 +34,14 @@ services:
     shm_size: 256MB
 
   geoserver:
-    container_name: geoserver
+    container_name: ${OSGS_NAMESPACE}-geoserver
     image: kartoza/geoserver:${OSGS_GEOSERVER_VERSION}
     volumes:
       - geoserver_data:/opt/geoserver/data_dir
       - content_data:/opt/geoserver/data_dir/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
       - ${OSGS_HOST_MOUNT_PATH}:/opt/geoserver/data_dir/${OSGS_HOST_MOUNT_FOLDER_NAME}
-    expose:
-      - "8080"
+    ports:
+      - "127.0.0.1:${OSGS_LOCALHOST_GEOSERVER_PORT}:8080"
     environment:
       - "GEOSERVER_DATA_DIR=/opt/geoserver/data_dir"
       - "GEOWEBCACHE_CACHE_DIR=/opt/geoserver/data_dir/gwc"
@@ -68,13 +57,12 @@ services:
       - "RECREATE_DATADIR=false"
 
   pgadmin:
-    container_name: pgadmin
+    container_name: ${OSGS_NAMESPACE}-pgadmin
     image: "dpage/pgadmin4:${OSGS_PGADMIN_VERSION}"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-    expose:
-      - "80"
-      - "443"
+    ports:
+      - "127.0.0.1:${OSGS_LOCALHOST_PGADMIN_PORT}:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: not_used_due_to_basic_auth_in_caddy@pgadmin.com
       PGADMIN_DEFAULT_PASSWORD: but_still_required_by_pgadmin
@@ -82,7 +70,7 @@ services:
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
 
   jupyterlab:
-    container_name: jupyterlab
+    container_name: ${OSGS_NAMESPACE}-jupyterlab
     image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${OSGS_JUPYTERLABGEOENV_VERSION}
     volumes:
       - jupyterlabgeoenv_data:/sandbox
@@ -91,8 +79,8 @@ services:
       - jupyterlabgeoenv_settings_workspace:/root/.jupyter/lab/workspaces
       - content_data:/sandbox/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
       - ${OSGS_HOST_MOUNT_PATH}:/sandbox/${OSGS_HOST_MOUNT_FOLDER_NAME}
-    expose:
-      - "8888"
+    ports:
+      - "127.0.0.1:${OSGS_LOCALHOST_JUPYTERLAB_PORT}:8888"
     command:
       [
         "jupyter",
@@ -109,16 +97,16 @@ services:
       ]
 
   content:
-    container_name: content-container
+    container_name: ${OSGS_NAMESPACE}-content
     image: ghcr.io/folinimarc/os_gis_sandbox/content:${OSGS_CONTENT_VERSION}
     volumes:
       - content_data:/shared_content
 
   hub:
-    container_name: hub
+    container_name: ${OSGS_NAMESPACE}-hub
     image: ghcr.io/folinimarc/os_gis_sandbox/hub:${OSGS_HUB_VERSION}
-    expose:
-      - "5000"
+    ports:
+      - "127.0.0.1:${OSGS_LOCALHOST_HUB_PORT}:5000"
     command:
       [
         "gunicorn",
@@ -134,18 +122,18 @@ services:
       ]
     environment:
       - "CARD_1_TITLE=JupyterLab-GeoEnv"
-      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Data stories and more content is located in directory ${OSGS_CONTENT_MOUNT_FOLDER_NAME:-sandbox_content}. Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME}."
-      - "CARD_1_HREF=Open,/jupyterlab/"
+      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Data stories and more content is located in directory ${OSGS_CONTENT_MOUNT_FOLDER_NAME}. Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME}."
+      - "CARD_1_HREF=Open,http://localhost:${OSGS_LOCALHOST_JUPYTERLAB_PORT}/jupyterlab"
       - "CARD_2_TITLE=pgAdmin"
       - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases."
-      - "CARD_2_HREF=Open,/pgadmin/"
+      - "CARD_2_HREF=Open,http://localhost:${OSGS_LOCALHOST_PGADMIN_PORT}/browser"
       - "CARD_3_TITLE=PostGIS"
       - "CARD_3_DESCRIPTION=PostGIS is an extension for postgreSQL that turns it into a spatial database. To interact use pgAdmin or psql from the terminal of JupyterLab-GeoEnv. To connect from outside the sandbox use HostExternal and PortExternal."
-      - "CARD_3_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Database name,${OSGS_DB_NAME};Host,postgis-container;Port,5432;HostExternal, localhost;PortExternal,${OSGS_POSTGIS_PORT}"
+      - "CARD_3_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Database name,${OSGS_DB_NAME};Host,${OSGS_NAMESPACE}-postgis;Port,5432;HostExternal, localhost;PortExternal,${OSGS_POSTGIS_PORT}"
       - "CARD_4_TITLE=Geoserver"
-      - "CARD_4_DESCRIPTION=Geoserver implements OGC web services like WMS and WFS, similar to alternatives like MapServer or QGISserver. A community extension is activated to provide functionalities of the new OGC API standard.  Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME:-your_computer} in GeoServer's data directory. To connect from outside the sandbox use HostExternal and PortExternal."
-      - "CARD_4_HREF=Open,/geoserver/web/"
-      - "CARD_4_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Host,geoserver-container;Port,8080;HostExternal, localhost"
+      - "CARD_4_DESCRIPTION=Geoserver implements OGC web services like WMS and WFS, similar to alternatives like MapServer or QGISserver. A community extension is activated to provide functionalities of the new OGC API standard.  Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME} in GeoServer's data directory. To connect from outside the sandbox use HostExternal and PortExternal."
+      - "CARD_4_HREF=Open,http://localhost:${OSGS_LOCALHOST_GEOSERVER_PORT}/geoserver/web/"
+      - "CARD_4_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Host,${OSGS_NAMESPACE}-geoserver;Port,8080;HostExternal,localhost;PortExternal,${OSGS_LOCALHOST_GEOSERVER_PORT}"
       - "CARD_5_TITLE=Openlayers"
       - "CARD_5_DESCRIPTION=Openlayers is a javascript library for interactive maps in the browser, similar Leaflet, Mapblibre or Mapbox GL JS. Why not try to expose your data as WMS in Geoserver and display it here? Use HostExternal and PortExternal, because this jsfiddle is hosted outside of the sandbox."
       - "CARD_5_HREF=Open,${OSGS_JSFIDDLE_URL}"
