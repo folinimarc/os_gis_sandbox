@@ -8,3 +8,4 @@
 - [x] Fix container name conflicts when using different project names
 - [ ] Geoserver HTTPS setting for login form
 - [ ] Change default configuration for pgadmin, e.g. no upload limit size
+- [ ] Geoserver Bad Request settings when trying to add Data Store
