@@ -11,4 +11,5 @@
 - [ ] Geoserver Bad Request settings when trying to add Data Store ( https://gis.stackexchange.com/questions/385106/unable-to-add-layer-to-geoserver-origin-does-not-correspond-to-request )
 - [ ] In deploy mode, don't mount host file system. Instead mount shared volume.
 - [ ] In hub, provide startup/shutdown functionality.
-- [ ] Jupyter Lab Kernel Culling
+- [ ] Jupyter Lab configuration from file.
+- [ ] Jupyter Lab Kernel Culling.
