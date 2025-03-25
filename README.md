@@ -150,7 +150,7 @@ information can be found in the
 | HOST_SYSTEM_MOUNT_PATH         | ./                             |                                                                                                                                        |
 | HOST_MOUNT_FOLDER_NAME         | \your_computer               |                                                                                                                                        |
 | CONTENT_MOUNT_FOLDER_NAME      | \sandbox_content                      |                                                                                                                                        |
-| CONTENT_VERSION_TAG            | content-v1.0.6                 |                                                                                                                                        |
+| CONTENT_VERSION_TAG            | content-v1.0.7                 |                                                                                                                                        |
 | JUPYTERLABGEOENV_VERSION       | jupyterlabgeoenv-v1.0.10        |                                                                                                                                        |
 | JUPYTERLABGEOENV_PORT_EXTERNAL | 8004                           |                                                                                                                                        |
 | GEOSERVER_VERSION              | 2.25.3                         |                                                                                                                                        |

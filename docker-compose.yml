@@ -96,7 +96,7 @@ services:
 
   content:
     container_name: content-container
-    image: ghcr.io/folinimarc/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.6}
+    image: ghcr.io/folinimarc/os_gis_sandbox/content:${CONTENT_VERSION_TAG:-content-v1.0.7}
     volumes:
       - content_data:/shared_content
 
