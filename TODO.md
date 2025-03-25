@@ -13,3 +13,4 @@
 - [ ] In hub, provide startup/shutdown functionality.
 - [ ] Jupyter Lab configuration from file.
 - [ ] Jupyter Lab Kernel Culling.
+- [ ] Docker security review
