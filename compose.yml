@@ -23,7 +23,7 @@ services:
     container_name: ${OSGS_NAMESPACE}-postgis
     image: postgis/postgis:${OSGS_POSTGIS_VERSION}
     volumes:
-      - postgis_data:/var/lib/postgresql/data
+      - postgis_data:/var/lib/postgresql # Note: Is /var/lib/postgresql/data for postgresql versions < 18
     ports:
       - "127.0.0.1:${OSGS_POSTGIS_PORT}:5432"
     environment:
