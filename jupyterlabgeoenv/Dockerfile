@@ -48,7 +48,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Install Python packages
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r /assets/requirements-preinstalled.txt
+    pip install --no-cache-dir -r /sandbox/requirements-preinstalled.txt
 
 #-----------------
 # Final clean up
