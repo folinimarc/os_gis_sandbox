@@ -1,8 +1,8 @@
 # Start dev setup (building images locally):
-# docker compose -p sandbox_dev -f docker-compose.yml -f docker-compose-dev.yml up --build
+# docker compose -p sandbox_dev -f compose.yml -f compose.dev.yml --env-file sandbox.conf up --build
 
 services:
-  jupyterlabgeoenv:
+  jupyterlab:
     build: ./jupyterlabgeoenv/
     image: !reset null
    
