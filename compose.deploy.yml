@@ -33,6 +33,13 @@ services:
     ports: !reset []
     expose:
       - "8888"
+    # Temporarily disable mounting host path by overriding volumes list without host mount:
+    volumes:
+      - jupyterlabgeoenv_data:/sandbox
+      - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
+      - jupyterlabgeoenv_settings_user:/root/.jupyter/lab/user-settings
+      - jupyterlabgeoenv_settings_workspace:/root/.jupyter/lab/workspaces
+      - content_data:/sandbox/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
 
   hub:
     ports: !reset []
