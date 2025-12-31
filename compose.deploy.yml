@@ -22,6 +22,8 @@ services:
     ports: !reset []
     expose:
       - "8080"
+    environment:
+      - "PROXY_BASE_URL=https://${OSGS_HOSTNAME}/geoserver/"
 
   pgadmin:
     ports: !reset []
