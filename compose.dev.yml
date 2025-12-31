@@ -13,4 +13,13 @@ services:
   hub:
     build: ./hub/
     image: !reset null
+
+  geoserver:
+    platform: linux/amd64
+
+  pgadmin:
+    platform: linux/amd64
+
+  postgis:
+    platform: linux/amd64
     
