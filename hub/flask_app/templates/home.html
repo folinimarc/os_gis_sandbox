@@ -17,7 +17,12 @@
         box-shadow: none;
       }
 
-      .btn-outline-light:focus {
+      .btn-outline-light:hover {
+        color: #f8f9fa;
+        background-color: transparent;
+      }
+
+      .btn-outline-light.popover-active {
         color: #000;
         background-color: #f8f9fa;
         border-color: #f8f9fa;
@@ -31,7 +36,19 @@
         // Enable bootstrap popovers
         var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-          return new bootstrap.Popover(popoverTriggerEl, {"html": true})
+          var popover = new bootstrap.Popover(popoverTriggerEl, {"html": true});
+          
+          // Sync button appearance with popover visibility
+          popoverTriggerEl.addEventListener('shown.bs.popover', function () {
+            this.classList.add('popover-active');
+            this.blur(); // Remove focus so only our custom class controls appearance
+          });
+          popoverTriggerEl.addEventListener('hidden.bs.popover', function () {
+            this.classList.remove('popover-active');
+            this.blur();
+          });
+          
+          return popover;
         })
       });
     </script>
