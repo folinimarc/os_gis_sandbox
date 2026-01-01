@@ -14,4 +14,4 @@
 - [ ] Jupyter Lab configuration from file.
 - [ ] Jupyter Lab Kernel Culling.
 - [ ] Docker security review.
-- [ ] Run pgadmin in server mode.
+- [x] Run pgadmin in server mode.
