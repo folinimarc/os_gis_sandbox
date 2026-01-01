@@ -24,6 +24,10 @@ services:
       - "8080"
     environment:
       - "PROXY_BASE_URL=https://${OSGS_HOSTNAME}/geoserver/"
+    # Temporarily disable mounting host path by overriding volumes list without host mount
+    volumes:
+      - geoserver_data:/opt/geoserver/data_dir
+      - content_data:/opt/geoserver/data_dir/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
 
   pgadmin:
     ports: !reset []
@@ -35,7 +39,7 @@ services:
     ports: !reset []
     expose:
       - "8888"
-    # Temporarily disable mounting host path by overriding volumes list without host mount:
+    # Temporarily disable mounting host path by overriding volumes list without host mount
     volumes:
       - jupyterlabgeoenv_data:/sandbox
       - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
