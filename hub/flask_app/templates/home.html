@@ -75,7 +75,6 @@
               {% if card_parts['CONNECTIONINFO'] %}
               <a tabindex="0" class="btn btn-sm btn-outline-light" role="button"
                   data-bs-toggle="popover"
-                  data-bs-trigger="hover focus"
                   data-bs-content="<span>{% for kv_pair in card_parts['CONNECTIONINFO'] %}
                     <div><small>{{ kv_pair[0] }}: {{ kv_pair[1] }}</small></div>
                     {% endfor %}</span>">
