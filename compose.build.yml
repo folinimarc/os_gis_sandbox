@@ -1,5 +1,5 @@
 # Start dev setup (building images locally):
-# docker compose -p sandbox_dev -f compose.yml -f compose.dev.yml --env-file sandbox.conf up --build
+# docker compose -p sandbox_dev -f compose.yml -f compose.build.yml --env-file sandbox.conf up --build
 
 services:
   jupyterlab:

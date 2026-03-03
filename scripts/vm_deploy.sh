@@ -107,5 +107,5 @@ set_kv "sandbox.conf"        "OSGS_USERNAME" "$USERNAME"
 set_kv "sandbox.conf"        "OSGS_PASSWORD" "$PASSWORD"
 
 # Start Sandbox (idempotent by nature; re-running keeps it up-to-date)
-docker compose -f compose.yml -f compose.deploy.yml \
+docker compose -f compose.yml -f compose.deploy.yml -f compose.build.yml \
   --env-file sandbox.conf --env-file sandbox.deploy.conf up -d
