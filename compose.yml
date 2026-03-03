@@ -10,7 +10,7 @@ volumes:
   pgadmin_data:
   # Persists home directory with all notebook and user created content.
   jupyterlabgeoenv_data:
-  # Persists Filebrowser database/settings.
+  # Persists Filebrowser database and settings.
   filebrowser_data:
   # Shared read/write volume across selected services.
   sandbox_shared:
@@ -157,14 +157,44 @@ services:
   filebrowser:
     container_name: ${OSGS_NAMESPACE}-filebrowser
     image: filebrowser/filebrowser:${OSGS_FILEBROWSER_VERSION}
+    entrypoint:
+      - /bin/sh
+      - -ec
     volumes:
       - sandbox_shared:/srv/${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}
       - filebrowser_data:/database
     ports:
       - "127.0.0.1:${OSGS_LOCALHOST_FILEBROWSER_PORT}:80"
     environment:
-      - "FB_BASE_URL=/files"
-    command: ["--port", "80", "--address", "0.0.0.0", "--root", "/srv", "--database", "/database/filebrowser.db", "--noauth"]
+      - "FB_BASEURL=/files"
+      - "OSGS_USERNAME=${OSGS_USERNAME}"
+      - "OSGS_PASSWORD=${OSGS_PASSWORD}"
+    command:
+      - |
+          if [ ! -s "/database/filebrowser.db" ]; then
+            filebrowser config init \
+              --database /database/filebrowser.db \
+              --root /srv \
+              --baseURL /files \
+              --auth.method noauth \
+              --fileMode 0o666 \
+              --dirMode 0o777 \
+              --viewMode list
+          fi
+
+          if ! filebrowser users find "${OSGS_USERNAME}" --database /database/filebrowser.db >/dev/null 2>&1; then
+            filebrowser users add "${OSGS_USERNAME}" "${OSGS_PASSWORD}" \
+              --database /database/filebrowser.db \
+              --perm.admin
+          fi
+
+          exec /init.sh \
+            --port 80 \
+            --address 0.0.0.0 \
+            --root /srv \
+            --database /database/filebrowser.db \
+            --baseURL /files \
+            --noauth
     depends_on:
       shared_volume_permissions:
         condition: service_completed_successfully
@@ -207,4 +237,4 @@ services:
       - "CARD_5_HREF=Open,${OSGS_JSFIDDLE_URL}"
       - "CARD_6_TITLE=Data Hub"
       - "CARD_6_DESCRIPTION=File browser to upload and download files from and to the shared sandbox directory ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}. This directory is accessible from JupyterLab, pgAdmin, and GeoServer."
-      - "CARD_6_HREF=Open,http://localhost:${OSGS_LOCALHOST_FILEBROWSER_PORT}/files"
+      - "CARD_6_HREF=Open,http://localhost:${OSGS_LOCALHOST_FILEBROWSER_PORT}/files/"
