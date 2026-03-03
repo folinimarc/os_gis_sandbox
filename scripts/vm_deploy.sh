@@ -25,6 +25,7 @@ REPO_DIR="/opt/os_gis_sandbox"
 
 SWAPFILE="/swapfile"
 SWAPSIZE="6G"
+ENV_FILE=".env"
 
 # Helper: set KEY=VALUE in a file (replace if exists, append if missing)
 set_kv() {
@@ -100,12 +101,15 @@ fi
 
 cd "$REPO_DIR"
 
-# Update config files idempotently
-# (Works whether keys exist or not; avoids fragile regex on "not spaces")
-set_kv "sandbox.deploy.conf" "OSGS_HOSTNAME" "$HOSTNAME"
-set_kv "sandbox.conf"        "OSGS_USERNAME" "$USERNAME"
-set_kv "sandbox.conf"        "OSGS_PASSWORD" "$PASSWORD"
+# Build merged env file without modifying source config files
+cat sandbox.conf sandbox.deploy.conf > "$ENV_FILE"
+chmod 600 "$ENV_FILE"
+
+# Update runtime values in generated env file
+set_kv "$ENV_FILE" "OSGS_HOSTNAME" "$HOSTNAME"
+set_kv "$ENV_FILE" "OSGS_USERNAME" "$USERNAME"
+set_kv "$ENV_FILE" "OSGS_PASSWORD" "$PASSWORD"
 
 # Start Sandbox (idempotent by nature; re-running keeps it up-to-date)
 docker compose -f compose.yml -f compose.deploy.yml -f compose.build.yml \
-  --env-file sandbox.conf --env-file sandbox.deploy.conf up -d
+  --env-file "$ENV_FILE" up -d
