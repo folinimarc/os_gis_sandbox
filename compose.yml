@@ -177,7 +177,7 @@ services:
               --root /srv \
               --baseURL /files \
               --auth.method noauth \
-              --minimumPasswordLength 0 \
+              --minimumPasswordLength 1 \
               --fileMode 0o666 \
               --dirMode 0o777 \
               --viewMode list
