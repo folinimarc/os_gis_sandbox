@@ -83,6 +83,8 @@ are good to go.
 >
 > - All your data and configurations (e.g. pgAdmin database connections) will be
 >   preserved.
+> - The Data Hub (Filebrowser) lets you upload/download files in the shared
+>   volume that is also visible in JupyterLab, pgAdmin and GeoServer.
 > - All Sandbox data is persisted on isolated virtual volumes. If you want to reset configuration or data, open Docker
 >   Desktop and delete the respective volume in the volumes tab. You may need to first stop and remove the sandbox stack in the Containers tab. Upon running the
 >   next docker compose up command you have a nice clean reset.
@@ -133,13 +135,18 @@ or volumes, open Docker Desktop and use the Images and Volumes tab.
 # Sandbox configuration
 
 Various aspects of the sandbox can be configured, this includes ports,
-usernames, versions and what path on the host to make accessible to
-JupyterLab-GeoEnv and GeoServer data directory. The list below shows the
+usernames, versions and names of internal shared folders (for example the
+shared `sandbox_shared` directory visible in JupyterLab, pgAdmin and
+GeoServer, and the `provided_content` subfolder seeded with tutorials and data
+stories). The list below shows the
 variables with their defaults. In order to overwrite these variables, create an
 environment file named simply `.env` in the same directory as the
 `docker-compose.yml`. The environment file should contain one line per variable
 you wish to overwrite in the form of VARIABLE=VALUE, for example:
 OSGS_POSTGIS_PORT=5433
+
+The Sandbox hub also exposes a Data Hub card backed by Filebrowser. It provides
+simple upload/download access to the shared Sandbox volume.
 
 This is the default way docker compose handles environment variables and more
 information can be found in the
@@ -163,9 +170,32 @@ Windows requires admin privileges during the installation of Docker Desktop, whi
 
 ## I am on MacOS and Geoserver does not start...
 Check the logs in the terminal. If you see multiple lines starting with `chown: changing ownership`, this is related to a [known MacOS related filesystem permission pain](https://stackoverflow.com/questions/43097341/docker-on-macosx-does-not-translate-file-ownership-correctly-in-volumes). Unfortunately, to my knowledge there exists no good solution as of now. One workaround is to run the sandbox in a directory where all users have full permissions. Be cautious and only use this for personal setups! This directory will then be where jupyterlabgeoenv and geoserver read and write data to the host machine's filesystem.
-1. Create a new directory that should serve as the data directory.
-2. Grant all users full permission. In terminal you can run this command `sudo chmod 777 <folder path>`
-3. Move your `docker-compose.yml` in this new directory, navigate to this new directory in your terminal and start the sandbox.
+If this issue still appears in your environment, make sure you are on the latest Docker Desktop version and restart the stack. Since current Sandbox versions rely on Docker managed volumes for cross-service data exchange, host directory permission workarounds should not be necessary.
 
 ## In Docker Desktop I see that the content container is not running
 That is totally fine. The content container only runs at the beginning to copy its content into other sandbox components, then it shuts down.
+
+## JupyterLab terminal permissions and containment
+JupyterLab in this repository is configured to run as a dedicated non-root user
+inside the container. This reduces accidental write access to root-owned paths.
+It does not replace container isolation: users can still navigate the container
+filesystem, but access is limited by Linux file permissions and mounted volumes.
+
+## pgAdmin fails with "The user does not have permission to read and write to the specified storage directory"
+If you see this error after changing pgAdmin volume mounts, ensure that pgAdmin
+keeps ownership of its own storage root and that `sandbox_shared` is mounted as
+a subfolder under `storage/<username>/...` (not over the entire
+`/var/lib/pgadmin/storage` root).
+
+When debugging, a full reset (`docker compose -p sandbox down -v`) followed by
+startup should still work if the `shared_volume_permissions` service is active.
+
+# Development Setup
+
+```bash
+# Start the sandbox in development mode, which mounts local files and enables hot reloads for jupyterlab and geoserver.
+docker compose -p sandbox --env-file sandbox.conf -f compose.yml -f compose.dev.yml up --force-recreate
+
+# Stop the sandbox
+docker compose -p sandbox --env-file sandbox.conf -f compose.yml -f compose.dev.yml down
+```

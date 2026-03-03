@@ -24,7 +24,7 @@ REPO_BRANCH="test/reverse_proxy"
 REPO_DIR="/opt/os_gis_sandbox"
 
 SWAPFILE="/swapfile"
-SWAPSIZE="2G"
+SWAPSIZE="6G"
 
 # Helper: set KEY=VALUE in a file (replace if exists, append if missing)
 set_kv() {

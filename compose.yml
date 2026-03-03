@@ -10,12 +10,10 @@ volumes:
   pgadmin_data:
   # Persists home directory with all notebook and user created content.
   jupyterlabgeoenv_data:
-  # Persists JupyterLab application, user and workspaces settings.
-  jupyterlabgeoenv_settings_application:
-  jupyterlabgeoenv_settings_user:
-  jupyterlabgeoenv_settings_workspace:
-  # Used to share data from content container with other components.
-  content_data:
+  # Persists Filebrowser database/settings.
+  filebrowser_data:
+  # Shared read/write volume across selected services.
+  sandbox_shared:
 
 services:
 
@@ -38,8 +36,7 @@ services:
     image: kartoza/geoserver:${OSGS_GEOSERVER_VERSION}
     volumes:
       - geoserver_data:/opt/geoserver/data_dir
-      - content_data:/opt/geoserver/data_dir/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
-      - ${OSGS_HOST_MOUNT_PATH}:/opt/geoserver/data_dir/${OSGS_HOST_MOUNT_FOLDER_NAME}
+      - sandbox_shared:/opt/geoserver/data_dir/${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}
     ports:
       - "127.0.0.1:${OSGS_LOCALHOST_GEOSERVER_PORT}:8080"
     environment:
@@ -55,31 +52,43 @@ services:
       - "TOMCAT_EXTRAS=false"
       - "ROOT_WEBAPP_REDIRECT=true"
       - "RECREATE_DATADIR=false"
+    depends_on:
+      shared_volume_permissions:
+        condition: service_completed_successfully
+      content:
+        condition: service_completed_successfully
 
   pgadmin:
     container_name: ${OSGS_NAMESPACE}-pgadmin
     image: "dpage/pgadmin4:${OSGS_PGADMIN_VERSION}"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+      # IMPORTANT: Keep pgAdmin's own storage root inside pgadmin_data.
+      # Mounting sandbox_shared directly to /var/lib/pgadmin/storage can break
+      # pgAdmin startup checks after fresh volume recreation.
+      - sandbox_shared:/var/lib/pgadmin/storage/${OSGS_USERNAME}/${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}
     ports:
       - "127.0.0.1:${OSGS_LOCALHOST_PGADMIN_PORT}:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: ${OSGS_USERNAME}@dummymail.com
       PGADMIN_DEFAULT_PASSWORD: ${OSGS_PASSWORD}
       PGADMIN_CONFIG_SERVER_MODE: 'True'
+    depends_on:
+      shared_volume_permissions:
+        condition: service_completed_successfully
 
   jupyterlab:
     container_name: ${OSGS_NAMESPACE}-jupyterlab
     image: ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:${OSGS_JUPYTERLABGEOENV_VERSION}
     volumes:
       - jupyterlabgeoenv_data:/sandbox
-      - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
-      - jupyterlabgeoenv_settings_user:/root/.jupyter/lab/user-settings
-      - jupyterlabgeoenv_settings_workspace:/root/.jupyter/lab/workspaces
-      - content_data:/sandbox/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
-      - ${OSGS_HOST_MOUNT_PATH}:/sandbox/${OSGS_HOST_MOUNT_FOLDER_NAME}
+      - sandbox_shared:/sandbox/${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}
     ports:
       - "127.0.0.1:${OSGS_LOCALHOST_JUPYTERLAB_PORT}:8888"
+    environment:
+      - "JUPYTER_CONFIG_DIR=/sandbox/.jupyter"
+      - "JUPYTER_DATA_DIR=/sandbox/.local/share/jupyter"
+      - "JUPYTER_RUNTIME_DIR=/sandbox/.local/share/jupyter/runtime"
     command:
       [
         "jupyter",
@@ -88,18 +97,77 @@ services:
         "0.0.0.0",
         "--port",
         "8888",
-        "--allow-root",
         "--no-browser",
         "--autoreload",
-        "--LabApp.token=''",
-        "--ServerApp.base_url=/jupyterlab"
+        "--IdentityProvider.token=",
+        "--ServerApp.base_url=/jupyterlab",
+        "--ServerApp.root_dir=/sandbox",
+        "--ServerApp.disable_check_xsrf=True"
       ]
+    depends_on:
+      shared_volume_permissions:
+        condition: service_completed_successfully
+      content:
+        condition: service_completed_successfully
+
+  # One-shot init service that prepares permissions on the shared volume.
+  # It ensures all sandbox services can read/write shared files and that new
+  # files inherit open permissions through default ACLs.
+  shared_volume_permissions:
+    container_name: ${OSGS_NAMESPACE}-shared-volume-permissions
+    image: alpine:3.22
+    volumes:
+      - sandbox_shared:/sandbox_shared
+      - pgadmin_data:/pgadmin_data
+      - jupyterlabgeoenv_data:/jupyter_data
+    environment:
+      OSGS_USERNAME: ${OSGS_USERNAME}
+    command:
+      - sh
+      - -ec
+      - |
+          apk add --no-cache acl
+          # Keep pgAdmin storage writable after "docker compose down -v".
+          # pgAdmin runs as uid 5050 (group root), so ensure group write access.
+          mkdir -p /pgadmin_data/storage/${OSGS_USERNAME}
+          chmod -R u+rwX,g+rwX /pgadmin_data/storage
+          chown -R 5050:0 /pgadmin_data/storage
+          # Keep Jupyter /sandbox writable without assuming a fixed runtime uid/gid.
+          mkdir -p /jupyter_data/.jupyter /jupyter_data/.local/share/jupyter/runtime
+          chmod -R a+rwX /jupyter_data
+          # Normalize permissions on existing content.
+          find /sandbox_shared -type d -exec chmod 0777 {} \;
+          find /sandbox_shared -type f -exec chmod 0666 {} \;
+          # Ensure future files/directories inherit permissive ACLs.
+          setfacl -R -m u::rwx,g::rwx,o::rwx /sandbox_shared
+          setfacl -R -d -m u::rwx,g::rwx,o::rwx /sandbox_shared
 
   content:
     container_name: ${OSGS_NAMESPACE}-content
     image: ghcr.io/folinimarc/os_gis_sandbox/content:${OSGS_CONTENT_VERSION}
     volumes:
-      - content_data:/shared_content
+      - sandbox_shared:/sandbox_shared
+    entrypoint:
+      - sh
+      - -ec
+      - |
+          mkdir -p /sandbox_shared/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
+          cp -rT /content_img/. /sandbox_shared/${OSGS_CONTENT_MOUNT_FOLDER_NAME}/
+
+  filebrowser:
+    container_name: ${OSGS_NAMESPACE}-filebrowser
+    image: filebrowser/filebrowser:${OSGS_FILEBROWSER_VERSION}
+    volumes:
+      - sandbox_shared:/srv/${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}
+      - filebrowser_data:/database
+    ports:
+      - "127.0.0.1:${OSGS_LOCALHOST_FILEBROWSER_PORT}:80"
+    environment:
+      - "FB_BASE_URL=/files"
+    command: ["--port", "80", "--address", "0.0.0.0", "--root", "/srv", "--database", "/database/filebrowser.db", "--noauth"]
+    depends_on:
+      shared_volume_permissions:
+        condition: service_completed_successfully
 
   hub:
     container_name: ${OSGS_NAMESPACE}-hub
@@ -121,19 +189,22 @@ services:
       ]
     environment:
       - "CARD_1_TITLE=JupyterLab-GeoEnv"
-      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Data stories and more content is located in directory ${OSGS_CONTENT_MOUNT_FOLDER_NAME}. Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME}."
+      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Shared sandbox folder is available through ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}. Data stories and provided content are located in ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}/${OSGS_CONTENT_MOUNT_FOLDER_NAME}."
       - "CARD_1_HREF=Open,http://localhost:${OSGS_LOCALHOST_JUPYTERLAB_PORT}/jupyterlab"
       - "CARD_2_TITLE=pgAdmin"
-      - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases."
+      - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases. Shared files are visible in the file picker under storage/${OSGS_USERNAME}/${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}."
       - "CARD_2_HREF=Open,http://localhost:${OSGS_LOCALHOST_PGADMIN_PORT}/browser"
-      - "CARD_2_CONNECTIONINFO=Username,${OSGS_USERNAME}@dummymail.com;Password,${OSGS_PASSWORD}"
+      - "CARD_2_CONNECTIONINFO=Username,${OSGS_USERNAME}@dummymail.com;Password,${OSGS_PASSWORD};Shared files path,storage/${OSGS_USERNAME}/${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}"
       - "CARD_3_TITLE=PostGIS"
       - "CARD_3_DESCRIPTION=PostGIS is an extension for postgreSQL that turns it into a spatial database. To interact use pgAdmin or psql from the terminal of JupyterLab-GeoEnv. To connect from outside the sandbox use HostExternal and PortExternal."
       - "CARD_3_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Database name,${OSGS_DB_NAME};Host,${OSGS_NAMESPACE}-postgis;Port,5432;HostExternal, localhost;PortExternal,${OSGS_POSTGIS_PORT}"
       - "CARD_4_TITLE=Geoserver"
-      - "CARD_4_DESCRIPTION=Geoserver implements OGC web services like WMS and WFS, similar to alternatives like MapServer or QGISserver. A community extension is activated to provide functionalities of the new OGC API standard.  Access to host file system is possible through ${OSGS_HOST_MOUNT_FOLDER_NAME} in GeoServer's data directory. To connect from outside the sandbox use HostExternal and PortExternal."
+      - "CARD_4_DESCRIPTION=Geoserver implements OGC web services like WMS and WFS, similar to alternatives like MapServer or QGISserver. A community extension is activated to provide functionalities of the new OGC API standard. Shared sandbox folder is available through ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME} in GeoServer's data directory. To connect from outside the sandbox use HostExternal and PortExternal."
       - "CARD_4_HREF=Open,http://localhost:${OSGS_LOCALHOST_GEOSERVER_PORT}/geoserver/web/"
       - "CARD_4_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Host,${OSGS_NAMESPACE}-geoserver;Port,8080;HostExternal,localhost;PortExternal,${OSGS_LOCALHOST_GEOSERVER_PORT}"
       - "CARD_5_TITLE=Openlayers"
       - "CARD_5_DESCRIPTION=Openlayers is a javascript library for interactive maps in the browser, similar Leaflet, Mapblibre or Mapbox GL JS. Why not try to expose your data as WMS in Geoserver and display it here? Use HostExternal and PortExternal, because this jsfiddle is hosted outside of the sandbox."
       - "CARD_5_HREF=Open,${OSGS_JSFIDDLE_URL}"
+      - "CARD_6_TITLE=Data Hub"
+      - "CARD_6_DESCRIPTION=File browser to upload and download files from and to the shared sandbox directory ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}. This directory is accessible from JupyterLab, pgAdmin, and GeoServer."
+      - "CARD_6_HREF=Open,http://localhost:${OSGS_LOCALHOST_FILEBROWSER_PORT}/files"

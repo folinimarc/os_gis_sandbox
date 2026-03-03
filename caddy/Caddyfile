@@ -26,6 +26,17 @@ http://127.0.0.1 {$OSGS_HOSTNAME} {
 			}
 		}
 
+		handle /files/* {
+			basic_auth {
+				{$OSGS_USERNAME} {$OSGS_ADHOC_HASHED_PASSWORD}
+			}
+			reverse_proxy filebrowser:80 {
+				header_up X-Script-Name /files
+				header_up Host {host}
+				header_up X-Real-IP {remote_host}
+			}
+		}
+
 		handle /geoserver/* {
 			reverse_proxy geoserver:8080 {
 				header_up X-Script-Name /geoserver

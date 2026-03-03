@@ -1,4 +1,4 @@
-ARG GDAL_VERSION=3.12.1
+ARG GDAL_VERSION=3.12.2
 ARG POSTGRESQL_CLIENT_VERSION=18
 
 FROM ghcr.io/osgeo/gdal:ubuntu-small-${GDAL_VERSION}
@@ -63,9 +63,18 @@ RUN apt purge -y \
 #-----------------
 # Misc setup
 #-----------------
+# Create dedicated non-root runtime user for JupyterLab.
+# Do not pin UID/GID here because the base image may already use common IDs.
+RUN groupadd sandbox && \
+    useradd --gid sandbox --create-home --shell /bin/bash sandbox && \
+    chown -R sandbox:sandbox /sandbox /home/sandbox
+
 # Make sure jupyter lab terminal uses bash
 ENV SHELL=/bin/bash
+ENV HOME=/home/sandbox
 
 WORKDIR /sandbox
 
-CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--autoreload"]
+USER sandbox
+
+CMD ["jupyter", "lab" ,"--ip=0.0.0.0", "--port=8888", "--no-browser", "--autoreload"]

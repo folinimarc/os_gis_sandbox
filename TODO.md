@@ -1,15 +1,16 @@
 - [ ] Better way to configure resource limits.
 - [ ] Distinguish between local and deployed mode. Top priority is to keep local mode as simple as possible!
 - [ ] Create deploy procedures (e.g. digitalocean supereasy) and default?
-- [ ] Mount host directory to pgadmin.
-- [ ] Persist pgadmin settings
-- [ ] Persist jupyterlab settings
+- [x] Mount host directory to pgadmin.
+- [x] Persist pgadmin settings
+- [x] Persist jupyterlab settings
+- [x] Expose sandbox_shared in pgadmin user storage
 - [x] Simplify jupyterlab package installation
 - [x] Fix container name conflicts when using different project names
 - [ ] Geoserver HTTPS setting for login form
-- [ ] Change default configuration for pgadmin, e.g. no upload limit size
+- [x] Change default configuration for pgadmin, e.g. no upload limit size
 - [ ] Geoserver Bad Request settings when trying to add Data Store ( https://gis.stackexchange.com/questions/385106/unable-to-add-layer-to-geoserver-origin-does-not-correspond-to-request )
-- [ ] In deploy mode, don't mount host file system. Instead mount shared volume.
+- [x] In deploy mode, don't mount host file system. Instead mount shared volume.
 - [ ] In hub, provide startup/shutdown functionality.
 - [ ] Jupyter Lab configuration from file.
 - [ ] Jupyter Lab Kernel Culling.

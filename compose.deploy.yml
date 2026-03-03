@@ -24,10 +24,6 @@ services:
       - "8080"
     environment:
       - "PROXY_BASE_URL=https://${OSGS_HOSTNAME}/geoserver/"
-    # Temporarily disable mounting host path by overriding volumes list without host mount
-    volumes: !override
-      - geoserver_data:/opt/geoserver/data_dir
-      - content_data:/opt/geoserver/data_dir/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
 
   pgadmin:
     ports: !reset []
@@ -39,13 +35,11 @@ services:
     ports: !reset []
     expose:
       - "8888"
-    # Temporarily disable mounting host path by overriding volumes list without host mount
-    volumes: !override
-      - jupyterlabgeoenv_data:/sandbox
-      - jupyterlabgeoenv_settings_application:/usr/local/share/jupyter/lab
-      - jupyterlabgeoenv_settings_user:/root/.jupyter/lab/user-settings
-      - jupyterlabgeoenv_settings_workspace:/root/.jupyter/lab/workspaces
-      - content_data:/sandbox/${OSGS_CONTENT_MOUNT_FOLDER_NAME}
+
+  filebrowser:
+    ports: !reset []
+    expose:
+      - "80"
 
   hub:
     ports: !reset []
@@ -57,3 +51,4 @@ services:
       - "CARD_3_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Database name,${OSGS_DB_NAME};Host,${OSGS_HOSTNAME};Port,5432"
       - "CARD_4_HREF=Open,/geoserver/web/"
       - "CARD_4_CONNECTIONINFO=Username,${OSGS_USERNAME};Password,${OSGS_PASSWORD};Host,${OSGS_HOSTNAME}/geoserver/"
+      - "CARD_6_HREF=Open,/files/"
