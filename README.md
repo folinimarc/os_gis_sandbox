@@ -194,7 +194,7 @@ startup should still work if the `shared_volume_permissions` service is active.
 
 ```bash
 # Start the sandbox in development mode, which mounts local files and enables hot reloads for jupyterlab and geoserver.
-docker compose -p sandbox --env-file sandbox.conf -f compose.yml -f compose.build.yml up --force-recreate
+docker compose -p sandbox --env-file sandbox.conf -f compose.yml -f compose.build.yml up --force-recreate --build
 
 # Stop the sandbox
 docker compose -p sandbox --env-file sandbox.conf -f compose.yml -f compose.build.yml down
