@@ -14,6 +14,7 @@ xlsxwriter      # engine for (Geo)Pandas to write excel files
 xlrd            # engine for (Geo)Pandas to read excel files
 geoalchemy2     # engine for (Geo)Pandas to read/write SQL databases
 psycopg2-binary # engine for (Geo)Pandas to read/write PostgreSQL databases
+psycopg[binary] # psycopg 3 for standalone use
 numpy
 pandas
 geopandas
