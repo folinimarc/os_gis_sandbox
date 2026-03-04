@@ -67,7 +67,7 @@ RUN apt purge -y \
 # Do not pin UID/GID here because the base image may already use common IDs.
 RUN groupadd sandbox && \
     useradd --gid sandbox --create-home --shell /bin/bash sandbox && \
-    chown -R sandbox:sandbox /sandbox /home/sandbox
+    chown -R sandbox:sandbox /sandbox /home/sandbox /opt/venv
 
 # Make sure jupyter lab terminal uses bash
 ENV SHELL=/bin/bash
