@@ -6,9 +6,8 @@ FROM ghcr.io/osgeo/gdal:ubuntu-small-${GDAL_VERSION}
 LABEL description="Python/JupyterLab instance with various Python geoprocessing components \
     (GeoPandas, GDAL bindings, rasterio, ...) neatly working together."
 
-# Create sandbox directory and copy readme in there
+# Create sandbox directory
 RUN mkdir /sandbox
-COPY ./copy_to_image/_README.md /sandbox/README.md
 
 # #-----------------
 # # Postgresql client (psql command line)
