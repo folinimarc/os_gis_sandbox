@@ -1,40 +1,82 @@
-# VECTOR (geopandas & dependencies)
-#-------------
-fiona           # reads and writes everything (uses OGR)
-pyogrio         # vectorized vector IO (uses OGR)
-shapely         # does planar geometric processing (uses GEOS)
-pyproj          # handles projections (uses PROJ)
-pyarrow         # required by GeoPandas to read/write parquet files
-rtree           # spatial indexing (plays well with GeoPandas)
-matplotlib      # plotting (used by GeoPandas for GeoDataFrame.plot())
-mapclassify     # plotting (used by GeoPandas for GeoDataFrame.explore())
-folium          # plotting (used by GeoPandas for GeoDataFrame.explore())
-openpyxl        # engine for (Geo)Pandas to read/write excel files
-xlsxwriter      # engine for (Geo)Pandas to write excel files
-xlrd            # engine for (Geo)Pandas to read excel files
-geoalchemy2     # engine for (Geo)Pandas to read/write SQL databases
-psycopg2-binary # engine for (Geo)Pandas to read/write PostgreSQL databases
-psycopg[binary] # psycopg 3 for standalone use
-numpy
+# =========================
+# CORE VECTOR (GeoPandas stack)
+# =========================
+geopandas        # high-level geospatial dataframe library
+shapely          # geometry engine (GEOS, Shapely 2 backend)
+pyogrio          # fast vector I/O (default engine in GeoPandas)
+pyproj           # coordinate reference systems (PROJ)
 pandas
-geopandas
+numpy
 
+# Optional low-level / legacy vector access
+fiona            # alternative I/O engine (OGR-based, legacy but still useful)
+gdal             # low-level bindings (osgeo.*), advanced use cases
+    
+# =========================
 # RASTER
-#-------------
-rasterio
-xarray
+# =========================
+rasterio         # raster I/O and processing (GDAL-based)
+xarray           # N-dimensional arrays
+rioxarray        # geospatial extension for xarray (CRS, clipping, etc.)
 
+# =========================
 # SPATIAL ANALYSIS
-#-------------
-pysal
+# =========================
+pysal            # spatial statistics & econometrics
+rasterstats      # zonal statistics (vector / raster bridge)
 
+# =========================
+# DATABASES / STORAGE
+# =========================
+pyarrow          # parquet / feather support
+sqlalchemy       # required for database connections (GeoPandas uses it)
+geoalchemy2      # spatial SQLAlchemy extension (PostGIS)
+psycopg[binary]  # PostgreSQL driver (this is psycopg3, the modern driver)
+psycopg2-binary  # alternative legacy driver
+
+# =========================
+# STAC / CLOUD GEOSPATIAL
+# =========================
+pystac           # STAC spec implementation (catalogs, items, assets)
+pystac-client    # query STAC APIs (search catalogs like Planetary Computer)
+stackstac        # convert STAC items to xarray (analysis-ready data cubes)
+
+# =========================
+# PLOTTING / VISUALIZATION
+# =========================
+matplotlib       # static plotting (GeoDataFrame.plot)
+mapclassify      # choropleth classification schemes
+folium           # leaflet maps (GeoDataFrame.explore)
+ipyleaflet       # interactive maps in Jupyter
+contextily       # basemaps (web tiles for matplotlib plots)
+
+# =========================
+# SPECIALIZED
+# =========================
+osmnx            # OpenStreetMap + network analysis
+movingpandas     # trajectory / movement data
+momepy           # urban morphology analysis
+
+# =========================
 # WEB SERVICES
-#-------------
-OWSLib
+# =========================
+OWSLib           # OGC services (WMS, WFS, etc.)
 
-# MISC
-#-------------
-jupyterlab              # allows to write rich scripts (notebooks) and run code interactively in the browser
-jupyter-lsp             # language server protocol for jupyterlab
-python-lsp-server[all]  # language server protocol for jupyterlab
-ipyleaflet              # interactive maps in jupyterlab
+# =========================
+# NOTEBOOK / DEV ENV
+# =========================
+jupyterlab              # interactive environment
+jupyter-lsp             # language server integration
+python-lsp-server[all]  # code intelligence
+
+# =========================
+# DATA / TEACHING UTILITIES
+# =========================
+geodatasets      # small sample datasets (used in GeoPandas docs)
+
+# =========================
+# OFFICE / FILE FORMATS
+# =========================
+openpyxl         # Excel (.xlsx) read/write
+xlsxwriter       # Excel writing engine
+xlrd             # ONLY for legacy .xls (not .xlsx)
