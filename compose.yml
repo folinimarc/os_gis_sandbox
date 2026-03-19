@@ -221,7 +221,7 @@ services:
       ]
     environment:
       - "CARD_1_TITLE=JupyterLab-GeoEnv"
-      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and the Python geo-ecosystem. Shared sandbox folder is available through ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}. Data stories and provided content are located in ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}/${OSGS_CONTENT_MOUNT_FOLDER_NAME}."
+      - "CARD_1_DESCRIPTION=A JupyterLab environment pre-configured to explore GDAL's capabilities and both Python and R geo-ecosystems. Shared sandbox folder is available through ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}. Data stories and provided content are located in ${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}/${OSGS_CONTENT_MOUNT_FOLDER_NAME}."
       - "CARD_1_HREF=Open,http://localhost:${OSGS_LOCALHOST_JUPYTERLAB_PORT}/jupyterlab"
       - "CARD_2_TITLE=pgAdmin"
       - "CARD_2_DESCRIPTION=pgAdmin provides a graphical user interface to interact with PostgreSQL/PostGIS databases. Shared files are visible in the file picker under storage/${OSGS_USERNAME}/${OSGS_SANDBOX_SHARED_MOUNT_FOLDER_NAME}."

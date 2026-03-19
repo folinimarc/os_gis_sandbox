@@ -93,12 +93,12 @@ are good to go.
 
 The folder _jupyterlabgeoenv_ contains a Dockerfile that allows to spin up a
 JupyterLab instance whose kernel has access to many common packages like Fiona,
-Shapely, GeoPandas, Rasterio, etc. which work neatly together. Concentrate on
-the fun part of exploring the tools and processing your data without worrying
-about setup.
+Shapely, GeoPandas, Rasterio, sf, terra, stars, etc. which work neatly together.
+Concentrate on the fun part of exploring the tools and processing your data
+without worrying about setup.
 
 JupyterLab-GeoEnv is very useful beyond the scope of just being a sandbox. It
-might be interesting to use it as general environment to perform Python
+might be interesting to use it as general environment to perform Python and R
 geoprocessing. Because of this we provide the image on GitHub registry for
 download, so you can download and run it with a single command without cloning
 the repository or worrying about building the image yourself.
@@ -107,13 +107,14 @@ Select a path on your system you want to be accessible through JupyterLab and
 replace `MOUNT_PATH` in the command below with this path.
 
 ```console
-docker run -it --rm -p 8888:8888 --volume="MOUNT_PATH":"/sandbox/your_computer" ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.0.10
+docker run -it --rm -p 8888:8888 --volume="MOUNT_PATH":"/sandbox/your_computer" ghcr.io/folinimarc/os_gis_sandbox/jupyterlabgeoenv:jupyterlabgeoenv-v1.1.0
 ```
 
 The first run will take some time because a lot of data is being downloaded,
 subsequent runs of this command will take merely a second. After some time you
 should see a link in the terminal containing 127.0.0.1... - open it in your
-browser to open JupyterLab. Opening the data folder in the left pane will show
+browser to open JupyterLab. In JupyterLab's launcher you can choose either the
+Python or R notebook kernel. Opening the data folder in the left pane will show
 you the content of `MOUNT_PATH`. Make sure to save everything you want to be
 persisted over time in this folder.
 
@@ -122,9 +123,9 @@ and JupyterLab. Run the command above to start a new JupyterLab session.
 
 > _Good to know:_
 >
-> - By default none of your configurations or installed Python packages will be
->   persisted. If you need this, we recommend using the full Sandbox setup which
->   persists your data, settings and changes to the Python environment.
+> - By default none of your configurations or installed Python/R packages will
+>   be persisted. If you need this, we recommend using the full Sandbox setup
+>   which persists your data, settings and changes to the Jupyter environment.
 
 # How to clean up all of this stuff I did above?
 

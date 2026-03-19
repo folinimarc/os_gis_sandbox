@@ -1,0 +1,84 @@
+# =========================
+# CORE VECTOR (sf stack)
+# =========================
+sf              # vector data (Simple Features)
+terra           # vector/raster operations
+stars           # spatiotemporal arrays and raster cubes
+lwgeom          # liblwgeom functions for sf
+s2              # spherical geometry engine used by sf
+wk              # geometry parsing and interchange helpers
+units           # physical units used by sf and analysis packages
+
+# =========================
+# RASTER
+# =========================
+exactextractr   # fast zonal statistics
+gdalcubes       # data cubes from image collections
+
+# =========================
+# SPATIAL ANALYSIS
+# =========================
+spdep           # spatial dependence and autocorrelation
+spatialreg      # spatial regression models
+gstat           # geostatistics (kriging, variograms)
+
+# =========================
+# DATABASES / STORAGE
+# =========================
+DBI             # database interface
+RPostgres       # PostgreSQL/PostGIS driver
+arrow           # parquet / feather support
+dbplyr          # dplyr backend for SQL databases
+
+# =========================
+# STAC / CLOUD GEOSPATIAL
+# =========================
+rstac           # query STAC APIs
+
+# =========================
+# PLOTTING / VISUALIZATION
+# =========================
+ggplot2         # static plotting
+tmap            # thematic mapping (static + interactive)
+leaflet         # leaflet maps
+mapview         # quick interactive geospatial views
+
+# =========================
+# SPECIALIZED
+# =========================
+osmdata         # OpenStreetMap data access
+sfnetworks      # network analysis on sf objects
+stplanr         # transport network analysis
+
+# =========================
+# WEB SERVICES
+# =========================
+ows4R           # OGC web services interfaces
+geosapi         # GeoServer REST API client
+
+# =========================
+# NOTEBOOK / DEV ENV
+# =========================
+IRkernel        # R kernel for Jupyter
+IRdisplay       # rich display in notebooks
+repr            # rich representations in notebooks
+languageserver  # LSP server for R
+
+# =========================
+# DATA / TEACHING UTILITIES
+# =========================
+spData          # sample datasets for spatial analysis
+geodata         # easy access to common geospatial datasets
+
+# =========================
+# OFFICE / FILE FORMATS
+# =========================
+readxl          # Excel reading
+openxlsx        # Excel reading/writing
+writexl         # lightweight Excel writing
+
+# =========================
+# CORE DATA SCIENCE
+# =========================
+tidyverse       # dplyr/tidyr/readr/ggplot2 workflows
+data.table      # fast tabular processing
