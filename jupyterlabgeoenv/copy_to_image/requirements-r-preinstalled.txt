@@ -62,6 +62,7 @@ geosapi         # GeoServer REST API client
 IRkernel        # R kernel for Jupyter
 IRdisplay       # rich display in notebooks
 repr            # rich representations in notebooks
+geojsonio       # GeoJSON conversion used by repr for sf rich display
 languageserver  # LSP server for R
 
 # =========================
