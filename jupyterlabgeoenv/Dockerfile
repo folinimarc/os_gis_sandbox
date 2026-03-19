@@ -88,6 +88,7 @@ RUN mkdir -p /opt/r-lib && \
     pkg-config \
     \
     # geospatial core
+    libgdal-dev \
     libgeos-dev \
     libproj-dev \
     libudunits2-dev \
@@ -110,23 +111,40 @@ RUN mkdir -p /opt/r-lib && \
     libfribidi-dev \
     libpng-dev \
     libjpeg-dev \
-    libtiff5-dev && \
+        libtiff5-dev && \
+        awk 'NF && $1 !~ /^#/{print $1}' /tmp/requirements-r.txt > /tmp/requirements-r-clean.txt && \
+        apt_candidates="$(awk '{print "r-cran-" tolower($0)}' /tmp/requirements-r-clean.txt | tr '\n' ' ')" && \
+        apt_installable="" && \
+        for pkg in $apt_candidates; do \
+            if apt-cache show "$pkg" >/dev/null 2>&1; then \
+                apt_installable="$apt_installable $pkg"; \
+            fi; \
+        done && \
+        if [ -n "$apt_installable" ]; then \
+            apt-get install -y --no-install-recommends $apt_installable; \
+        fi && \
     Rscript -e "\
         options(repos = c(CRAN = 'https://cloud.r-project.org'), pkgType = 'source'); \
-        pkgs <- trimws(gsub('#.*$', '', readLines('/tmp/requirements-r.txt'))); \
-        pkgs <- unique(pkgs[pkgs != '']); \
+                pkgs <- unique(scan('/tmp/requirements-r-clean.txt', what = 'character', quiet = TRUE)); \
         jobs <- as.integer(Sys.getenv('R_BUILD_JOBS', '0')); \
         if (is.na(jobs) || jobs < 1L) jobs <- min(2L, max(1L, parallel::detectCores() - 1L)); \
-        install.packages(pkgs, dependencies = NA, Ncpus = jobs, INSTALL_opts = c('--no-test-load')); \
-        installed <- rownames(installed.packages(lib.loc = '/opt/r-lib')); \
+                installed <- rownames(installed.packages()); \
+                missing <- setdiff(pkgs, installed); \
+                if (length(missing)) install.packages(missing, dependencies = NA, Ncpus = jobs); \
+                installed <- rownames(installed.packages()); \
         missing <- setdiff(pkgs, installed); \
-        if (length(missing)) stop(sprintf('Failed to install required R packages: %s', paste(missing, collapse = ', ')))" && \
+                if (length(missing)) stop(sprintf('Failed to install required R packages: %s', paste(missing, collapse = ', '))); \
+                suppressPackageStartupMessages(library(sf)); \
+                print(sf::sf_extSoftVersion())" && \
+        ldd "$(Rscript -e "cat(system.file('libs', 'sf.so', package = 'sf'))")" | tee /tmp/sf-ldd.txt && \
+        ! grep -q 'not found' /tmp/sf-ldd.txt && \
     apt-get purge -y \
     build-essential \
     gfortran \
     cmake \
     r-base-dev \
     pkg-config \
+    libgdal-dev \
     libgeos-dev \
     libproj-dev \
     libudunits2-dev \
@@ -146,7 +164,7 @@ RUN mkdir -p /opt/r-lib && \
     libtiff5-dev && \
     apt-get autoremove -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/requirements-r.txt
+    rm -rf /var/lib/apt/lists/* /tmp/requirements-r.txt /tmp/requirements-r-clean.txt /tmp/sf-ldd.txt
 
 #-----------------
 # Final runtime image
@@ -166,6 +184,7 @@ COPY --chown=sandbox:sandbox ./copy_to_image/requirements-python-preinstalled.tx
 COPY --chown=sandbox:sandbox ./copy_to_image/requirements-r-preinstalled.txt /sandbox/requirements-r-preinstalled.txt
 
 COPY --from=python-builder --chown=sandbox:sandbox /opt/venv /opt/venv
+COPY --from=r-builder /usr/lib/R/site-library /usr/lib/R/site-library
 COPY --from=r-builder --chown=sandbox:sandbox /opt/r-lib /opt/r-lib
 
 # Register R kernel
