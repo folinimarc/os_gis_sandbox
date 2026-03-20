@@ -9,6 +9,8 @@ LABEL description="Python/JupyterLab instance with various Python geoprocessing 
     (GeoPandas, GDAL bindings, rasterio, ...) and R geospatial components \
     (sf, terra, stars, ...) neatly working together."
 
+COPY --chmod=755 ./copy_to_image/configure-r-apt-repos.sh /usr/local/bin/configure-r-apt-repos
+
 #-----------------
 # Base runtime dependencies
 # Keep one shared runtime foundation reused by later stages to reduce rebuild time.
@@ -21,17 +23,7 @@ RUN apt-get update && \
     # pgdg gives us a predictable PostgreSQL client version across Ubuntu releases.
     sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
     wget -q -O /etc/apt/trusted.gpg.d/pgdg.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
-    arch="$(dpkg --print-architecture)" && \
-    release="$(lsb_release -cs)" && \
-    # CRAN repo provides current R binaries for Ubuntu.
-    wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc > /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc && \
-    echo "deb [arch=${arch}] https://cloud.r-project.org/bin/linux/ubuntu ${release}-cran40/" > /etc/apt/sources.list.d/cran-r.list && \
-    # Prefer r2u binaries on arm64/noble to avoid costly source builds for most R packages.
-    if [ "$arch" = "arm64" ] && [ "$release" = "noble" ]; then \
-        wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc > /etc/apt/trusted.gpg.d/cranapt_key.asc && \
-        echo "deb [arch=${arch}] https://r2u.stat.illinois.edu/ubuntu ${release} main" > /etc/apt/sources.list.d/cranapt.list && \
-        printf 'Package: *\nPin: release o=CRAN-Apt Project\nPin: release l=CRAN-Apt Packages\nPin-Priority: 700\n' > /etc/apt/preferences.d/99cranapt; \
-    fi && \
+    /usr/local/bin/configure-r-apt-repos && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
     postgresql-client=${POSTGRESQL_CLIENT_VERSION}* \
@@ -91,6 +83,8 @@ RUN apt-get update && \
 #-----------------
 FROM ghcr.io/osgeo/gdal:ubuntu-full-${GDAL_VERSION} AS r-sf-builder
 
+COPY --chmod=755 ./copy_to_image/configure-r-apt-repos.sh /usr/local/bin/configure-r-apt-repos
+
 # Use OSGeo's internal PROJ first to avoid dual-PROJ symbol conflicts while
 # source-installing and loading sf/lwgeom in this stage.
 ENV LD_PRELOAD=/usr/local/lib/libinternalproj.so.25
@@ -100,12 +94,7 @@ RUN apt-get update && \
         wget \
         lsb-release \
         ca-certificates && \
-    arch="$(dpkg --print-architecture)" && \
-    release="$(lsb_release -cs)" && \
-    wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
-        > /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc && \
-    echo "deb [arch=${arch}] https://cloud.r-project.org/bin/linux/ubuntu ${release}-cran40/" \
-        > /etc/apt/sources.list.d/cran-r.list && \
+    /usr/local/bin/configure-r-apt-repos && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         r-base \
@@ -138,7 +127,6 @@ RUN apt-get update && \
 FROM base AS runtime
 
 ENV PATH="/opt/venv/bin:$PATH"
-ENV R_LIBS_USER=/opt/r-lib
 ENV SHELL=/bin/bash
 ENV HOME=/home/sandbox
 # Point IPython at the writable sandbox volume instead of the immutable home dir.
